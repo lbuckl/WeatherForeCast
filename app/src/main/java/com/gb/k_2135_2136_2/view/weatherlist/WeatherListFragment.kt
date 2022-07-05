@@ -55,7 +55,6 @@ class WeatherListFragment : Fragment() {
             }
 
             is AppState.Success -> {
-
                 val toast = Toast.makeText(context, "Успешно загружено", Toast.LENGTH_LONG)
                 toast.show()
                 val result = appState.weatherData
