@@ -1,7 +1,6 @@
 package com.gb.k_2135_2136_2.viewmodel
 
 import com.gb.k_2135_2136_2.domain.Weather
-import com.gb.k_2135_2136_2.model.Repository
 import java.lang.Exception
 
 sealed class AppState {
