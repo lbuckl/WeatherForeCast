@@ -52,6 +52,7 @@ class WeatherListFragment : Fragment() {
 
             is AppState.Loading -> {/*TODO HW*/
                 Snackbar.make(v, "Loading", Snackbar.LENGTH_LONG).show()
+
             }
 
             is AppState.Success -> {
