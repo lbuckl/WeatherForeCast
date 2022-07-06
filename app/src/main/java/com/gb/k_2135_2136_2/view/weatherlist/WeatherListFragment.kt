@@ -20,6 +20,7 @@ class WeatherListFragment : Fragment() {
     companion object {
         fun newInstance() = WeatherListFragment()
     }
+
     lateinit var binding: FragmentWeatherListBinding
     lateinit var viewModel: WeatherListViewModel
 

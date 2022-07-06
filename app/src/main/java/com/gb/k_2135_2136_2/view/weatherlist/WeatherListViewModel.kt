@@ -58,6 +58,7 @@ class WeatherListViewModel(private val liveData: MutableLiveData<AppState> = Mut
     override fun onCleared() { // TODO HW ***
         super.onCleared()
         Log.d("TEST", "onCleared ViewModel!!!")
+        liveData.removeObservers(WeatherListFragment.newInstance().viewLifecycleOwner)
     }
 
 }
