@@ -16,7 +16,6 @@ import com.gb.k_2135_2136_2.viewmodel.AppState
 import com.google.android.material.snackbar.Snackbar
 
 class WeatherListFragment : Fragment() {
-
     companion object {
         fun newInstance() = WeatherListFragment()
     }
