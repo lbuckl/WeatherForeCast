@@ -6,13 +6,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.annotation.NonNull
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.gb.k_2135_2136_2.databinding.FragmentWeatherListBinding
 import com.gb.k_2135_2136_2.viewmodel.AppState
+import com.gb.k_2135_2136_2.viewmodel.WeatherListViewModel
 import com.google.android.material.snackbar.Snackbar
 
 class WeatherListFragment : Fragment() {
@@ -48,6 +47,9 @@ class WeatherListFragment : Fragment() {
     //Подписка на изменение AppState и выполнение операций по триггеру
     private fun renderData(appState: AppState){
         when (appState){
+            is AppState.LoadCities -> {
+                //Вывод списка на экран
+            }
             is AppState.Error -> {/*TODO HW*/
                 val result = appState.error.message;
                 val toast = Toast.makeText(context, result, Toast.LENGTH_LONG)

@@ -1,13 +1,11 @@
-package com.gb.k_2135_2136_2.view.weatherlist
+package com.gb.k_2135_2136_2.viewmodel
 
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
-import com.gb.k_2135_2136_2.model.Repository
 import com.gb.k_2135_2136_2.model.RepositoryLocalImpl
 import com.gb.k_2135_2136_2.model.RepositoryRemoteImpl
-import com.gb.k_2135_2136_2.viewmodel.AppState
+import com.gb.k_2135_2136_2.model.RepositorySingleCity
 import java.util.*
 
 /**
@@ -17,7 +15,7 @@ import java.util.*
 class WeatherListViewModel(private val liveData: MutableLiveData<AppState> = MutableLiveData<AppState>()) :
     ViewModel() {
 
-    lateinit var repository: Repository
+    lateinit var repository: RepositorySingleCity
 
     //Выбираем БД и возвращаем данные
     fun getLiveData():MutableLiveData<AppState>{
@@ -36,6 +34,7 @@ class WeatherListViewModel(private val liveData: MutableLiveData<AppState> = Mut
 
     //Непосредственно действия
     fun sentRequest() {
+        //liveData.postValue(AppState.LoadCities(reposito)
         //Имитируем загрузку
         liveData.value = AppState.Loading
         //Рандомим результат загрузки

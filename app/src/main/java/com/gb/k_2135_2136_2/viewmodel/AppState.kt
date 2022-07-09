@@ -9,7 +9,9 @@ import java.lang.Exception
  * Состояния читаются из WeatherListFragment функцией renderData
  */
 sealed class AppState {
-    data class Success(val weatherData: Weather) : AppState()
-    data class Error(val error: Exception) : AppState() // Изменил Throwable на Exeption
-    object Loading : AppState()
+    object Loading : AppState() // загрузка
+    data class LoadCities(val weatherList: List<Weather>) : AppState()// Отображение списка городов
+    data class Success(val weatherData: Weather) : AppState() //Действие при удачной загрузке
+    data class Error(val error: Exception) : AppState() // Действие при ошибке
+
 }
