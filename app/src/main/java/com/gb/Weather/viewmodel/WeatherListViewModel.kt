@@ -3,9 +3,7 @@ package com.gb.Weather.viewmodel
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.gb.Weather.model.RepositoryLocalImpl
-import com.gb.Weather.model.RepositoryRemoteImpl
-import com.gb.Weather.model.RepositorySingleCity
+import com.gb.Weather.model.*
 import java.util.*
 
 /**
@@ -15,7 +13,8 @@ import java.util.*
 class WeatherListViewModel(private val liveData: MutableLiveData<AppState> = MutableLiveData<AppState>()) :
     ViewModel() {
 
-    lateinit var repository: RepositorySingleCity
+    //private lateinit var repository: RepositorySingleCity
+    private lateinit var repositoryList: RepositoryListCity
 
     //Выбираем БД и возвращаем данные
     fun getLiveData():MutableLiveData<AppState>{
@@ -25,27 +24,42 @@ class WeatherListViewModel(private val liveData: MutableLiveData<AppState> = Mut
 
     //Выбираем БД для загрузки
     private fun choiceRepository(){
-        repository = if(isConnection()){
+        /*repository = if(isConnection()){
             RepositoryRemoteImpl()
         }else{
             RepositoryLocalImpl()
-        }
+        }*/
+        repositoryList = RepositoryLocalImpl()
     }
 
+    //region переключатель списков
+    fun getWeatherListForRussia(){
+        sentRequest(LocationCity.Russian)
+    }
+    fun getWeatherListForWorld(){
+        sentRequest(LocationCity.World)
+    }
+
+    fun getWeatherListForFavorite(){
+        sentRequest(LocationCity.Favorite)
+    }
+    /* endregion */
+
     //Непосредственно действия
-    fun sentRequest() {
-        //liveData.postValue(AppState.LoadCities(reposito)
+    private fun sentRequest(locationCity: LocationCity) {
+        liveData.postValue(AppState.LoadCities(repositoryList.getListWeather(locationCity)))
+
         //Имитируем загрузку
-        liveData.value = AppState.Loading
+        //liveData.value = AppState.Loading
         //Рандомим результат загрузки
-        val rand = Random(System.nanoTime())
+        /*val rand = Random(System.nanoTime())
         val randVal = rand.nextInt(3)
         Log.d("RandVal", "$randVal")
         if(randVal == 1){
             liveData.postValue(AppState.Error(IllegalStateException("Что-то пошло не так")))
         }else{
             liveData.postValue(AppState.Success(repository.getWeather(55.755826, 37.617299900000035)))
-        }
+        }*/
     }
 
     //Имитация результата состояния сединения с БД

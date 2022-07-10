@@ -8,6 +8,8 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.gb.Weather.databinding.FragmentWeatherListBinding
+import com.gb.Weather.databinding.FragmentWeatherListItemBinding
 import com.gb.Weather.databinding.FragmentWeatherPosterBinding
 
 import com.gb.Weather.viewmodel.AppState
@@ -19,15 +21,17 @@ class WeatherListFragment : Fragment() {
         fun newInstance() = WeatherListFragment()
     }
 
-    lateinit var binding: FragmentWeatherPosterBinding
+//    lateinit var binding: FragmentWeatherPosterBinding
+    lateinit var binding_list: FragmentWeatherListBinding
     lateinit var viewModel: WeatherListViewModel
 
     override fun onCreateView(inflater: LayoutInflater,
                               container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         //Биндинг для прямой связи View
-        binding = FragmentWeatherPosterBinding.inflate(inflater)
-        return binding.root
+        //binding = FragmentWeatherListBinding.inflate(inflater,requireParentFragment(),false)
+        binding_list = FragmentWeatherListBinding.inflate(inflater)
+        return binding_list.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -41,14 +45,15 @@ class WeatherListFragment : Fragment() {
                 renderData(t)
             }
         })
-        viewModel.sentRequest()
+        viewModel.getWeatherListForFavorite()
+        //viewModel.sentRequest()
     }
 
     //Подписка на изменение AppState и выполнение операций по триггеру
     private fun renderData(appState: AppState){
         when (appState){
             is AppState.LoadCities -> {
-                //Вывод списка на экран
+                binding_list.weatherRecyclerview.adapter = WeatherListRecyclerAdapter(appState.weatherList)
             }
             is AppState.Error -> {/*TODO HW*/
                 val result = appState.error.message;
@@ -57,17 +62,17 @@ class WeatherListFragment : Fragment() {
             }
 
             is AppState.Loading -> {/*TODO HW*/
-                Snackbar.make(binding.root, "Loading", Snackbar.LENGTH_LONG).show()
+                Snackbar.make(binding_list.root, "Loading", Snackbar.LENGTH_LONG).show()
             }
 
             is AppState.Success -> {
-                val toast = Toast.makeText(context, "Успешно загружено", Toast.LENGTH_LONG)
+                /*val toast = Toast.makeText(context, "Успешно загружено", Toast.LENGTH_LONG)
                 toast.show()
                 val result = appState.weatherData
                 binding.cityName.text = result.city.name
                 binding.temperatureValue.text = result.temperature.toString()
                 binding.feelsLikeValue.text = result.feelsLike.toString()
-                binding.cityCoordinates.text = "${result.city.lat}/${result.city.lon}"
+                binding.cityCoordinates.text = "${result.city.lat}/${result.city.lon}"*/
             }
         }
     }

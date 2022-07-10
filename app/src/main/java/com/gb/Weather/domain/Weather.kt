@@ -45,7 +45,7 @@ fun getRussianCities(): List<Weather> {
 
 // Для избранных городов
 fun getFavoriteCities(): List<Weather> {
-    return mutableListOf(
+    return listOf(
         Weather(City("Москва", 55.755826, 37.617299900000035), 1, 2),
         Weather(City("Уфа", 54.7387621, 55.972055400000045), 19, 20)
     )
