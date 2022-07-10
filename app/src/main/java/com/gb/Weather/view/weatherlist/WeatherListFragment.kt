@@ -9,14 +9,12 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.gb.Weather.databinding.FragmentWeatherListBinding
-import com.gb.Weather.databinding.FragmentWeatherListItemBinding
-import com.gb.Weather.databinding.FragmentWeatherPosterBinding
 
 import com.gb.Weather.viewmodel.AppState
 import com.gb.Weather.viewmodel.WeatherListViewModel
 import com.google.android.material.snackbar.Snackbar
 
-class WeatherListFragment : Fragment() {
+class WeatherListFragment : Fragment(){
     companion object {
         fun newInstance() = WeatherListFragment()
     }
@@ -46,6 +44,18 @@ class WeatherListFragment : Fragment() {
             }
         })
         viewModel.getWeatherListForFavorite()
+
+        binding_list.buttonFavorite.setOnClickListener{
+            viewModel.getWeatherListForFavorite()
+        }
+
+        binding_list.buttonRus.setOnClickListener{
+            viewModel.getWeatherListForRussia()
+        }
+
+        binding_list.buttonWorld.setOnClickListener{
+            viewModel.getWeatherListForWorld()
+        }
         //viewModel.sentRequest()
     }
 
