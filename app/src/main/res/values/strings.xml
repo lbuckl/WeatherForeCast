@@ -1,6 +1,5 @@
 <resources>
-    <string name="app_name">k_2135_2136_2</string>
-
+    <string name="app_name">Weather</string>
     <string name="temperature_label">Температура</string>
     <string name="feels_like_label">Ощущается как</string>
     <string name="city_coordinates">lt/ln: %s, %s"</string>
@@ -9,5 +8,4 @@
     <string name="World">Мир</string>
     <string name="Russia">Россия</string>
     <string name="Favorite">Избранное</string>
-
 </resources>
