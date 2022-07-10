@@ -63,7 +63,7 @@ class WeatherListViewModel(private val liveData: MutableLiveData<AppState> = Mut
     }
 
     //данные для постера. Тригерит открытие постера
-    private fun openPoster(weather: Weather){
+    fun openPoster(weather: Weather){
         liveData.postValue(AppState.Success(weather))
     }
 

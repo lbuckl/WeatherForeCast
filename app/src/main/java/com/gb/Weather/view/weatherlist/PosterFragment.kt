@@ -5,23 +5,22 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import com.gb.Weather.databinding.FragmentWeatherPosterBinding
 import com.gb.Weather.domain.Weather
-import com.gb.Weather.viewmodel.WeatherListViewModel
 
-class PosterFragment(weather: Weather): Fragment() {
+class PosterFragment(val weather: Weather): Fragment() {
 
     //region Создание биндинга и удаление при закрытии
-    private var _binding: FragmentWeatherPosterBinding? = null
-    private var binding: FragmentWeatherPosterBinding = TODO()
-        get() {
+    //private var _binding: FragmentWeatherPosterBinding? = null
+    //private var binding: FragmentWeatherPosterBinding
+    lateinit var binding: FragmentWeatherPosterBinding
+        /*get() {
             return _binding!!
-        }
+        }*/
 
     override fun onDestroy() {
         super.onDestroy()
-        _binding = null
+        //_binding = null
     }
     //endregion
 
@@ -30,13 +29,14 @@ class PosterFragment(weather: Weather): Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentWeatherPosterBinding.inflate(inflater)
+        binding = FragmentWeatherPosterBinding.inflate(inflater)
+        //_binding = FragmentWeatherPosterBinding.inflate(inflater)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        //renderData();
+        renderData(weather);
     }
 
     private fun renderData(weather: Weather) {

@@ -8,30 +8,38 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.gb.Weather.R
 import com.gb.Weather.databinding.FragmentWeatherListBinding
+import com.gb.Weather.domain.Weather
+import com.gb.Weather.domain.getDefaultCity
 
 import com.gb.Weather.viewmodel.AppState
 import com.gb.Weather.viewmodel.WeatherListViewModel
 import com.google.android.material.snackbar.Snackbar
+import javax.security.auth.callback.Callback
 
 /**
  * (Класс был изменен)
  * Сейчас он отвечает за раскрытие списка городов и обработке дейтсвия по клику (открытие постера)
  */
 class WeatherListFragment : Fragment(){
-    companion object {
-        fun newInstance() = WeatherListFragment()
-    }
+    //lateinit var viewModel: WeatherListViewModel
 
-//    lateinit var binding: FragmentWeatherPosterBinding
+    companion object {
+        lateinit var viewModel: WeatherListViewModel
+        fun newInstance() = WeatherListFragment()
+        //функиця тригерит состояние Succes во viewModel
+        fun modelOnPoster(weather: Weather){
+            viewModel.openPoster(weather)
+        }
+    }
     lateinit var binding_list: FragmentWeatherListBinding
-    lateinit var viewModel: WeatherListViewModel
+
 
     override fun onCreateView(inflater: LayoutInflater,
                               container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         //Биндинг для прямой связи View
-        //binding = FragmentWeatherListBinding.inflate(inflater,requireParentFragment(),false)
         binding_list = FragmentWeatherListBinding.inflate(inflater)
         return binding_list.root
     }
@@ -79,9 +87,13 @@ class WeatherListFragment : Fragment(){
             }
 
             is AppState.Success -> {
-
+                requireActivity().supportFragmentManager.beginTransaction()
+                    .hide(this)
+                    .add(R.id.container,PosterFragment(appState.weatherData))
+                    .addToBackStack("").commit()
             }
         }
     }
+
 
 }
