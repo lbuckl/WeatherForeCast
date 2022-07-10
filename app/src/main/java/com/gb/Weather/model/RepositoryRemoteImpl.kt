@@ -1,6 +1,6 @@
-package com.gb.k_2135_2136_2.model
+package com.gb.Weather.model
 
-import com.gb.k_2135_2136_2.domain.Weather
+import com.gb.Weather.domain.Weather
 
 class RepositoryRemoteImpl:RepositorySingleCity,RepositoryListCity {
     override fun getWeather(lat: Double, lon: Double): Weather {

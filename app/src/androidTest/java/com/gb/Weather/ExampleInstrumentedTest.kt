@@ -1,4 +1,4 @@
-package com.gb.k_2135_2136_2
+package com.gb.Weather
 
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry

@@ -1,16 +1,9 @@
-package com.gb.k_2135_2136_2
+package com.gb.Weather
 
-import android.content.Context
 import android.os.Bundle
-import android.util.AttributeSet
-import android.util.Log
-import android.view.View
-import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.AppCompatButton
-import androidx.appcompat.widget.ButtonBarLayout
-import com.gb.k_2135_2136_2.databinding.ActivityMainBinding
-import com.gb.k_2135_2136_2.view.weatherlist.WeatherListFragment
+import com.gb.Weather.databinding.ActivityMainBinding
+import com.gb.Weather.view.weatherlist.WeatherListFragment
 
 
 internal class MainActivity : AppCompatActivity() {

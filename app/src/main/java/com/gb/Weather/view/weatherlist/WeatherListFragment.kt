@@ -1,7 +1,6 @@
-package com.gb.k_2135_2136_2.view.weatherlist
+package com.gb.Weather.view.weatherlist
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,9 +8,10 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.gb.Weather.databinding.FragmentWeatherListBinding
-import com.gb.k_2135_2136_2.viewmodel.AppState
-import com.gb.k_2135_2136_2.viewmodel.WeatherListViewModel
+import com.gb.Weather.databinding.FragmentWeatherPosterBinding
+
+import com.gb.Weather.viewmodel.AppState
+import com.gb.Weather.viewmodel.WeatherListViewModel
 import com.google.android.material.snackbar.Snackbar
 
 class WeatherListFragment : Fragment() {
@@ -19,14 +19,14 @@ class WeatherListFragment : Fragment() {
         fun newInstance() = WeatherListFragment()
     }
 
-    lateinit var binding: FragmentWeatherListBinding
+    lateinit var binding: FragmentWeatherPosterBinding
     lateinit var viewModel: WeatherListViewModel
 
     override fun onCreateView(inflater: LayoutInflater,
                               container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         //Биндинг для прямой связи View
-        binding = FragmentWeatherListBinding.inflate(inflater)
+        binding = FragmentWeatherPosterBinding.inflate(inflater)
         return binding.root
     }
 

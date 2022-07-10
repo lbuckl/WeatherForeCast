@@ -1,6 +1,6 @@
-package com.gb.k_2135_2136_2.model
+package com.gb.Weather.model
 
-import com.gb.k_2135_2136_2.domain.*
+import com.gb.Weather.domain.*
 
 class RepositoryLocalImpl:RepositorySingleCity,RepositoryListCity {
     override fun getListWeather(locationCity: LocationCity): List<Weather> {

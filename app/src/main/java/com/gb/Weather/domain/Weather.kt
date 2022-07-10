@@ -1,4 +1,4 @@
-package com.gb.k_2135_2136_2.domain
+package com.gb.Weather.domain
 
 data class Weather(
     val city: City = getDefaultCity(),

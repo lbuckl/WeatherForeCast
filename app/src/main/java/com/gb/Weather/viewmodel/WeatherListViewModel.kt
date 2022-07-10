@@ -1,11 +1,11 @@
-package com.gb.k_2135_2136_2.viewmodel
+package com.gb.Weather.viewmodel
 
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.gb.k_2135_2136_2.model.RepositoryLocalImpl
-import com.gb.k_2135_2136_2.model.RepositoryRemoteImpl
-import com.gb.k_2135_2136_2.model.RepositorySingleCity
+import com.gb.Weather.model.RepositoryLocalImpl
+import com.gb.Weather.model.RepositoryRemoteImpl
+import com.gb.Weather.model.RepositorySingleCity
 import java.util.*
 
 /**

@@ -1,6 +1,6 @@
-package com.gb.k_2135_2136_2.viewmodel
+package com.gb.Weather.viewmodel
 
-import com.gb.k_2135_2136_2.domain.Weather
+import com.gb.Weather.domain.Weather
 import java.lang.Exception
 
 /**
