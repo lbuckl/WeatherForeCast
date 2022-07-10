@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.gb.Weather.databinding.FragmentWeatherListItemBinding
 import com.gb.Weather.domain.Weather
+import com.gb.Weather.viewmodel.AppState
 
 /**
  * Кастомный адаптер для вывода списка городов в recyclerview
@@ -22,6 +23,11 @@ class WeatherListRecyclerAdapter (private val weatherListCity:List<Weather>):Rec
     //Связываем используемые текстовые метки с данными
     override fun onBindViewHolder(holder: WeatherViewHolder, position: Int) {
         holder.bind(weatherListCity[position])
+
+        holder.itemView.setOnClickListener{
+
+            //val posterFragment = PosterFragment(weatherListCity[position])
+        }
     }
 
     //Возвращает количество элементов списка

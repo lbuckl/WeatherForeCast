@@ -14,6 +14,10 @@ import com.gb.Weather.viewmodel.AppState
 import com.gb.Weather.viewmodel.WeatherListViewModel
 import com.google.android.material.snackbar.Snackbar
 
+/**
+ * (Класс был изменен)
+ * Сейчас он отвечает за раскрытие списка городов и обработке дейтсвия по клику (открытие постера)
+ */
 class WeatherListFragment : Fragment(){
     companion object {
         fun newInstance() = WeatherListFragment()
@@ -56,7 +60,6 @@ class WeatherListFragment : Fragment(){
         binding_list.buttonWorld.setOnClickListener{
             viewModel.getWeatherListForWorld()
         }
-        //viewModel.sentRequest()
     }
 
     //Подписка на изменение AppState и выполнение операций по триггеру
@@ -76,13 +79,7 @@ class WeatherListFragment : Fragment(){
             }
 
             is AppState.Success -> {
-                /*val toast = Toast.makeText(context, "Успешно загружено", Toast.LENGTH_LONG)
-                toast.show()
-                val result = appState.weatherData
-                binding.cityName.text = result.city.name
-                binding.temperatureValue.text = result.temperature.toString()
-                binding.feelsLikeValue.text = result.feelsLike.toString()
-                binding.cityCoordinates.text = "${result.city.lat}/${result.city.lon}"*/
+
             }
         }
     }

@@ -3,6 +3,7 @@ package com.gb.Weather.viewmodel
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.gb.Weather.domain.Weather
 import com.gb.Weather.model.*
 import java.util.*
 
@@ -45,10 +46,9 @@ class WeatherListViewModel(private val liveData: MutableLiveData<AppState> = Mut
     }
     /* endregion */
 
-    //Непосредственно действия
+    //данные для списка городов. Тригерит загрузку списка городов
     private fun sentRequest(locationCity: LocationCity) {
         liveData.postValue(AppState.LoadCities(repositoryList.getListWeather(locationCity)))
-
         //Имитируем загрузку
         //liveData.value = AppState.Loading
         //Рандомим результат загрузки
@@ -60,6 +60,11 @@ class WeatherListViewModel(private val liveData: MutableLiveData<AppState> = Mut
         }else{
             liveData.postValue(AppState.Success(repository.getWeather(55.755826, 37.617299900000035)))
         }*/
+    }
+
+    //данные для постера. Тригерит открытие постера
+    private fun openPoster(weather: Weather){
+        liveData.postValue(AppState.Success(weather))
     }
 
     //Имитация результата состояния сединения с БД
