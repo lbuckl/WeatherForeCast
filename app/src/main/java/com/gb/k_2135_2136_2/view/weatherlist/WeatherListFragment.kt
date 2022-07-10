@@ -9,7 +9,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.gb.k_2135_2136_2.databinding.FragmentWeatherListBinding
+import com.gb.Weather.databinding.FragmentWeatherListBinding
 import com.gb.k_2135_2136_2.viewmodel.AppState
 import com.gb.k_2135_2136_2.viewmodel.WeatherListViewModel
 import com.google.android.material.snackbar.Snackbar
@@ -70,16 +70,6 @@ class WeatherListFragment : Fragment() {
                 binding.cityCoordinates.text = "${result.city.lat}/${result.city.lon}"
             }
         }
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        Log.d("TEST", "onDestroy Fragment!!!")
-    }
-
-    override fun onStop() {
-        super.onStop()
-        Log.d("TEST", "onStop Fragment!!!")
     }
 
 }
