@@ -13,6 +13,7 @@ import com.gb.Weather.R
 import com.gb.Weather.databinding.FragmentWeatherListBinding
 import com.gb.Weather.domain.Weather
 import com.gb.Weather.shared.showSnackBarError
+import com.gb.Weather.view.Poster.OnItemClick
 import com.gb.Weather.view.Poster.PosterFragment
 
 import com.gb.Weather.viewmodel.AppState
@@ -23,7 +24,7 @@ import com.google.android.material.snackbar.Snackbar
  * (Класс был изменен)
  * Сейчас он отвечает за раскрытие списка городов и обработке дейтсвия по клику (открытие постера)
  */
-class WeatherListFragment : Fragment(){
+class WeatherListFragment : Fragment(), OnItemClick {
     //lateinit var viewModel: WeatherListViewModel
 
     companion object {
@@ -80,7 +81,7 @@ class WeatherListFragment : Fragment(){
     private fun renderData(appState: AppState){
         when (appState){
             is AppState.LoadCities -> {
-                binding_list.weatherRecyclerview.adapter = WeatherListRecyclerAdapter(appState.weatherList)
+                binding_list.weatherRecyclerview.adapter = WeatherListRecyclerAdapter(appState.weatherList,this)
             }
             is AppState.Error -> {/*TODO HW*/
                 /*val result = appState.error.message;
@@ -94,12 +95,18 @@ class WeatherListFragment : Fragment(){
             }
 
             is AppState.Success -> {
-                requireActivity().supportFragmentManager.beginTransaction()
+                /*requireActivity().supportFragmentManager.beginTransaction()
                     .hide(this)
-                    .add(R.id.container, PosterFragment(appState.weatherData))
-                    .addToBackStack("").commit()
+                    .add(R.id.container, PosterFragment())
+                    .addToBackStack("").commit()*/
             }
         }
+    }
+
+    override fun onItemClick(weather: Weather) {
+        requireActivity().supportFragmentManager.beginTransaction().hide(this).add(
+            R.id.container, PosterFragment.newInstance(weather)
+        ).addToBackStack("").commit()
     }
 
 }

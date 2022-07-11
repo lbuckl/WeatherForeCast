@@ -1,5 +1,7 @@
 package com.gb.Weather.domain
 
+import kotlinx.android.parcel.Parcelize
+
 data class Weather(
     val city: City = getDefaultCity(),
     val temperature: Int = 20,

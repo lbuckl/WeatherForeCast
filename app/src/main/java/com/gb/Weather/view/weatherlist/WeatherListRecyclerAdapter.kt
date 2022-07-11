@@ -7,13 +7,14 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.gb.Weather.databinding.FragmentWeatherListItemBinding
 import com.gb.Weather.domain.Weather
+import com.gb.Weather.view.Poster.OnItemClick
 import com.gb.Weather.viewmodel.AppState
 import javax.security.auth.callback.Callback
 
 /**
  * Кастомный адаптер для вывода списка городов в recyclerview
  */
-class WeatherListRecyclerAdapter (private val weatherListCity:List<Weather>):
+class WeatherListRecyclerAdapter (private val weatherListCity:List<Weather>,private val callback: OnItemClick):
     RecyclerView.Adapter<WeatherListRecyclerAdapter.WeatherViewHolder>() {
 
     //Создаёт ViewHolder объект опираясь на их количество, но с запасом, чтобы можно было скролить
@@ -27,7 +28,8 @@ class WeatherListRecyclerAdapter (private val weatherListCity:List<Weather>):
     override fun onBindViewHolder(holder: WeatherViewHolder, position: Int) {
         holder.bind(weatherListCity[position])
         holder.itemView.setOnClickListener{
-            WeatherListFragment.modelOnPoster(weatherListCity[position])
+            callback.onItemClick(weatherListCity[position])
+            //WeatherListFragment.modelOnPoster(weatherListCity[position])
         }
     }
 

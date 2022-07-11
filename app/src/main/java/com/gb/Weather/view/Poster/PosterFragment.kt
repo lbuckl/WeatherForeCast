@@ -9,7 +9,7 @@ import com.gb.Weather.databinding.FragmentWeatherPosterBinding
 import com.gb.Weather.domain.Weather
 import com.gb.Weather.shared.SAVE_WEATHER_KEY
 
-class PosterFragment(val weather: Weather): Fragment() {
+class PosterFragment(): Fragment() {
 
     //region Создание биндинга и удаление при закрытии
     //private var _binding: FragmentWeatherPosterBinding? = null
@@ -37,6 +37,8 @@ class PosterFragment(val weather: Weather): Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val weather = (arguments?.getParcelable<Weather>(SAVE_WEATHER_KEY))
+        if (weather != null)
         renderData(weather);
     }
 
@@ -45,6 +47,17 @@ class PosterFragment(val weather: Weather): Fragment() {
         binding.temperatureValue.text = weather.temperature.toString()
         binding.feelsLikeValue.text = weather.feelsLike.toString()
         binding.cityCoordinates.text = "${weather.city.lat}/${weather.city.lon}"
+    }
+
+    companion object {
+        const val BUNDLE_WEATHER_EXTRA = "sgrrdfge"
+        fun newInstance(weather: Weather): PosterFragment {
+            val bundle = Bundle()
+            bundle.putParcelable(SAVE_WEATHER_KEY, weather)
+            val fr = PosterFragment()
+            fr.arguments = bundle
+            return fr
+        }
     }
 
 }
