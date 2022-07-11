@@ -12,12 +12,12 @@ import androidx.lifecycle.ViewModelProvider
 import com.gb.Weather.R
 import com.gb.Weather.databinding.FragmentWeatherListBinding
 import com.gb.Weather.domain.Weather
-import com.gb.Weather.domain.getDefaultCity
+import com.gb.Weather.shared.showSnackBarError
+import com.gb.Weather.view.Poster.PosterFragment
 
 import com.gb.Weather.viewmodel.AppState
 import com.gb.Weather.viewmodel.WeatherListViewModel
 import com.google.android.material.snackbar.Snackbar
-import javax.security.auth.callback.Callback
 
 /**
  * (Класс был изменен)
@@ -83,9 +83,10 @@ class WeatherListFragment : Fragment(){
                 binding_list.weatherRecyclerview.adapter = WeatherListRecyclerAdapter(appState.weatherList)
             }
             is AppState.Error -> {/*TODO HW*/
-                val result = appState.error.message;
+                /*val result = appState.error.message;
                 val toast = Toast.makeText(context, result, Toast.LENGTH_LONG)
-                toast.show()
+                toast.show()*/
+                view?.showSnackBarError()
             }
 
             is AppState.Loading -> {/*TODO HW*/
@@ -95,11 +96,10 @@ class WeatherListFragment : Fragment(){
             is AppState.Success -> {
                 requireActivity().supportFragmentManager.beginTransaction()
                     .hide(this)
-                    .add(R.id.container,PosterFragment(appState.weatherData))
+                    .add(R.id.container, PosterFragment(appState.weatherData))
                     .addToBackStack("").commit()
             }
         }
     }
-
 
 }

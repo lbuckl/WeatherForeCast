@@ -13,7 +13,8 @@ import javax.security.auth.callback.Callback
 /**
  * Кастомный адаптер для вывода списка городов в recyclerview
  */
-class WeatherListRecyclerAdapter (private val weatherListCity:List<Weather>):RecyclerView.Adapter<WeatherListRecyclerAdapter.WeatherViewHolder>() {
+class WeatherListRecyclerAdapter (private val weatherListCity:List<Weather>):
+    RecyclerView.Adapter<WeatherListRecyclerAdapter.WeatherViewHolder>() {
 
     //Создаёт ViewHolder объект опираясь на их количество, но с запасом, чтобы можно было скролить
     //Возвращает наш объект класса ViewHolder
@@ -25,10 +26,8 @@ class WeatherListRecyclerAdapter (private val weatherListCity:List<Weather>):Rec
     //Связываем используемые текстовые метки с данными
     override fun onBindViewHolder(holder: WeatherViewHolder, position: Int) {
         holder.bind(weatherListCity[position])
-
         holder.itemView.setOnClickListener{
             WeatherListFragment.modelOnPoster(weatherListCity[position])
-            //WeatherListFragment.openPoster(weatherListCity[position])
         }
     }
 

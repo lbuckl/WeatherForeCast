@@ -1,4 +1,4 @@
-package com.gb.Weather.view.weatherlist
+package com.gb.Weather.view.Poster
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.gb.Weather.databinding.FragmentWeatherPosterBinding
 import com.gb.Weather.domain.Weather
+import com.gb.Weather.shared.SAVE_WEATHER_KEY
 
 class PosterFragment(val weather: Weather): Fragment() {
 
@@ -45,4 +46,5 @@ class PosterFragment(val weather: Weather): Fragment() {
         binding.feelsLikeValue.text = weather.feelsLike.toString()
         binding.cityCoordinates.text = "${weather.city.lat}/${weather.city.lon}"
     }
+
 }
