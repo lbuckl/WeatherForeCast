@@ -1,6 +1,7 @@
 package com.gb.Weather.view.weatherlist
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -28,7 +29,7 @@ class WeatherListFragment : Fragment(){
     companion object {
         lateinit var viewModel: WeatherListViewModel
         fun newInstance() = WeatherListFragment()
-        //функиця тригерит состояние Succes во viewModel
+        //функиця тригерит состояние Success во viewModel
         fun modelOnPoster(weather: Weather){
             viewModel.openPoster(weather)
         }
@@ -57,16 +58,21 @@ class WeatherListFragment : Fragment(){
         })
         viewModel.getWeatherListForFavorite()
 
+        //@@@ из лога стало понятно, что some это void и возвразает Unit объект
         binding_list.buttonFavorite.setOnClickListener{
-            viewModel.getWeatherListForFavorite()
+
+            val some  = viewModel.getWeatherListForFavorite()
+            Log.d("SomeFav",some.toString())
         }
 
         binding_list.buttonRus.setOnClickListener{
             viewModel.getWeatherListForRussia()
         }
 
+        //@@@ из лога стало понятно, что some это void и возвразает Unit объект
         binding_list.buttonWorld.setOnClickListener{
-            viewModel.getWeatherListForWorld()
+            val some = viewModel.getWeatherListForWorld()
+            Log.d("SomeWorld",some.toString())
         }
     }
 

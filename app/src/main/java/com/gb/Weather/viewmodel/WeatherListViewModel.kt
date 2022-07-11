@@ -1,11 +1,9 @@
 package com.gb.Weather.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.gb.Weather.domain.Weather
 import com.gb.Weather.model.*
-import java.util.*
 
 /**
  * Класс для реализации LiveData
@@ -14,13 +12,19 @@ import java.util.*
 class WeatherListViewModel(private val liveData: MutableLiveData<AppState> = MutableLiveData<AppState>()) :
     ViewModel() {
 
-    //private lateinit var repository: RepositorySingleCity
     private lateinit var repositoryList: RepositoryListCity
 
-    //Выбираем БД и возвращаем данные
+    /*
     fun getLiveData():MutableLiveData<AppState>{
         choiceRepository()
         return liveData
+    }*/
+
+    //@@@ преобразовал в лямбда
+    //Выбираем БД и возвращаем данные
+    val getLiveData = {
+        choiceRepository()
+        liveData
     }
 
     //Выбираем БД для загрузки
@@ -33,49 +37,51 @@ class WeatherListViewModel(private val liveData: MutableLiveData<AppState> = Mut
         repositoryList = RepositoryLocalImpl()
     }
 
+    //@@@ упростил до 1 строки
     //region переключатель списков
-    fun getWeatherListForRussia(){
-        sentRequest(LocationCity.Russian)
-    }
-    fun getWeatherListForWorld(){
-        sentRequest(LocationCity.World)
-    }
-
-    fun getWeatherListForFavorite(){
-        sentRequest(LocationCity.Favorite)
-    }
+    //@@@ из лога стало понятно, что 1 и 2 строка равноценны имеют тип void и возвращают Unit
+    fun getWeatherListForRussia() {sentRequest(LocationCity.Russian)}
+    fun getWeatherListForWorld() = sentRequest(LocationCity.World)
+    fun getWeatherListForFavorite() = sentRequest(LocationCity.Favorite)
     /* endregion */
 
     //данные для списка городов. Тригерит загрузку списка городов
     private fun sentRequest(locationCity: LocationCity) {
         liveData.postValue(AppState.LoadCities(repositoryList.getListWeather(locationCity)))
+
         //Имитируем загрузку
         //liveData.value = AppState.Loading
-        //Рандомим результат загрузки
-        /*val rand = Random(System.nanoTime())
+        /*
+        val rand = Random(System.nanoTime())
         val randVal = rand.nextInt(3)
         Log.d("RandVal", "$randVal")
-        if(randVal == 1){
-            liveData.postValue(AppState.Error(IllegalStateException("Что-то пошло не так")))
-        }else{
-            liveData.postValue(AppState.Success(repository.getWeather(55.755826, 37.617299900000035)))
-        }*/
+        liveData.postValue(AppState.Error(IllegalStateException("Что-то пошло не так")))
+        */
     }
 
+    //@@@ упростил до 1 строки
     //данные для постера. Тригерит открытие постера
-    fun openPoster(weather: Weather){
-        liveData.postValue(AppState.Success(weather))
-    }
+    fun openPoster(weather: Weather) = liveData.postValue(AppState.Success(weather))
 
+    //@@@ преобразовал в лямбда, проверил в testConnection отработку
     //Имитация результата состояния сединения с БД
-    private fun isConnection(): Boolean {
+    private fun isConnection2():Boolean{
         return false
     }
 
-    //Отменяет подписку. Выполняется после onDestroy во фрагменте
-    override fun onCleared() { // TODO HW ***
-        super.onCleared()
-        Log.d("TEST", "onCleared ViewModel!!!")
+    private val isConnection = {false}
+
+    //@@@
+    fun testConnection(){
+        when(isConnection()) {
+            true -> {}
+            false -> {}
+        }
+
+        when (isConnection2()){
+            true -> {}
+            false -> {}
+        }
     }
 
 }
