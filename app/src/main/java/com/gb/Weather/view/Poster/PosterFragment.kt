@@ -9,7 +9,7 @@ import com.gb.Weather.databinding.FragmentWeatherPosterBinding
 import com.gb.Weather.domain.Weather
 import com.gb.Weather.shared.SAVE_WEATHER_KEY
 
-class PosterFragment(): Fragment() {
+class PosterFragment: Fragment() {
 
     //region Создание биндинга и удаление при закрытии
     //private var _binding: FragmentWeatherPosterBinding? = null
