@@ -36,8 +36,9 @@ class WeatherListViewModel(private val liveData: MutableLiveData<AppState> = Mut
         repositoryList = RepositoryLocalImpl()
     }
 
-    //@@@ упростил до 1 строки
+
     //region переключатель списков
+    //@@@ упростил до 1 строки
     //@@@ из лога стало понятно, что 1 и 2 строка равноценны имеют тип void и возвращают Unit
     fun getWeatherListForRussia() {sentRequest(LocationCity.Russian)}
     fun getWeatherListForWorld() = sentRequest(LocationCity.World)
@@ -48,13 +49,9 @@ class WeatherListViewModel(private val liveData: MutableLiveData<AppState> = Mut
     private fun sentRequest(locationCity: LocationCity) {
         liveData.postValue(AppState.LoadCities(repositoryList.getListWeather(locationCity)))
         //liveData.postValue(AppState.Error(IllegalStateException("Что-то пошло не так")))
-
         //Имитируем загрузку
         //liveData.value = AppState.Loading
         /*
-        val rand = Random(System.nanoTime())
-        val randVal = rand.nextInt(3)
-        Log.d("RandVal", "$randVal")
         liveData.postValue(AppState.Error(IllegalStateException("Что-то пошло не так")))
         */
     }
