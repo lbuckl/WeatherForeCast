@@ -29,7 +29,6 @@ class WeatherListRecyclerAdapter (private val weatherListCity:List<Weather>,priv
         holder.bind(weatherListCity[position])
         holder.itemView.setOnClickListener{
             callback.onItemClick(weatherListCity[position])
-            //WeatherListFragment.modelOnPoster(weatherListCity[position])
         }
     }
 

@@ -5,7 +5,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -31,9 +30,6 @@ class WeatherListFragment : Fragment(), OnItemClick {
         lateinit var viewModel: WeatherListViewModel
         fun newInstance() = WeatherListFragment()
         //функиця тригерит состояние Success во viewModel
-        fun modelOnPoster(weather: Weather){
-            viewModel.openPoster(weather)
-        }
     }
     lateinit var binding_list: FragmentWeatherListBinding
 
@@ -84,9 +80,6 @@ class WeatherListFragment : Fragment(), OnItemClick {
                 binding_list.weatherRecyclerview.adapter = WeatherListRecyclerAdapter(appState.weatherList,this)
             }
             is AppState.Error -> {/*TODO HW*/
-                /*val result = appState.error.message;
-                val toast = Toast.makeText(context, result, Toast.LENGTH_LONG)
-                toast.show()*/
                 view?.showSnackBarError()
             }
 
@@ -95,10 +88,6 @@ class WeatherListFragment : Fragment(), OnItemClick {
             }
 
             is AppState.Success -> {
-                /*requireActivity().supportFragmentManager.beginTransaction()
-                    .hide(this)
-                    .add(R.id.container, PosterFragment())
-                    .addToBackStack("").commit()*/
             }
         }
     }
