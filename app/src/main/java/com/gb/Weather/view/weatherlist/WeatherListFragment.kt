@@ -24,19 +24,16 @@ import com.google.android.material.snackbar.Snackbar
  * Сейчас он отвечает за раскрытие списка городов и обработке дейтсвия по клику (открытие постера)
  */
 class WeatherListFragment : Fragment(), OnItemClick {
-    //lateinit var viewModel: WeatherListViewModel
 
     companion object {
         lateinit var viewModel: WeatherListViewModel
         fun newInstance() = WeatherListFragment()
-        //функиця тригерит состояние Success во viewModel
     }
     lateinit var binding_list: FragmentWeatherListBinding
 
-
     override fun onCreateView(inflater: LayoutInflater,
                               container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
+                              savedInstanceState: Bundle?): View {
         //Биндинг для прямой связи View
         binding_list = FragmentWeatherListBinding.inflate(inflater)
         return binding_list.root
@@ -55,21 +52,16 @@ class WeatherListFragment : Fragment(), OnItemClick {
         })
         viewModel.getWeatherListForFavorite()
 
-        //@@@ из лога стало понятно, что some это void и возвразает Unit объект
         binding_list.buttonFavorite.setOnClickListener{
-
-            val some  = viewModel.getWeatherListForFavorite()
-            Log.d("SomeFav",some.toString())
+            viewModel.getWeatherListForFavorite()
         }
 
         binding_list.buttonRus.setOnClickListener{
             viewModel.getWeatherListForRussia()
         }
 
-        //@@@ из лога стало понятно, что some это void и возвразает Unit объект
         binding_list.buttonWorld.setOnClickListener{
-            val some = viewModel.getWeatherListForWorld()
-            Log.d("SomeWorld",some.toString())
+            viewModel.getWeatherListForWorld()
         }
     }
 
@@ -97,5 +89,4 @@ class WeatherListFragment : Fragment(), OnItemClick {
             R.id.container, PosterFragment.newInstance(weather)
         ).addToBackStack("").commit()
     }
-
 }
