@@ -3,7 +3,9 @@ package com.gb.Weather.viewmodel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.gb.Weather.domain.Weather
-import com.gb.Weather.model.*
+import com.gb.Weather.model.LocationCity
+import com.gb.Weather.model.RepositoryListCity
+import com.gb.Weather.model.RepositoryLocalImpl
 
 /**
  * Класс для реализации LiveData

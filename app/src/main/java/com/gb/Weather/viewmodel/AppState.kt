@@ -1,7 +1,6 @@
 package com.gb.Weather.viewmodel
 
 import com.gb.Weather.domain.Weather
-import java.lang.Exception
 
 /**
  * Класс описывающий состояния

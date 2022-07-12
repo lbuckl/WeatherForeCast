@@ -1,6 +1,9 @@
 package com.gb.Weather.model
 
-import com.gb.Weather.domain.*
+import com.gb.Weather.domain.Weather
+import com.gb.Weather.domain.getFavoriteCities
+import com.gb.Weather.domain.getRussianCities
+import com.gb.Weather.domain.getWorldCities
 
 //@@@ записал return перед when, опустил скобки
 class RepositoryLocalImpl:RepositoryListCity {
