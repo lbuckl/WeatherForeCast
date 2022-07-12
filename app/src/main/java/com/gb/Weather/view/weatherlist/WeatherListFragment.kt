@@ -1,7 +1,6 @@
 package com.gb.Weather.view.weatherlist
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,7 +13,6 @@ import com.gb.Weather.domain.Weather
 import com.gb.Weather.shared.showSnackBarError
 import com.gb.Weather.view.Poster.OnItemClick
 import com.gb.Weather.view.Poster.PosterFragment
-
 import com.gb.Weather.viewmodel.AppState
 import com.gb.Weather.viewmodel.WeatherListViewModel
 import com.google.android.material.snackbar.Snackbar

@@ -16,7 +16,7 @@ android {
 
 
     defaultConfig {
-        applicationId "com.gb.k_2135_2136_2"
+        applicationId "com.gb.weather"
         minSdk 24
         targetSdk 32
         versionCode 1
