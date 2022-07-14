@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.gb.Weather.BuildConfig
 import com.gb.Weather.R
 import com.gb.Weather.databinding.FragmentWeatherListBinding
 import com.gb.Weather.domain.Weather
@@ -61,6 +62,7 @@ class WeatherListFragment : Fragment(), OnItemClick {
         binding_list.buttonWorld.setOnClickListener{
             viewModel.getWeatherListForWorld()
         }
+
     }
 
     //Подписка на изменение AppState и выполнение операций по триггеру
