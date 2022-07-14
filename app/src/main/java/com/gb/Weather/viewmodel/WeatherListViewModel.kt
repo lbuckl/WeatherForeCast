@@ -43,9 +43,9 @@ class WeatherListViewModel(private val liveData: MutableLiveData<AppState> = Mut
         //liveData.postValue(AppState.Error(IllegalStateException("Что-то пошло не так")))
         //Имитируем загрузку
         //liveData.value = AppState.Loading
-        /*
+
         liveData.postValue(AppState.Error(IllegalStateException("Что-то пошло не так")))
-        */
+
     }
     //функция проверки состояния соединения
     private val isConnection = {false}
