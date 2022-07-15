@@ -17,18 +17,8 @@ class WeatherListViewModel(private val liveData: MutableLiveData<AppState> = Mut
 
     //Выбираем БД и возвращаем данные
     val getLiveData = {
-        choiceRepository()
-        liveData
-    }
-
-    //Выбираем БД для загрузки
-    private fun choiceRepository(){
-        /*repository = if(isConnection()){
-            RepositoryRemoteImpl()
-        }else{
-            RepositoryLocalImpl()
-        }*/
         repositoryList = RepositoryLocalImpl()
+        liveData
     }
 
     //region переключатель списков
@@ -40,10 +30,6 @@ class WeatherListViewModel(private val liveData: MutableLiveData<AppState> = Mut
     //данные для списка городов. Тригерит загрузку списка городов
     private fun sentRequest(locationCity: LocationCity) {
         liveData.postValue(AppState.LoadCities(repositoryList.getListWeather(locationCity)))
-        //Имитируем загрузку
-        //liveData.value = AppState.Loading
-
-        //liveData.postValue(AppState.Error(IllegalStateException("Что-то пошло не так")))
     }
     //функция проверки состояния соединения
     private val isConnection = {false}

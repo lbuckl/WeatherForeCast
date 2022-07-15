@@ -1,10 +1,12 @@
 package com.gb.Weather.model
 
-import com.gb.Weather.domain.Weather
+import com.gb.Weather.model.dto.WeatherDTO
 
 class RepositoryRemoteImpl:RepositorySingleCity {
-    override fun getWeather(lat: Double, lon: Double): Weather {
-        Thread{ Thread.sleep(300L)}.start()
-        return Weather()
+    override fun getWeather(lat: Double, lon: Double): WeatherDTO {
+
+        //Выполнить запрос вернуть WeatherDTO
+
+        return weatheDTO
     }
 }

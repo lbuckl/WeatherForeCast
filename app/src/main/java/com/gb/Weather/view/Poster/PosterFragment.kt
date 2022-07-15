@@ -43,19 +43,19 @@ class PosterFragment: Fragment() {
     }
 
     private fun renderData(weather: Weather) {
-        binding.cityName.text = weather.city.name
-        binding.temperatureValue.text = weather.temperature.toString()
-        binding.feelsLikeValue.text = weather.feelsLike.toString()
-        binding.cityCoordinates.text = "${weather.city.lat}/${weather.city.lon}"
+        with(binding){
+        cityName.text = weather.city.name
+        temperatureValue.text = weather.temperature.toString()
+        feelsLikeValue.text = weather.feelsLike.toString()
+        cityCoordinates.text = "${weather.city.lat}/${weather.city.lon}"
+        }
     }
 
     companion object {
-        const val BUNDLE_WEATHER_EXTRA = "sgrrdfge"
         fun newInstance(weather: Weather): PosterFragment {
-            val bundle = Bundle()
-            bundle.putParcelable(SAVE_WEATHER_KEY, weather)
             val fr = PosterFragment()
-            fr.arguments = bundle
+            val bundle = Bundle()
+            fr.arguments = bundle.apply { putParcelable(SAVE_WEATHER_KEY, weather) }
             return fr
         }
     }
