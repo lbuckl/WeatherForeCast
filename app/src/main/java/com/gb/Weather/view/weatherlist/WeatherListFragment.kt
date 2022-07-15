@@ -28,6 +28,7 @@ class WeatherListFragment : Fragment(), OnItemClick {
         lateinit var viewModel: WeatherListViewModel
         fun newInstance() = WeatherListFragment()
     }
+
     lateinit var binding_list: FragmentWeatherListBinding
 
     override fun onCreateView(inflater: LayoutInflater,

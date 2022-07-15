@@ -40,12 +40,10 @@ class WeatherListViewModel(private val liveData: MutableLiveData<AppState> = Mut
     //данные для списка городов. Тригерит загрузку списка городов
     private fun sentRequest(locationCity: LocationCity) {
         liveData.postValue(AppState.LoadCities(repositoryList.getListWeather(locationCity)))
-        //liveData.postValue(AppState.Error(IllegalStateException("Что-то пошло не так")))
         //Имитируем загрузку
         //liveData.value = AppState.Loading
 
-        liveData.postValue(AppState.Error(IllegalStateException("Что-то пошло не так")))
-
+        //liveData.postValue(AppState.Error(IllegalStateException("Что-то пошло не так")))
     }
     //функция проверки состояния соединения
     private val isConnection = {false}
