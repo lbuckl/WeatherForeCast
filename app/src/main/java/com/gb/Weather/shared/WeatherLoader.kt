@@ -28,7 +28,7 @@ object WeatherLoader {
             val weatherDTO = Gson().fromJson(getLines(reader), WeatherDTO::class.java)
 
             handler.post {
-                WeatherListFragment.viewModel.printWeatherPoster(weatherDTO)
+                weatherDTO?.let {WeatherListFragment.viewModel.printWeatherPoster(weatherDTO)  }
             }
         }.start()
     }

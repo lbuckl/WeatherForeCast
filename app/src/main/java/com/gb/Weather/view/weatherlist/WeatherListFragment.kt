@@ -82,7 +82,8 @@ class WeatherListFragment : Fragment(), OnItemClick {
                 requireActivity().supportFragmentManager
                     .beginTransaction().hide(this)
                     .add(R.id.container, LoadingFragment())
-                    .addToBackStack("").commit()
+                    .addToBackStack("")
+                    .commit()
 
                 WeatherLoader.requestWeatherTDO(appState.lat,appState.lon)
             }
@@ -91,6 +92,7 @@ class WeatherListFragment : Fragment(), OnItemClick {
                 requireActivity().supportFragmentManager
                     .beginTransaction().hide(this)
                     .replace(R.id.container, PosterWeatherFragment())
+                    //.addToBackStack("")
                     .commit()
             }
         }

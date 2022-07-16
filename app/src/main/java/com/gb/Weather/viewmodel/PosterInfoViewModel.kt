@@ -15,7 +15,7 @@ class PosterInfoViewModel (private val liveData: MutableLiveData<AppState> = Mut
     }
 
     fun postWeatherData(lat: Double, lon: Double){
-        //liveData.postValue(AppState.Loading(repositoryWeatherCity.getWeather(lat,lon)))
+        //liveData.postValue(AppState.Success())
     }
 
 }

@@ -38,13 +38,11 @@ class PosterWeatherFragment: Fragment() {
         viewModel = ViewModelProvider(this).get(PosterInfoViewModel::class.java)
         viewModel.getLiveData().observe(viewLifecycleOwner
         ) { t -> renderData(t) }
-
     }
 
     private fun renderData(appState: AppState) {
         when (appState){
             is AppState.Success -> {
-
                 with(binding){
                     //cityName.text = appState.weatherData.fact
                     temperatureValue.text = appState.weatherData.fact.temp.toString()
