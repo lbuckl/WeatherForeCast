@@ -37,6 +37,7 @@ class PosterFragment: Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         val weather = (arguments?.getParcelable<Weather>(SAVE_WEATHER_KEY))
         if (weather != null)
         renderData(weather);

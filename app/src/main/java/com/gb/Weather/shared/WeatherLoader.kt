@@ -6,8 +6,10 @@ import com.gb.Weather.BuildConfig
 import com.gb.Weather.BuildConfig.WEATHER_API_KEY
 import com.gb.Weather.domain.Weather
 import com.gb.Weather.model.dto.WeatherDTO
+import com.gb.Weather.view.Poster.PosterFragment
 import com.gb.Weather.view.Poster.PosterWeatherFragment
 import com.gb.Weather.view.weatherlist.WeatherListFragment
+import com.gb.Weather.viewmodel.PosterInfoViewModel
 import com.google.gson.Gson
 import java.io.BufferedReader
 import java.io.InputStreamReader
@@ -32,7 +34,7 @@ object WeatherLoader {
             val weatherDTO = Gson().fromJson(getLines(reader), WeatherDTO::class.java)
             //val weatherDTO: WeatherDTO? = null
             handler.post {
-               WeatherListFragment.viewModel.printWeatherPoster(weather,weatherDTO)
+                WeatherListFragment.viewModel.printWeatherPoster(weather,weatherDTO)
             }
         }.start()
     }

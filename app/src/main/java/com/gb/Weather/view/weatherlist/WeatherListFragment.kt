@@ -1,6 +1,7 @@
 package com.gb.Weather.view.weatherlist
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -70,14 +71,16 @@ class WeatherListFragment : Fragment(), OnItemClick {
         val loadingFragment = LoadingFragment()
         when (appState){
             is AppState.LoadCities -> {
+                Log.d("@@@","LoadCities")
                 binding_list.weatherRecyclerview.adapter = WeatherListRecyclerAdapter(appState.weatherList,this)
             }
-            is AppState.Error -> {/*TODO HW*/
+            is AppState.Error -> {
                 view?.showSnackBarError()
             }
 
-            is AppState.Loading -> {/*TODO HW*/
-                Snackbar.make(binding_list.root, "Loading", Snackbar.LENGTH_LONG).show()
+            is AppState.Loading -> {
+                Log.d("@@@","Loading")
+                Snackbar.make(binding_list.root, "Loading", Snackbar.LENGTH_SHORT).show()
                 requireActivity().supportFragmentManager
                     .beginTransaction().hide(this)
                     .add(R.id.container, loadingFragment)
@@ -87,9 +90,10 @@ class WeatherListFragment : Fragment(), OnItemClick {
             }
 
             is AppState.Success -> {
+                Log.d("@@@","Succes")
                 requireActivity().supportFragmentManager
                     .beginTransaction()
-                    .replace(R.id.container, PosterWeatherFragment(appState.weatherData))
+                    .replace(R.id.container, PosterWeatherFragment())
                     .addToBackStack("")
                     .commit()
             }

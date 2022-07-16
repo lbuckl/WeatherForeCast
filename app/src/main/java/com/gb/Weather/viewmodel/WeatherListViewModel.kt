@@ -16,6 +16,7 @@ class WeatherListViewModel(private val liveData: MutableLiveData<AppState> = Mut
     ViewModel(){
 
     private lateinit var repositoryList: RepositoryListCity
+    private lateinit var locCity: LocationCity
 
     //Выбираем БД и возвращаем данные
     val getLiveData = {
@@ -32,6 +33,7 @@ class WeatherListViewModel(private val liveData: MutableLiveData<AppState> = Mut
 
     //данные для списка городов. Тригерит загрузку списка городов
     private fun sentRequest(locationCity: LocationCity) {
+        locCity = locationCity
         liveData.postValue(AppState.LoadCities(repositoryList.getListWeather(locationCity)))
     }
 
@@ -41,6 +43,7 @@ class WeatherListViewModel(private val liveData: MutableLiveData<AppState> = Mut
 
     fun printWeatherPoster(weather: Weather,weatherDTO: WeatherDTO?){
         if (weatherDTO != null) liveData.postValue(AppState.Success(weather, weatherDTO))
+        else sentRequest(locCity)
     }
 
     //функция проверки состояния соединения

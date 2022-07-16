@@ -1,6 +1,7 @@
 package com.gb.Weather.view.Poster
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,7 +17,7 @@ import com.gb.Weather.viewmodel.AppState
 import com.gb.Weather.viewmodel.PosterInfoViewModel
 import com.gb.Weather.viewmodel.WeatherListViewModel
 
-class PosterWeatherFragment(private val weatherDTO: WeatherDTO): Fragment() {
+class PosterWeatherFragment(): Fragment() {
     companion object {
         lateinit var viewModel: PosterInfoViewModel
     }
@@ -34,7 +35,7 @@ class PosterWeatherFragment(private val weatherDTO: WeatherDTO): Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel = ViewModelProvider(this).get(PosterInfoViewModel::class.java)
+        //viewModel = ViewModelProvider(this).get(PosterInfoViewModel::class.java)
         WeatherListFragment.viewModel.getLiveData().observe(viewLifecycleOwner
         ) { t -> renderData(t) }
 
@@ -45,9 +46,8 @@ class PosterWeatherFragment(private val weatherDTO: WeatherDTO): Fragment() {
         }*/
     }
 
-
-
     private fun renderData(appState: AppState) {
+        Log.d("@@@","SuccesPoster")
         when (appState){
             is AppState.Success -> {
                 with(binding){
