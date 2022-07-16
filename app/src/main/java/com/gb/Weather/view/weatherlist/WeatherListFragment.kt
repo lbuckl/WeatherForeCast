@@ -11,6 +11,7 @@ import com.gb.Weather.BuildConfig
 import com.gb.Weather.R
 import com.gb.Weather.databinding.FragmentWeatherListBinding
 import com.gb.Weather.domain.Weather
+import com.gb.Weather.shared.WeatherLoader
 import com.gb.Weather.shared.showSnackBarError
 import com.gb.Weather.view.Poster.OnItemClick
 import com.gb.Weather.view.Poster.PosterFragment
@@ -45,11 +46,9 @@ class WeatherListFragment : Fragment(), OnItemClick {
         viewModel = ViewModelProvider(this).get(WeatherListViewModel::class.java)
         //получаем данные из LiveData и
         //запускаем подписку на AppState
-        viewModel.getLiveData().observe(viewLifecycleOwner,object : Observer<AppState>{
-            override fun onChanged(t: AppState) {
-                renderData(t)
-            }
-        })
+        viewModel.getLiveData().observe(viewLifecycleOwner
+        ) { t -> renderData(t) }
+
         viewModel.getWeatherListForFavorite()
 
         binding_list.buttonFavorite.setOnClickListener{
@@ -78,6 +77,8 @@ class WeatherListFragment : Fragment(), OnItemClick {
 
             is AppState.Loading -> {/*TODO HW*/
                 Snackbar.make(binding_list.root, "Loading", Snackbar.LENGTH_LONG).show()
+
+                WeatherLoader.requestWeatherTDO(appState.lat,appState.lon)
             }
 
             is AppState.Success -> {

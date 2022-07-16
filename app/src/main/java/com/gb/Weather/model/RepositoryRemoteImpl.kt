@@ -1,12 +1,8 @@
 package com.gb.Weather.model
-
-import com.gb.Weather.model.dto.WeatherDTO
+import com.gb.Weather.shared.WeatherLoader
 
 class RepositoryRemoteImpl:RepositorySingleCity {
-    override fun getWeather(lat: Double, lon: Double): WeatherDTO {
-
-        //Выполнить запрос вернуть WeatherDTO
-
-        return weatheDTO
+    override fun getWeather(lat: Double, lon: Double) {
+        WeatherLoader.requestWeatherTDO(lat,lon)
     }
 }

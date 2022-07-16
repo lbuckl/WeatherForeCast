@@ -2,6 +2,7 @@ package com.gb.Weather.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.gb.Weather.domain.Weather
 import com.gb.Weather.model.LocationCity
 import com.gb.Weather.model.RepositoryListCity
 import com.gb.Weather.model.RepositoryLocalImpl
@@ -25,12 +26,17 @@ class WeatherListViewModel(private val liveData: MutableLiveData<AppState> = Mut
     fun getWeatherListForRussia() = sentRequest(LocationCity.Russian)
     fun getWeatherListForWorld() = sentRequest(LocationCity.World)
     fun getWeatherListForFavorite() = sentRequest(LocationCity.Favorite)
+
     /* endregion */
 
     //данные для списка городов. Тригерит загрузку списка городов
     private fun sentRequest(locationCity: LocationCity) {
         liveData.postValue(AppState.LoadCities(repositoryList.getListWeather(locationCity)))
     }
+    fun loadWeather(weather: Weather){
+        liveData.postValue(AppState.Loading(weather.city.lat,weather.city.lon))
+    }
+
     //функция проверки состояния соединения
     private val isConnection = {false}
 }
