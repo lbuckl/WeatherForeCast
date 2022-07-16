@@ -13,6 +13,7 @@ import com.gb.Weather.databinding.FragmentWeatherListBinding
 import com.gb.Weather.domain.Weather
 import com.gb.Weather.shared.WeatherLoader
 import com.gb.Weather.shared.showSnackBarError
+import com.gb.Weather.view.LoadingFragment
 import com.gb.Weather.view.Poster.OnItemClick
 import com.gb.Weather.view.Poster.PosterFragment
 import com.gb.Weather.viewmodel.AppState
@@ -77,8 +78,12 @@ class WeatherListFragment : Fragment(), OnItemClick {
 
             is AppState.Loading -> {/*TODO HW*/
                 Snackbar.make(binding_list.root, "Loading", Snackbar.LENGTH_LONG).show()
+                requireActivity().supportFragmentManager
+                    .beginTransaction().hide(this)
+                    .add(R.id.container, LoadingFragment())
+                    .addToBackStack("").commit()
 
-                WeatherLoader.requestWeatherTDO(appState.lat,appState.lon)
+                //WeatherLoader.requestWeatherTDO(appState.lat,appState.lon)
             }
 
             is AppState.Success -> {
