@@ -16,6 +16,7 @@ import com.gb.Weather.shared.showSnackBarError
 import com.gb.Weather.view.LoadingFragment
 import com.gb.Weather.view.Poster.OnItemClick
 import com.gb.Weather.view.Poster.PosterFragment
+import com.gb.Weather.view.Poster.PosterWeatherFragment
 import com.gb.Weather.viewmodel.AppState
 import com.gb.Weather.viewmodel.WeatherListViewModel
 import com.google.android.material.snackbar.Snackbar
@@ -83,10 +84,14 @@ class WeatherListFragment : Fragment(), OnItemClick {
                     .add(R.id.container, LoadingFragment())
                     .addToBackStack("").commit()
 
-                //WeatherLoader.requestWeatherTDO(appState.lat,appState.lon)
+                WeatherLoader.requestWeatherTDO(appState.lat,appState.lon)
             }
 
             is AppState.Success -> {
+                requireActivity().supportFragmentManager
+                    .beginTransaction().hide(this)
+                    .replace(R.id.container, PosterWeatherFragment())
+                    .commit()
             }
         }
     }

@@ -9,6 +9,8 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.gb.Weather.databinding.FragmentWeatherPosterBinding
 import com.gb.Weather.domain.Weather
+import com.gb.Weather.model.dto.Info
+import com.gb.Weather.model.dto.WeatherDTO
 import com.gb.Weather.view.weatherlist.WeatherListFragment
 import com.gb.Weather.viewmodel.AppState
 import com.gb.Weather.viewmodel.PosterInfoViewModel
@@ -42,12 +44,12 @@ class PosterWeatherFragment: Fragment() {
     private fun renderData(appState: AppState) {
         when (appState){
             is AppState.Success -> {
+
                 with(binding){
-                    /*cityName.text =
-                    temperatureValue.text =
-                    feelsLikeValue.text =
-                    cityCoordinates.text =
-                    */
+                    //cityName.text = appState.weatherData.fact
+                    temperatureValue.text = appState.weatherData.fact.temp.toString()
+                    feelsLikeValue.text = appState.weatherData.fact.feelsLike.toString()
+                    //cityCoordinates.text = appState.weatherData.info.
                 }
             }
         }

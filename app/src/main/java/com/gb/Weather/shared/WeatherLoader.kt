@@ -1,8 +1,11 @@
 package com.gb.Weather.shared
 
+import android.os.Handler
+import android.os.Looper
 import com.gb.Weather.BuildConfig
 import com.gb.Weather.BuildConfig.WEATHER_API_KEY
 import com.gb.Weather.model.dto.WeatherDTO
+import com.gb.Weather.view.weatherlist.WeatherListFragment
 import com.google.gson.Gson
 import java.io.BufferedReader
 import java.io.InputStreamReader
@@ -13,6 +16,7 @@ object WeatherLoader {
 
     fun requestWeatherTDO(lat: Double,lon: Double){
         WEATHER_API_KEY
+        val handler = Handler(Looper.myLooper()!!)
         val uri = URL("https://api.weather.yandex.ru/v2/informers?lat=${lat}&lon=${lon}")
         var myConnection: HttpsURLConnection? = null
         myConnection = uri.openConnection() as HttpsURLConnection
@@ -22,6 +26,10 @@ object WeatherLoader {
         Thread{
             val reader = BufferedReader(InputStreamReader(myConnection.inputStream))
             val weatherDTO = Gson().fromJson(getLines(reader), WeatherDTO::class.java)
+
+            handler.post {
+                WeatherListFragment.viewModel.printWeatherPoster(weatherDTO)
+            }
         }.start()
     }
 }

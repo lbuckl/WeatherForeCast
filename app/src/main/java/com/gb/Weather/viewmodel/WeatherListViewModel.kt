@@ -6,6 +6,7 @@ import com.gb.Weather.domain.Weather
 import com.gb.Weather.model.LocationCity
 import com.gb.Weather.model.RepositoryListCity
 import com.gb.Weather.model.RepositoryLocalImpl
+import com.gb.Weather.model.dto.WeatherDTO
 
 /**
  * Класс для реализации LiveData
@@ -35,6 +36,10 @@ class WeatherListViewModel(private val liveData: MutableLiveData<AppState> = Mut
     }
     fun loadWeather(weather: Weather){
         liveData.postValue(AppState.Loading(weather.city.lat,weather.city.lon))
+    }
+
+    fun printWeatherPoster(weatherDTO: WeatherDTO){
+        liveData.postValue(AppState.Success(weatherDTO))
     }
 
     //функция проверки состояния соединения
