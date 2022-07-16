@@ -4,6 +4,7 @@ import android.os.Handler
 import android.os.Looper
 import com.gb.Weather.BuildConfig
 import com.gb.Weather.BuildConfig.WEATHER_API_KEY
+import com.gb.Weather.domain.Weather
 import com.gb.Weather.model.dto.WeatherDTO
 import com.gb.Weather.view.Poster.PosterWeatherFragment
 import com.gb.Weather.view.weatherlist.WeatherListFragment
@@ -15,8 +16,10 @@ import javax.net.ssl.HttpsURLConnection
 
 object WeatherLoader {
 
-    fun requestWeatherTDO(lat: Double,lon: Double){
+    fun requestWeatherTDO(weather: Weather){
         WEATHER_API_KEY
+        val lat: Double = weather.city.lat
+        val lon: Double = weather.city.lon
         val handler = Handler(Looper.myLooper()!!)
         val uri = URL("https://api.weather.yandex.ru/v2/informers?lat=${lat}&lon=${lon}")
         var myConnection: HttpsURLConnection? = null
@@ -29,7 +32,7 @@ object WeatherLoader {
             val weatherDTO = Gson().fromJson(getLines(reader), WeatherDTO::class.java)
             //val weatherDTO: WeatherDTO? = null
             handler.post {
-               WeatherListFragment.viewModel.printWeatherPoster(weatherDTO)
+               WeatherListFragment.viewModel.printWeatherPoster(weather,weatherDTO)
             }
         }.start()
     }

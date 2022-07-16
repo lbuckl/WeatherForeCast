@@ -34,12 +34,13 @@ class WeatherListViewModel(private val liveData: MutableLiveData<AppState> = Mut
     private fun sentRequest(locationCity: LocationCity) {
         liveData.postValue(AppState.LoadCities(repositoryList.getListWeather(locationCity)))
     }
+
     fun loadWeather(weather: Weather){
-        liveData.postValue(AppState.Loading(weather.city.lat,weather.city.lon))
+        liveData.postValue(AppState.Loading(weather))
     }
 
-    fun printWeatherPoster(weatherDTO: WeatherDTO?){
-        if (weatherDTO != null) liveData.postValue(AppState.Success(weatherDTO))
+    fun printWeatherPoster(weather: Weather,weatherDTO: WeatherDTO?){
+        if (weatherDTO != null) liveData.postValue(AppState.Success(weather, weatherDTO))
     }
 
     //функция проверки состояния соединения

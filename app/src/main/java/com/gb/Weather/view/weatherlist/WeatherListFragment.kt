@@ -67,7 +67,7 @@ class WeatherListFragment : Fragment(), OnItemClick {
 
     //Подписка на изменение AppState и выполнение операций по триггеру
     private fun renderData(appState: AppState){
-        val loadingFragment: LoadingFragment = LoadingFragment()
+        val loadingFragment = LoadingFragment()
         when (appState){
             is AppState.LoadCities -> {
                 binding_list.weatherRecyclerview.adapter = WeatherListRecyclerAdapter(appState.weatherList,this)
@@ -79,18 +79,18 @@ class WeatherListFragment : Fragment(), OnItemClick {
             is AppState.Loading -> {/*TODO HW*/
                 Snackbar.make(binding_list.root, "Loading", Snackbar.LENGTH_LONG).show()
                 requireActivity().supportFragmentManager
-                    .beginTransaction()
+                    .beginTransaction().hide(this)
                     .add(R.id.container, loadingFragment)
                     .addToBackStack("List")
                     .commit()
-                WeatherLoader.requestWeatherTDO(appState.lat,appState.lon)
+                WeatherLoader.requestWeatherTDO(appState.weather)
             }
 
             is AppState.Success -> {
                 requireActivity().supportFragmentManager
-                    .beginTransaction().hide(this)
-                    .add(R.id.container, PosterWeatherFragment(appState.weatherData))
-                    .addToBackStack("Load")
+                    .beginTransaction()
+                    .replace(R.id.container, PosterWeatherFragment(appState.weatherData))
+                    .addToBackStack("")
                     .commit()
             }
         }

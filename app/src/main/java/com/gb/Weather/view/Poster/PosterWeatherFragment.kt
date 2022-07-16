@@ -51,10 +51,10 @@ class PosterWeatherFragment(private val weatherDTO: WeatherDTO): Fragment() {
         when (appState){
             is AppState.Success -> {
                 with(binding){
-                    //cityName.text = appState.weatherData.fact
+                    cityName.text = appState.weather.city.name
                     temperatureValue.text = appState.weatherData.fact.temp.toString()
                     feelsLikeValue.text = appState.weatherData.fact.feelsLike.toString()
-                    //cityCoordinates.text = appState.weatherData.info.
+                    cityCoordinates.text = "${appState.weatherData.info.lat}/${appState.weatherData.info.lon}"
                 }
             }
         }
