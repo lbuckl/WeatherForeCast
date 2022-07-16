@@ -38,8 +38,8 @@ class WeatherListViewModel(private val liveData: MutableLiveData<AppState> = Mut
         liveData.postValue(AppState.Loading(weather.city.lat,weather.city.lon))
     }
 
-    fun printWeatherPoster(weatherDTO: WeatherDTO){
-        liveData.postValue(AppState.Success(weatherDTO))
+    fun printWeatherPoster(weatherDTO: WeatherDTO?){
+        if (weatherDTO != null) liveData.postValue(AppState.Success(weatherDTO))
     }
 
     //функция проверки состояния соединения

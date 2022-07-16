@@ -5,9 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.gb.Weather.BuildConfig
 import com.gb.Weather.R
 import com.gb.Weather.databinding.FragmentWeatherListBinding
 import com.gb.Weather.domain.Weather
@@ -69,6 +67,7 @@ class WeatherListFragment : Fragment(), OnItemClick {
 
     //Подписка на изменение AppState и выполнение операций по триггеру
     private fun renderData(appState: AppState){
+        val loadingFragment: LoadingFragment = LoadingFragment()
         when (appState){
             is AppState.LoadCities -> {
                 binding_list.weatherRecyclerview.adapter = WeatherListRecyclerAdapter(appState.weatherList,this)
@@ -80,17 +79,18 @@ class WeatherListFragment : Fragment(), OnItemClick {
             is AppState.Loading -> {/*TODO HW*/
                 Snackbar.make(binding_list.root, "Loading", Snackbar.LENGTH_LONG).show()
                 requireActivity().supportFragmentManager
-                    .beginTransaction().hide(this)
-                    .add(R.id.container, LoadingFragment())
-                    .addToBackStack("").commit()
-
+                    .beginTransaction()
+                    .add(R.id.container, loadingFragment)
+                    .addToBackStack("List")
+                    .commit()
                 WeatherLoader.requestWeatherTDO(appState.lat,appState.lon)
             }
 
             is AppState.Success -> {
                 requireActivity().supportFragmentManager
                     .beginTransaction().hide(this)
-                    .replace(R.id.container, PosterWeatherFragment(appState.weatherData))
+                    .add(R.id.container, PosterWeatherFragment(appState.weatherData))
+                    .addToBackStack("Load")
                     .commit()
             }
         }

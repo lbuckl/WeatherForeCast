@@ -16,7 +16,7 @@ import com.gb.Weather.viewmodel.AppState
 import com.gb.Weather.viewmodel.PosterInfoViewModel
 import com.gb.Weather.viewmodel.WeatherListViewModel
 
-class PosterWeatherFragment(val weatherDTO: WeatherDTO): Fragment() {
+class PosterWeatherFragment(private val weatherDTO: WeatherDTO): Fragment() {
     companion object {
         lateinit var viewModel: PosterInfoViewModel
     }
@@ -29,27 +29,27 @@ class PosterWeatherFragment(val weatherDTO: WeatherDTO): Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentWeatherPosterBinding.inflate(inflater)
-        //_binding = FragmentWeatherPosterBinding.inflate(inflater)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        with(binding){
+        viewModel = ViewModelProvider(this).get(PosterInfoViewModel::class.java)
+        WeatherListFragment.viewModel.getLiveData().observe(viewLifecycleOwner
+        ) { t -> renderData(t) }
+
+        /*with(binding){
             temperatureValue.text = weatherDTO.fact.temp.toString()
             feelsLikeValue.text = weatherDTO.fact.feelsLike.toString()
-        }
-
-        /*viewModel = ViewModelProvider(this).get(PosterInfoViewModel::class.java)
-        viewModel.getLiveData().observe(viewLifecycleOwner
-        ) { t -> renderData(t) }*/
-
+            cityCoordinates.text = "${weatherDTO.info.lat}/${weatherDTO.info.lon}"
+        }*/
     }
 
-    /*private fun renderData(appState: AppState) {
+
+
+    private fun renderData(appState: AppState) {
         when (appState){
             is AppState.Success -> {
-
                 with(binding){
                     //cityName.text = appState.weatherData.fact
                     temperatureValue.text = appState.weatherData.fact.temp.toString()
@@ -58,5 +58,6 @@ class PosterWeatherFragment(val weatherDTO: WeatherDTO): Fragment() {
                 }
             }
         }
-    }*/
+    }
 }
+

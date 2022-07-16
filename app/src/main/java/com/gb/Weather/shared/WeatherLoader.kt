@@ -5,6 +5,7 @@ import android.os.Looper
 import com.gb.Weather.BuildConfig
 import com.gb.Weather.BuildConfig.WEATHER_API_KEY
 import com.gb.Weather.model.dto.WeatherDTO
+import com.gb.Weather.view.Poster.PosterWeatherFragment
 import com.gb.Weather.view.weatherlist.WeatherListFragment
 import com.google.gson.Gson
 import java.io.BufferedReader
@@ -26,9 +27,9 @@ object WeatherLoader {
         Thread{
             val reader = BufferedReader(InputStreamReader(myConnection.inputStream))
             val weatherDTO = Gson().fromJson(getLines(reader), WeatherDTO::class.java)
-
+            //val weatherDTO: WeatherDTO? = null
             handler.post {
-                weatherDTO?.let {WeatherListFragment.viewModel.printWeatherPoster(weatherDTO)  }
+               WeatherListFragment.viewModel.printWeatherPoster(weatherDTO)
             }
         }.start()
     }
