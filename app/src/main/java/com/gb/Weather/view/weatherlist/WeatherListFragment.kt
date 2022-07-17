@@ -12,6 +12,7 @@ import com.gb.Weather.databinding.FragmentWeatherListBinding
 import com.gb.Weather.domain.Weather
 import com.gb.Weather.shared.WeatherLoader
 import com.gb.Weather.shared.showSnackBarError
+import com.gb.Weather.shared.showSnackBarErrorMsg
 import com.gb.Weather.view.LoadingFragment
 import com.gb.Weather.view.Poster.OnItemClick
 import com.gb.Weather.view.Poster.PosterFragment
@@ -74,9 +75,6 @@ class WeatherListFragment : Fragment(), OnItemClick {
                 Log.d("@@@","LoadCities")
                 binding_list.weatherRecyclerview.adapter = WeatherListRecyclerAdapter(appState.weatherList,this)
             }
-            is AppState.Error -> {
-                view?.showSnackBarError()
-            }
 
             is AppState.Loading -> {
                 Log.d("@@@","Loading")
@@ -96,6 +94,14 @@ class WeatherListFragment : Fragment(), OnItemClick {
                     .replace(R.id.container, PosterWeatherFragment())
                     .addToBackStack("")
                     .commit()
+            }
+
+            is AppState.Error -> {
+                view?.showSnackBarErrorMsg(appState.error.toString())
+                requireActivity().supportFragmentManager
+                        .beginTransaction()
+                        .remove(loadingFragment)
+                        .commit()
             }
         }
     }

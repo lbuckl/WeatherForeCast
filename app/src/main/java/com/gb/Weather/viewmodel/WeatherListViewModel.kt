@@ -7,6 +7,7 @@ import com.gb.Weather.model.LocationCity
 import com.gb.Weather.model.RepositoryListCity
 import com.gb.Weather.model.RepositoryLocalImpl
 import com.gb.Weather.model.dto.WeatherDTO
+import java.lang.Exception
 
 /**
  * Класс для реализации LiveData
@@ -41,9 +42,13 @@ class WeatherListViewModel(private val liveData: MutableLiveData<AppState> = Mut
         liveData.postValue(AppState.Loading(weather))
     }
 
-    fun printWeatherPoster(weather: Weather,weatherDTO: WeatherDTO?){
-        if (weatherDTO != null) liveData.postValue(AppState.Success(weather, weatherDTO))
-        else sentRequest(locCity)
+    fun printWeatherPoster(weather: Weather,weatherDTO: WeatherDTO){
+        liveData.postValue(AppState.Success(weather, weatherDTO))
+    }
+
+    fun error(errorMsg: String){
+        sentRequest(locCity)
+        liveData.postValue(AppState.Error(Exception("Ошибка загрузки: $errorMsg")))
     }
 
     //функция проверки состояния соединения

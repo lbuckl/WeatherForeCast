@@ -14,6 +14,14 @@ fun View.showSnackBarError(
     Snackbar.make(this, text, length).show()
 }
 
+fun View.showSnackBarErrorMsg(
+    errorMsg:String,
+    text: String = rootView.resources.getString(R.string.error)+errorMsg,
+    length: Int = Snackbar.LENGTH_LONG
+) {
+    Snackbar.make(this, text, length).show()
+}
+
 //Для HTTPS запроса погоды
 fun getLines(reader: BufferedReader): String {
     return reader.lines().collect(Collectors.joining("\n"))
