@@ -43,8 +43,8 @@ class WeatherListViewModel(private val liveData: MutableLiveData<AppState> = Mut
         liveData.postValue(AppState.Loading(weather))
     }
 
-    fun printWeatherPoster(weather: Weather,weatherDTO: WeatherDTO){
-        liveData.postValue(AppState.Success(weather, weatherDTO))
+    fun printWeatherPoster(weather: Weather){
+        liveData.postValue(AppState.Success(weather))
     }
 
     fun error(errorMsg: String){

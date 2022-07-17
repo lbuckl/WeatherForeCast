@@ -2,7 +2,7 @@ package com.gb.Weather.model
 import com.gb.Weather.domain.Weather
 import com.gb.Weather.model.dto.WeatherDTO
 
-interface RepositorySingleCity{fun getWeather(weatherDTO: WeatherDTO):WeatherDTO}
+interface RepositorySingleCity{fun getWeather(weather: Weather):Weather}
 
 interface RepositoryListCity{fun getListWeather(locationCity: LocationCity):List<Weather>}
 

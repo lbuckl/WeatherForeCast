@@ -63,7 +63,6 @@ class WeatherListFragment : Fragment(), OnItemClick {
         binding_list.buttonWorld.setOnClickListener{
             viewModel.getWeatherListForWorld()
         }
-
     }
 
     //Подписка на изменение AppState и выполнение операций по триггеру

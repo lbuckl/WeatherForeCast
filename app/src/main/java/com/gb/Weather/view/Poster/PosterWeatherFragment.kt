@@ -39,9 +39,9 @@ class PosterWeatherFragment: Fragment() {
             is AppState.Success -> {
                 with(binding){
                     cityName.text = appState.weather.city.name
-                    temperatureValue.text = appState.weatherData.fact.temp.toString()
-                    feelsLikeValue.text = appState.weatherData.fact.feelsLike.toString()
-                    cityCoordinates.text = "${appState.weatherData.info.lat}/${appState.weatherData.info.lon}"
+                    temperatureValue.text = appState.weather.temperature.toString()
+                    feelsLikeValue.text = appState.weather.feelsLike.toString()
+                    cityCoordinates.text = "${appState.weather.city.lat}/${appState.weather.city.lon}"
                 }
             }
             else -> {

@@ -39,15 +39,14 @@ object WeatherLoader {
                     //val weatherDTO: WeatherDTO? = null
                     handler.post {
                         if (weatherDTO != null) {
-                            WeatherListFragment.viewModel.printWeatherPoster(weather, weatherDTO
-                            )
+                            val weatherData = Weather(weather.city,weatherDTO.fact.temp,weatherDTO.fact.feelsLike)
+                            WeatherListFragment.viewModel.printWeatherPoster(weatherData)
                         } else WeatherListFragment.viewModel.error("Не корректные данные!!!")
                     }
                 }catch (e:Exception){
                     e.printStackTrace()
                     Log.d("@@@","RuntimeException")
                     WeatherListFragment.viewModel.error("Ошибка запроса по API ключу!!!")
-
                 }
             }.start()
     }

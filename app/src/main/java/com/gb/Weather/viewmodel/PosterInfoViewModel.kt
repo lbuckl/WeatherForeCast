@@ -21,7 +21,7 @@ class PosterInfoViewModel (private val liveData: MutableLiveData<AppState> = Mut
     }
 
     fun postWeatherData(weather: Weather, weatherDTO: WeatherDTO){
-        liveData.postValue(AppState.Success(weather, weatherDTO))
+        liveData.postValue(AppState.Success(weather))
     }
 
 }

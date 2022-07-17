@@ -1,8 +1,8 @@
 package com.gb.Weather.model
-import com.gb.Weather.model.dto.WeatherDTO
+import com.gb.Weather.domain.Weather
 
 class RepositoryRemoteImpl:RepositorySingleCity {
-    override fun getWeather(weatherDTO: WeatherDTO): WeatherDTO {
-        return weatherDTO
+    override fun getWeather(weather: Weather): Weather{
+        return weather
     }
 }
