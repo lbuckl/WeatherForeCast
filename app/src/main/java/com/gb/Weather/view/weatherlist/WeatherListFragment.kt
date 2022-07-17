@@ -83,7 +83,7 @@ class WeatherListFragment : Fragment(), OnItemClick {
                     .add(R.id.container, loadingFragment)
                     .addToBackStack("List")
                     .commit()
-                WeatherLoader.requestWeatherTDO(appState.weather)
+                //WeatherLoader.requestWeatherTDO(appState.weather)
             }
 
             is AppState.Success -> {

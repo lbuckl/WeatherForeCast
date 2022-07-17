@@ -7,6 +7,7 @@ import com.gb.Weather.model.LocationCity
 import com.gb.Weather.model.RepositoryListCity
 import com.gb.Weather.model.RepositoryLocalImpl
 import com.gb.Weather.model.dto.WeatherDTO
+import com.gb.Weather.shared.WeatherLoader
 
 /**
  * Класс для реализации LiveData
@@ -38,6 +39,7 @@ class WeatherListViewModel(private val liveData: MutableLiveData<AppState> = Mut
     }
 
     fun loadWeather(weather: Weather){
+        WeatherLoader.requestWeatherTDO(weather)
         liveData.postValue(AppState.Loading(weather))
     }
 
