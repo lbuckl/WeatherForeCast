@@ -31,6 +31,11 @@ object WeatherLoader {
                 //addRequestProperty("X-Yandex-API-Key", BROKEN_API_KEY)
                 addRequestProperty("X-Yandex-API-Key", BuildConfig.WEATHER_API_KEY)
             }
+            //myConnection.readTimeout = 5000
+            //myConnection.addRequestProperty("X-Yandex-API-Key", BROKEN_API_KEY)
+            //myConnection.addRequestProperty("X-Yandex-API-Key", BuildConfig.WEATHER_API_KEY)
+
+
             Thread {
                 Thread.sleep(1000)
                 try {
