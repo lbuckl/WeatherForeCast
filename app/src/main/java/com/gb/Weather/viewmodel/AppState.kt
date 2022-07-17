@@ -1,7 +1,6 @@
 package com.gb.Weather.viewmodel
 
 import com.gb.Weather.domain.Weather
-import com.gb.Weather.model.dto.WeatherDTO
 
 /**
  * Класс описывающий состояния

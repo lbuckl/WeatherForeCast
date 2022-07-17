@@ -1,6 +1,5 @@
 package com.gb.Weather.model
 import com.gb.Weather.domain.Weather
-import com.gb.Weather.model.dto.WeatherDTO
 
 interface RepositorySingleCity{fun getWeather(weather: Weather):Weather}
 
