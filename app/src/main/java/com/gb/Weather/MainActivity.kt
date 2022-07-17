@@ -15,7 +15,10 @@ internal class MainActivity : AppCompatActivity() {
         setContentView(binding.myRoot)
 
         if(savedInstanceState==null){
-            supportFragmentManager.beginTransaction().add(R.id.container,WeatherListFragment.newInstance()).commit()
+            supportFragmentManager.beginTransaction()
+                .add(R.id.container,WeatherListFragment.newInstance())
+                .addToBackStack("")
+                .commit()
         }
     }
 }

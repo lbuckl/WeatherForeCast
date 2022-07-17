@@ -6,12 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.gb.Weather.databinding.FragmentWeatherListItemBinding
 import com.gb.Weather.domain.Weather
-import com.gb.Weather.shared.WeatherLoader
 import com.gb.Weather.view.Poster.OnItemClick
-import com.gb.Weather.view.Poster.PosterFragment
-import com.gb.Weather.viewmodel.AppState
-import com.gb.Weather.viewmodel.PosterInfoViewModel
-import com.gb.Weather.viewmodel.WeatherListViewModel
 
 /**
  * Кастомный адаптер для вывода списка городов в recyclerview

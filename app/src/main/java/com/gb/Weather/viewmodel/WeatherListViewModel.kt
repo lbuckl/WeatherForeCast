@@ -7,7 +7,6 @@ import com.gb.Weather.model.LocationCity
 import com.gb.Weather.model.RepositoryListCity
 import com.gb.Weather.model.RepositoryLocalImpl
 import com.gb.Weather.model.dto.WeatherDTO
-import java.lang.Exception
 
 /**
  * Класс для реализации LiveData

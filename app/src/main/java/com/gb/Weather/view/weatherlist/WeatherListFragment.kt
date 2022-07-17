@@ -11,7 +11,6 @@ import com.gb.Weather.R
 import com.gb.Weather.databinding.FragmentWeatherListBinding
 import com.gb.Weather.domain.Weather
 import com.gb.Weather.shared.WeatherLoader
-import com.gb.Weather.shared.showSnackBarError
 import com.gb.Weather.shared.showSnackBarErrorMsg
 import com.gb.Weather.view.LoadingFragment
 import com.gb.Weather.view.Poster.OnItemClick
@@ -32,7 +31,7 @@ class WeatherListFragment : Fragment(), OnItemClick {
         fun newInstance() = WeatherListFragment()
     }
 
-    lateinit var binding_list: FragmentWeatherListBinding
+    private lateinit var binding_list: FragmentWeatherListBinding
 
     override fun onCreateView(inflater: LayoutInflater,
                               container: ViewGroup?,
@@ -91,16 +90,19 @@ class WeatherListFragment : Fragment(), OnItemClick {
                 Log.d("@@@","Succes")
                 requireActivity().supportFragmentManager
                     .beginTransaction()
+                    .remove(loadingFragment)
                     .replace(R.id.container, PosterWeatherFragment())
                     .addToBackStack("")
                     .commit()
             }
 
             is AppState.Error -> {
+                Log.d("@@@","Error")
                 view?.showSnackBarErrorMsg(appState.error.toString())
                 requireActivity().supportFragmentManager
                         .beginTransaction()
                         .remove(loadingFragment)
+                        .replace(R.id.container, this)
                         .commit()
             }
         }
