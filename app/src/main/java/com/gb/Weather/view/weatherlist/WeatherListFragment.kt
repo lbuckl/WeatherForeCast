@@ -13,12 +13,9 @@ import com.gb.Weather.domain.Weather
 import com.gb.Weather.shared.showSnackBarErrorMsg
 import com.gb.Weather.view.LoadingFragment
 import com.gb.Weather.view.Poster.OnItemClick
-import com.gb.Weather.view.Poster.PosterFragment
-import com.gb.Weather.view.Poster.PosterTest
 import com.gb.Weather.view.Poster.PosterWeatherFragment
 import com.gb.Weather.viewmodel.AppState
 import com.gb.Weather.viewmodel.WeatherListViewModel
-import com.google.android.material.snackbar.Snackbar
 
 /**
  * (Класс был изменен)
@@ -78,7 +75,7 @@ class WeatherListFragment : Fragment(), OnItemClick {
                 Log.d("@@@","Loading")
                 requireActivity().supportFragmentManager
                     .beginTransaction().hide(this)
-                    .add(R.id.container, PosterTest())
+                    .add(R.id.container, PosterWeatherFragment())
                     .addToBackStack("List")
                     .commit()
             }

@@ -10,8 +10,7 @@ import com.gb.Weather.model.RepositoryRemoteImpl
 import com.gb.Weather.shared.CallBackError
 import com.gb.Weather.shared.CallBackResult
 import com.gb.Weather.shared.WeatherLoader
-import com.gb.Weather.view.Poster.PosterFragment
-import com.gb.Weather.view.Poster.PosterTest
+import com.gb.Weather.view.Poster.PosterWeatherFragment
 
 /**
  * Класс для реализации LiveData
@@ -48,19 +47,14 @@ class WeatherListViewModel(private val liveData: MutableLiveData<AppState> = Mut
         //RepositoryRemoteImpl.setWeather(weather)
     }
 
-    fun printWeatherPoster(weather: Weather){
-        liveData.postValue(AppState.Success(weather))
-    }
-
-    fun error(errorMsg: String){
-        liveData.postValue(AppState.Error(Exception("Ошибка загрузки: $errorMsg")))
-        sentRequest(locCity)
-    }
-
     //получили колбэк от запроса погоды
     override fun returnedResult(weather: Weather) {
-        PosterTest.viewModel_poster.loadWeatherData(weather)
-        liveData.postValue(AppState.Success(weather))
+        RepositoryRemoteImpl.setWeather(weather)
+        //Перевели вью фрагмента погоды в состояние Успешно, передаём данные
+        PosterWeatherFragment.viewModel_poster.loadWeatherData(weather)
+        //Возвращаем фрагмент в начальное состояние
+        sentRequest(locCity)
+        //liveData.postValue(AppState.Success(weather))
     }
 
     //получили ошибку от запроса погоды

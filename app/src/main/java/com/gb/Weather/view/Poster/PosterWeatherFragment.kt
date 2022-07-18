@@ -6,13 +6,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import com.gb.Weather.databinding.FragmentWeatherPosterBinding
-import com.gb.Weather.view.weatherlist.WeatherListFragment
+import com.gb.Weather.shared.showSnackBarErrorMsg
 import com.gb.Weather.viewmodel.AppState
+import com.gb.Weather.viewmodel.PosterInfoViewModel
 
 class PosterWeatherFragment: Fragment() {
     companion object {
-        //lateinit var viewModel: PosterInfoViewModel
+        lateinit var viewModel_poster: PosterInfoViewModel
     }
 
     lateinit var binding: FragmentWeatherPosterBinding
@@ -28,9 +30,10 @@ class PosterWeatherFragment: Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        //viewModel = ViewModelProvider(this).get(PosterInfoViewModel::class.java)
-        WeatherListFragment.viewModel.getLiveData().observe(viewLifecycleOwner
+        viewModel_poster = ViewModelProvider(this).get(PosterInfoViewModel::class.java)
+        viewModel_poster.getLiveData().observe(viewLifecycleOwner
         ) { t -> renderData(t) }
+
     }
 
     private fun renderData(appState: AppState) {
@@ -44,15 +47,16 @@ class PosterWeatherFragment: Fragment() {
                     cityCoordinates.text = "${appState.weather.city.lat}/${appState.weather.city.lon}"
                 }
             }
-            else -> {
+            is AppState.Error -> {
+                view?.showSnackBarErrorMsg(appState.error.toString())
+            }
+            is AppState.Loading ->{
                 with(binding){
-                cityName.text = "Ошибка"
-                temperatureValue.text = "Ошибка"
-                feelsLikeValue.text = "Ошибка"
-                cityCoordinates.text = "Ошибка/Ошибка"
+                    cityName.text = appState.weather.city.name
+                    cityCoordinates.text = "${appState.weather.city.lat}/${appState.weather.city.lon}"
                 }
             }
+            else -> {}
         }
     }
 }
-

@@ -47,14 +47,11 @@ object WeatherLoader {
                         if (weatherDTO != null) {
                             weatherData = Weather(weather.city,weatherDTO.fact.temp,weatherDTO.fact.feelsLike)
                             resultCB.returnedResult(weatherData)
-                            //WeatherListFragment.viewModel.printWeatherPoster(weatherData)
-                        } else //WeatherListFragment.viewModel.error("Не корректные данные!!!")
-                            errorCB.setError("Не корректные данные!!!")
+                        } else errorCB.setError("Не корректные данные!!!")
                     }
                 }catch (e:Exception){
                     e.printStackTrace()
                     Log.d("@@@","RuntimeException")
-                    //WeatherListFragment.viewModel.error("Ошибка запроса по API ключу!!!")
                     errorCB.setError("Ошибка запроса по API ключу!!!")
                 }
             }.start()
