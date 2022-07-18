@@ -14,6 +14,7 @@ import com.gb.Weather.shared.showSnackBarErrorMsg
 import com.gb.Weather.view.LoadingFragment
 import com.gb.Weather.view.Poster.OnItemClick
 import com.gb.Weather.view.Poster.PosterFragment
+import com.gb.Weather.view.Poster.PosterTest
 import com.gb.Weather.view.Poster.PosterWeatherFragment
 import com.gb.Weather.viewmodel.AppState
 import com.gb.Weather.viewmodel.WeatherListViewModel
@@ -75,40 +76,37 @@ class WeatherListFragment : Fragment(), OnItemClick {
 
             is AppState.Loading -> {
                 Log.d("@@@","Loading")
-                Snackbar.make(binding_list.root, "Loading", Snackbar.LENGTH_SHORT).show()
                 requireActivity().supportFragmentManager
                     .beginTransaction().hide(this)
-                    .add(R.id.container, loadingFragment)
+                    .add(R.id.container, PosterTest())
                     .addToBackStack("List")
                     .commit()
-                //WeatherLoader.requestWeatherTDO(appState.weather)
             }
 
             is AppState.Success -> {
-                Log.d("@@@","Succes")
+                //Log.d("@@@","Succes")
+                /*viewModel.refresh()
                 requireActivity().supportFragmentManager
-                    .beginTransaction()
-                    .remove(loadingFragment)
-                    .replace(R.id.container, PosterWeatherFragment())
-                    .addToBackStack("")
-                    .commit()
+                    .beginTransaction().hide(loadingFragment)
+                    .add(R.id.container, PosterTest())
+                    .addToBackStack("Poster")
+                    .commit()*/
             }
 
             is AppState.Error -> {
                 Log.d("@@@","Error")
                 view?.showSnackBarErrorMsg(appState.error.toString())
                 requireActivity().supportFragmentManager
-                        .beginTransaction()
-                        .remove(loadingFragment)
-                        .replace(R.id.container, this)
-                        .commit()
+                    .beginTransaction().hide(loadingFragment)
+                    .commit()
+                viewModel.refresh()
             }
         }
     }
 
     override fun onItemClick(weather: Weather) {
-        requireActivity().supportFragmentManager.beginTransaction().hide(this).add(
+        /*requireActivity().supportFragmentManager.beginTransaction().hide(this).add(
             R.id.container, PosterFragment.newInstance(weather)
-        ).addToBackStack("").commit()
+        ).addToBackStack("").commit()*/
     }
 }

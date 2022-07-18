@@ -6,14 +6,19 @@ import com.gb.Weather.domain.Weather
 import com.gb.Weather.model.LocationCity
 import com.gb.Weather.model.RepositoryListCity
 import com.gb.Weather.model.RepositoryLocalImpl
+import com.gb.Weather.model.RepositoryRemoteImpl
+import com.gb.Weather.shared.CallBackError
+import com.gb.Weather.shared.CallBackResult
 import com.gb.Weather.shared.WeatherLoader
+import com.gb.Weather.view.Poster.PosterFragment
+import com.gb.Weather.view.Poster.PosterTest
 
 /**
  * Класс для реализации LiveData
  * Тригерит состояния AppState
  */
 class WeatherListViewModel(private val liveData: MutableLiveData<AppState> = MutableLiveData<AppState>()) :
-    ViewModel(){
+    ViewModel(),CallBackResult,CallBackError{
 
     private lateinit var repositoryList: RepositoryListCity
     private lateinit var locCity: LocationCity
@@ -28,8 +33,7 @@ class WeatherListViewModel(private val liveData: MutableLiveData<AppState> = Mut
     fun getWeatherListForRussia() = sentRequest(LocationCity.Russian)
     fun getWeatherListForWorld() = sentRequest(LocationCity.World)
     fun getWeatherListForFavorite() = sentRequest(LocationCity.Favorite)
-
-    /* endregion */
+    //endregion
 
     //данные для списка городов. Тригерит загрузку списка городов
     private fun sentRequest(locationCity: LocationCity) {
@@ -38,8 +42,10 @@ class WeatherListViewModel(private val liveData: MutableLiveData<AppState> = Mut
     }
 
     fun loadWeather(weather: Weather){
-        WeatherLoader.requestWeatherTDO(weather)
+        //Открываем постер
         liveData.postValue(AppState.Loading(weather))
+        WeatherLoader.requestWeatherTDO(weather,this,this)
+        //RepositoryRemoteImpl.setWeather(weather)
     }
 
     fun printWeatherPoster(weather: Weather){
@@ -47,10 +53,22 @@ class WeatherListViewModel(private val liveData: MutableLiveData<AppState> = Mut
     }
 
     fun error(errorMsg: String){
+        liveData.postValue(AppState.Error(Exception("Ошибка загрузки: $errorMsg")))
         sentRequest(locCity)
+    }
+
+    //получили колбэк от запроса погоды
+    override fun returnedResult(weather: Weather) {
+        PosterTest.viewModel_poster.loadWeatherData(weather)
+        liveData.postValue(AppState.Success(weather))
+    }
+
+    //получили ошибку от запроса погоды
+    override fun setError(errorMsg: String) {
         liveData.postValue(AppState.Error(Exception("Ошибка загрузки: $errorMsg")))
     }
 
-    //функция проверки состояния соединения
-    private val isConnection = {false}
+    fun refresh(){
+        sentRequest(locCity)
+    }
 }
