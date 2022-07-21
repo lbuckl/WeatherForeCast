@@ -67,34 +67,16 @@ class WeatherListFragment : Fragment(), OnItemClick {
         val loadingFragment = LoadingFragment()
         when (appState){
             is AppState.LoadCities -> {
-                Log.d("@@@","LoadCities")
+                //Log.d("@@@","LoadCities")
                 binding_list.weatherRecyclerview.adapter = WeatherListRecyclerAdapter(appState.weatherList,this)
             }
 
             is AppState.Loading -> {
-                Log.d("@@@","Loading")
+                Log.d("@@@","LoadingWLF")
                 requireActivity().supportFragmentManager
                     .beginTransaction().hide(this)
                     .add(R.id.container, PosterWeatherFragment())
                     .addToBackStack("List")
-                    .commit()
-            }
-
-            is AppState.Success -> {
-                //Log.d("@@@","Succes")
-                /*viewModel.refresh()
-                requireActivity().supportFragmentManager
-                    .beginTransaction().hide(loadingFragment)
-                    .add(R.id.container, PosterTest())
-                    .addToBackStack("Poster")
-                    .commit()*/
-            }
-
-            is AppState.Error -> {
-                Log.d("@@@","Error")
-                view?.showSnackBarErrorMsg(appState.error.toString())
-                requireActivity().supportFragmentManager
-                    .beginTransaction().hide(loadingFragment)
                     .commit()
                 viewModel.refresh()
             }

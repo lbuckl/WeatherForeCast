@@ -30,16 +30,17 @@ class PosterWeatherFragment: Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        Log.d("@@@","onViewCreated")
         viewModel_poster = ViewModelProvider(this).get(PosterInfoViewModel::class.java)
-        viewModel_poster.getLiveData().observe(viewLifecycleOwner
-        ) { t -> renderData(t) }
-
+        viewModel_poster.getLiveData().observe(viewLifecycleOwner) { t -> renderData(t) }
+        viewModel_poster.init()
     }
 
     private fun renderData(appState: AppState) {
-        Log.d("@@@","SuccesPoster")
+        Log.d("@@@","renderData")
         when (appState){
             is AppState.Success -> {
+                Log.d("@@@","SuccesPoster")
                 with(binding){
                     cityName.text = appState.weather.city.name
                     temperatureValue.text = appState.weather.temperature.toString()
@@ -48,15 +49,20 @@ class PosterWeatherFragment: Fragment() {
                 }
             }
             is AppState.Error -> {
+                Log.d("@@@","ErrorPoster")
                 view?.showSnackBarErrorMsg(appState.error.toString())
             }
             is AppState.Loading ->{
+                Log.d("@@@","LoadingPoster")
                 with(binding){
-                    cityName.text = appState.weather.city.name
-                    cityCoordinates.text = "${appState.weather.city.lat}/${appState.weather.city.lon}"
+                    //cityName.text = appState.weather.city.name
+                    //cityCoordinates.text = "${appState.weather.city.lat}/${appState.weather.city.lon}"
                 }
             }
-            else -> {}
+            else -> {
+                Log.d("@@@","getWeather")
+                viewModel_poster.getWeather()
+            }
         }
     }
 }

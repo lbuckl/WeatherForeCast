@@ -12,4 +12,5 @@ sealed class AppState {
     data class Loading(val weather: Weather) : AppState() // загрузка
     data class Success(val weather: Weather) : AppState() //Действие при удачной загрузке
     data class Error(val error: Exception) : AppState() // Действие при ошибке
+    object Empty: AppState()
 }

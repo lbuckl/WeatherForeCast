@@ -23,22 +23,19 @@ object WeatherLoader {
 
     fun requestWeatherTDO(weather: Weather, resultCB:CallBackResult, errorCB:CallBackError){
         weatherData = weather
-
         val lat: Double = weather.city.lat
         val lon: Double = weather.city.lon
         val handler = Handler(Looper.myLooper()!!)
 
             val uri = URL("https://api.weather.yandex.ru/v2/informers?lat=${lat}&lon=${lon}")
-            var myConnection: HttpsURLConnection? = null
-
-            myConnection = uri.openConnection() as HttpsURLConnection
-            myConnection.apply {
-                readTimeout = 5000
-                //addRequestProperty("X-Yandex-API-Key", BROKEN_API_KEY)
-                addRequestProperty("X-Yandex-API-Key", BuildConfig.WEATHER_API_KEY)
-            }
             Thread {
-                Thread.sleep(1000)
+                var myConnection: HttpsURLConnection? = null
+                myConnection = uri.openConnection() as HttpsURLConnection
+                myConnection.apply {
+                    readTimeout = 5000
+                    //addRequestProperty("YANDEX_API_KEY_NAME", BROKEN_API_KEY)
+                    addRequestProperty(YANDEX_API_KEY_NAME, BuildConfig.WEATHER_API_KEY)
+                }
                 try {
                     val reader = BufferedReader(InputStreamReader(myConnection.inputStream))
                     val weatherDTO = Gson().fromJson(getLines(reader), WeatherDTO::class.java)
@@ -49,10 +46,12 @@ object WeatherLoader {
                             resultCB.returnedResult(weatherData)
                         } else errorCB.setError("Не корректные данные!!!")
                     }
-                }catch (e:Exception){
+                }catch (e:RuntimeException){
                     e.printStackTrace()
                     Log.d("@@@","RuntimeException")
                     errorCB.setError("Ошибка запроса по API ключу!!!")
+                }finally {
+                    myConnection.disconnect()
                 }
             }.start()
     }
