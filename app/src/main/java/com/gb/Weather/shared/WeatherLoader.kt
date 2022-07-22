@@ -8,8 +8,10 @@ import com.gb.Weather.domain.Weather
 import com.gb.Weather.model.dto.WeatherDTO
 import com.google.gson.Gson
 import java.io.BufferedReader
+import java.io.FileNotFoundException
 import java.io.InputStreamReader
 import java.net.URL
+import java.net.UnknownHostException
 import javax.net.ssl.HttpsURLConnection
 
 object WeatherLoader {
@@ -50,6 +52,14 @@ object WeatherLoader {
                     e.printStackTrace()
                     Log.d("@@@","RuntimeException")
                     errorCB.setError("Ошибка запроса по API ключу!!!")
+                }catch (e: FileNotFoundException){
+                    e.printStackTrace()
+                    Log.d("@@@","FileNotFoundException")
+                    errorCB.setError("Не корректные данные!!!")
+                }catch (e:UnknownHostException){
+                    e.printStackTrace()
+                    Log.d("@@@","UnknownHostException")
+                    errorCB.setError("Отсутствие связи с хостом!!!")
                 }finally {
                     myConnection.disconnect()
                 }

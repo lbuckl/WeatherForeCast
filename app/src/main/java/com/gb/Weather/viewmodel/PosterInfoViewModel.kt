@@ -27,7 +27,7 @@ class PosterInfoViewModel (private val liveData: MutableLiveData<AppState> = Mut
 
     fun getWeather(){
         val weather = RepositoryRemoteImpl.getWeather()
-        Log.d("@@@","PosterLoad ${weather.city}")
+        Log.d("@@@","LoadWeather")
         WeatherLoader.requestWeatherTDO(weather,this,this)
         liveData.postValue(AppState.Loading(weather))
     }

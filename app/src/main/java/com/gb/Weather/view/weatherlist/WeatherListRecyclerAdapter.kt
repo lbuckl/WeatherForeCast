@@ -11,7 +11,7 @@ import com.gb.Weather.view.Poster.OnItemClick
 /**
  * Кастомный адаптер для вывода списка городов в recyclerview
  */
-class WeatherListRecyclerAdapter (private val weatherListCity:List<Weather>,private val callback: OnItemClick):
+class WeatherListRecyclerAdapter (private val weatherListCity:List<Weather>):
     RecyclerView.Adapter<WeatherListRecyclerAdapter.WeatherViewHolder>() {
 
     //Создаёт ViewHolder объект опираясь на их количество, но с запасом, чтобы можно было скролить

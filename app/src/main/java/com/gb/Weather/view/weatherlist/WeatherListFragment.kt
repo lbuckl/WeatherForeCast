@@ -1,10 +1,16 @@
 package com.gb.Weather.view.weatherlist
 
+import android.content.BroadcastReceiver
+import android.content.Context
+import android.content.Intent
+import android.content.IntentFilter
+import android.net.ConnectivityManager
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.gb.Weather.R
@@ -21,13 +27,14 @@ import com.gb.Weather.viewmodel.WeatherListViewModel
  * (Класс был изменен)
  * Сейчас он отвечает за раскрытие списка городов и обработке дейтсвия по клику (открытие постера)
  */
-class WeatherListFragment : Fragment(), OnItemClick {
+class WeatherListFragment : Fragment() {
 
     companion object {
         lateinit var viewModel: WeatherListViewModel
         fun newInstance() = WeatherListFragment()
     }
 
+    var isConnection = true
     private lateinit var binding_list: FragmentWeatherListBinding
 
     override fun onCreateView(inflater: LayoutInflater,
@@ -35,6 +42,10 @@ class WeatherListFragment : Fragment(), OnItemClick {
                               savedInstanceState: Bundle?): View {
         //Биндинг для прямой связи View
         binding_list = FragmentWeatherListBinding.inflate(inflater)
+        //регистрация ресивера для контроля сети
+        val filter = IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION)
+        context?.registerReceiver(networkStateReceiver, filter)
+
         return binding_list.root
     }
 
@@ -42,7 +53,6 @@ class WeatherListFragment : Fragment(), OnItemClick {
         super.onViewCreated(view, savedInstanceState)
         //Получаем ссылку на наш экземпляр ViewModel
         viewModel = ViewModelProvider(this).get(WeatherListViewModel::class.java)
-        //получаем данные из LiveData и
         //запускаем подписку на AppState
         viewModel.getLiveData().observe(viewLifecycleOwner
         ) { t -> renderData(t) }
@@ -64,11 +74,9 @@ class WeatherListFragment : Fragment(), OnItemClick {
 
     //Подписка на изменение AppState и выполнение операций по триггеру
     private fun renderData(appState: AppState){
-        val loadingFragment = LoadingFragment()
         when (appState){
             is AppState.LoadCities -> {
-                //Log.d("@@@","LoadCities")
-                binding_list.weatherRecyclerview.adapter = WeatherListRecyclerAdapter(appState.weatherList,this)
+                binding_list.weatherRecyclerview.adapter = WeatherListRecyclerAdapter(appState.weatherList)
             }
 
             is AppState.Loading -> {
@@ -80,12 +88,36 @@ class WeatherListFragment : Fragment(), OnItemClick {
                     .commit()
                 viewModel.refresh()
             }
+            else -> viewModel.refresh()
         }
     }
 
-    override fun onItemClick(weather: Weather) {
-        /*requireActivity().supportFragmentManager.beginTransaction().hide(this).add(
-            R.id.container, PosterFragment.newInstance(weather)
-        ).addToBackStack("").commit()*/
+    //region Ресивер для контроля сети
+    private var networkStateReceiver: BroadcastReceiver = object : BroadcastReceiver() {
+        override fun onReceive(context: Context, intent: Intent) {
+            val noConnectivity =
+                intent.getBooleanExtra(ConnectivityManager.EXTRA_NO_CONNECTIVITY, false)
+            if (!noConnectivity) {
+                onConnectionFound()
+            } else {
+                onConnectionLost()
+            }
+        }
     }
+
+    fun onConnectionLost() {
+        isConnection = false
+        Toast.makeText(context, "Connection lost", Toast.LENGTH_LONG).show()
+    }
+
+    fun onConnectionFound() {
+        isConnection = true
+        Toast.makeText(context, "Connection found", Toast.LENGTH_LONG).show()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        context?.unregisterReceiver(networkStateReceiver)
+    }
+    //endregion
 }
