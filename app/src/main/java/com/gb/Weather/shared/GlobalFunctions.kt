@@ -16,7 +16,15 @@ fun View.showSnackBarError(
 
 fun View.showSnackBarErrorMsg(
     errorMsg:String,
-    text: String = rootView.resources.getString(R.string.error)+errorMsg,
+    text: String = "${rootView.resources.getString(R.string.error)}: $errorMsg",
+    length: Int = Snackbar.LENGTH_LONG
+) {
+    Snackbar.make(this, text, length).show()
+}
+
+fun View.showSnackBarInfoMsg(
+    infoMsg:String,
+    text: String = "${rootView.resources.getString(R.string.info)}: $infoMsg",
     length: Int = Snackbar.LENGTH_LONG
 ) {
     Snackbar.make(this, text, length).show()

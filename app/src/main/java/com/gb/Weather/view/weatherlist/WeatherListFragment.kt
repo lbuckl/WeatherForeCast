@@ -17,6 +17,7 @@ import com.gb.Weather.R
 import com.gb.Weather.databinding.FragmentWeatherListBinding
 import com.gb.Weather.domain.Weather
 import com.gb.Weather.shared.showSnackBarErrorMsg
+import com.gb.Weather.shared.showSnackBarInfoMsg
 import com.gb.Weather.view.LoadingFragment
 import com.gb.Weather.view.Poster.OnItemClick
 import com.gb.Weather.view.Poster.PosterWeatherFragment
@@ -80,13 +81,17 @@ class WeatherListFragment : Fragment() {
             }
 
             is AppState.Loading -> {
-                Log.d("@@@","LoadingWLF")
-                requireActivity().supportFragmentManager
-                    .beginTransaction().hide(this)
-                    .add(R.id.container, PosterWeatherFragment())
-                    .addToBackStack("List")
-                    .commit()
-                viewModel.refresh()
+                if (isConnection){
+                    Log.d("@@@","LoadingWLF")
+                    requireActivity().supportFragmentManager
+                        .beginTransaction().hide(this)
+                        .add(R.id.container, PosterWeatherFragment())
+                        .addToBackStack("List")
+                        .commit()
+                    viewModel.refresh()
+                }
+                else view?.showSnackBarErrorMsg("Please connect to internet")
+
             }
             else -> viewModel.refresh()
         }
@@ -107,12 +112,14 @@ class WeatherListFragment : Fragment() {
 
     fun onConnectionLost() {
         isConnection = false
-        Toast.makeText(context, "Connection lost", Toast.LENGTH_LONG).show()
+        view?.showSnackBarErrorMsg("Connection lost")
+        //Toast.makeText(context, "Connection lost", Toast.LENGTH_LONG).show()
     }
 
     fun onConnectionFound() {
         isConnection = true
-        Toast.makeText(context, "Connection found", Toast.LENGTH_LONG).show()
+        view?.showSnackBarInfoMsg("Connection found")
+        //Toast.makeText(context, "Connection found", Toast.LENGTH_LONG).show()
     }
 
     override fun onDestroy() {
