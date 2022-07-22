@@ -10,20 +10,15 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.gb.Weather.R
 import com.gb.Weather.databinding.FragmentWeatherListBinding
-import com.gb.Weather.domain.Weather
 import com.gb.Weather.services.WeatherLoaderService
 import com.gb.Weather.shared.BUNDLE_WEATHER_KEY
 import com.gb.Weather.shared.showSnackBarErrorMsg
 import com.gb.Weather.shared.showSnackBarInfoMsg
-import com.gb.Weather.view.LoadingFragment
-import com.gb.Weather.view.Poster.OnItemClick
 import com.gb.Weather.view.Poster.PosterFragment
-import com.gb.Weather.view.Poster.PosterWeatherFragment
 import com.gb.Weather.viewmodel.AppState
 import com.gb.Weather.viewmodel.WeatherListViewModel
 
@@ -46,6 +41,7 @@ class WeatherListFragment : Fragment() {
                               savedInstanceState: Bundle?): View {
         //Биндинг для прямой связи View
         binding_list = FragmentWeatherListBinding.inflate(inflater)
+        //@@@
         //регистрация ресивера для контроля сети
         val filter = IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION)
         context?.registerReceiver(networkStateReceiver, filter)
@@ -108,6 +104,7 @@ class WeatherListFragment : Fragment() {
         }
     }
 
+    //@@@
     //region Ресивер для контроля сети
     private var networkStateReceiver: BroadcastReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context, intent: Intent) {

@@ -1,11 +1,5 @@
 package com.gb.Weather.viewmodel
 
-import android.content.BroadcastReceiver
-import android.content.Context
-import android.content.Intent
-import android.content.IntentFilter
-import android.net.ConnectivityManager
-import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.gb.Weather.domain.Weather
@@ -13,10 +7,6 @@ import com.gb.Weather.model.LocationCity
 import com.gb.Weather.model.RepositoryListCity
 import com.gb.Weather.model.RepositoryLocalImpl
 import com.gb.Weather.model.RepositoryRemoteImpl
-import com.gb.Weather.shared.CallBackError
-import com.gb.Weather.shared.CallBackResult
-import com.gb.Weather.shared.WeatherLoader
-import com.gb.Weather.view.Poster.PosterWeatherFragment
 
 /**
  * Класс для реализации LiveData

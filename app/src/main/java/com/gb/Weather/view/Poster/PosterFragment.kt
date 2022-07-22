@@ -13,20 +13,15 @@ import androidx.fragment.app.Fragment
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.gb.Weather.databinding.FragmentWeatherPosterBinding
 import com.gb.Weather.domain.Weather
-import com.gb.Weather.services.WeatherLoaderService
 import com.gb.Weather.shared.BUNDLE_WEATHER_KEY
-import com.gb.Weather.shared.SAVE_WEATHER_KEY
 import com.gb.Weather.shared.WEATHER_LOADED_WAVE
 
 class PosterFragment: Fragment() {
 
     lateinit var binding: FragmentWeatherPosterBinding
 
-    override fun onDestroy() {
-        super.onDestroy()
-    }
 
-    val receiver = object : BroadcastReceiver() {
+    private val receiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent?) {
             Log.d("@@@", "onReceive ${binding.root}")
             intent?.let {
@@ -65,14 +60,4 @@ class PosterFragment: Fragment() {
         cityCoordinates.text = "${weather.city.lat}/${weather.city.lon}"
         }
     }
-
-    /*companion object {
-        fun newInstance(weather: Weather): PosterFragment {
-            val fr = PosterFragment()
-            val bundle = Bundle()
-            fr.arguments = bundle.apply { putParcelable(SAVE_WEATHER_KEY, weather) }
-            return fr
-        }
-    }*/
-
 }
