@@ -1,5 +1,6 @@
 package com.gb.Weather.view.Poster
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -7,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.gb.Weather.databinding.FragmentWeatherPosterBinding
 import com.gb.Weather.domain.Weather
+import com.gb.Weather.services.WeatherLoaderService
 import com.gb.Weather.shared.SAVE_WEATHER_KEY
 
 class PosterFragment: Fragment() {
@@ -38,27 +40,27 @@ class PosterFragment: Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val weather = (arguments?.getParcelable<Weather>(SAVE_WEATHER_KEY))
+        /*val weather = (arguments?.getParcelable<Weather>(SAVE_WEATHER_KEY))
         if (weather != null)
-        renderData(weather);
+        renderData(weather);*/
     }
 
-    private fun renderData(weather: Weather) {
+    /*private fun renderData(weather: Weather) {
         with(binding){
         cityName.text = weather.city.name
         temperatureValue.text = weather.temperature.toString()
         feelsLikeValue.text = weather.feelsLike.toString()
         cityCoordinates.text = "${weather.city.lat}/${weather.city.lon}"
         }
-    }
+    }*/
 
-    companion object {
+    /*companion object {
         fun newInstance(weather: Weather): PosterFragment {
             val fr = PosterFragment()
             val bundle = Bundle()
             fr.arguments = bundle.apply { putParcelable(SAVE_WEATHER_KEY, weather) }
             return fr
         }
-    }
+    }*/
 
 }

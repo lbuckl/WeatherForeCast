@@ -16,6 +16,8 @@ import androidx.lifecycle.ViewModelProvider
 import com.gb.Weather.R
 import com.gb.Weather.databinding.FragmentWeatherListBinding
 import com.gb.Weather.domain.Weather
+import com.gb.Weather.services.WeatherLoaderService
+import com.gb.Weather.shared.BUNDLE_WEATHER_KEY
 import com.gb.Weather.shared.showSnackBarErrorMsg
 import com.gb.Weather.shared.showSnackBarInfoMsg
 import com.gb.Weather.view.LoadingFragment
@@ -88,6 +90,14 @@ class WeatherListFragment : Fragment() {
                         .add(R.id.container, PosterWeatherFragment())
                         .addToBackStack("List")
                         .commit()
+
+                    requireActivity().startService(
+                        Intent(
+                            requireContext(),
+                            WeatherLoaderService::class.java
+                        ).apply {
+                            putExtra(BUNDLE_WEATHER_KEY, appState.weather)
+                        })
                     viewModel.refresh()
                 }
                 else view?.showSnackBarErrorMsg("Please connect to internet")
