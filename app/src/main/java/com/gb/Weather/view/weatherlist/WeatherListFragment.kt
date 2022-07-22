@@ -22,6 +22,7 @@ import com.gb.Weather.shared.showSnackBarErrorMsg
 import com.gb.Weather.shared.showSnackBarInfoMsg
 import com.gb.Weather.view.LoadingFragment
 import com.gb.Weather.view.Poster.OnItemClick
+import com.gb.Weather.view.Poster.PosterFragment
 import com.gb.Weather.view.Poster.PosterWeatherFragment
 import com.gb.Weather.viewmodel.AppState
 import com.gb.Weather.viewmodel.WeatherListViewModel
@@ -87,13 +88,13 @@ class WeatherListFragment : Fragment() {
                     Log.d("@@@","LoadingWLF")
                     requireActivity().supportFragmentManager
                         .beginTransaction().hide(this)
-                        .add(R.id.container, PosterWeatherFragment())
+                        //.add(R.id.container, PosterWeatherFragment())
+                        .add(R.id.container, PosterFragment())
                         .addToBackStack("List")
                         .commit()
 
                     requireActivity().startService(
-                        Intent(
-                            requireContext(),
+                        Intent(requireContext(),
                             WeatherLoaderService::class.java
                         ).apply {
                             putExtra(BUNDLE_WEATHER_KEY, appState.weather)
