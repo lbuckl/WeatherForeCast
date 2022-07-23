@@ -2,7 +2,7 @@ package com.gb.Weather.model.dto
 
 
 import com.google.gson.annotations.SerializedName
-
+// дата класс для хранения данных по погоде принимаемых от яндекс погоды
 data class WeatherDTO(
     @SerializedName("now")
     val now: Int,

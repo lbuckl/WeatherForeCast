@@ -20,7 +20,7 @@ class PosterFragment: Fragment() {
 
     lateinit var binding: FragmentWeatherPosterBinding
 
-
+    //инициализируем ресивер и определяем действия по обновлению данных
     private val receiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent?) {
             Log.d("@@@", "onReceive ${binding.root}")
@@ -36,20 +36,16 @@ class PosterFragment: Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
+        savedInstanceState: Bundle?): View {
         binding = FragmentWeatherPosterBinding.inflate(inflater)
-        //_binding = FragmentWeatherPosterBinding.inflate(inflater)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        LocalBroadcastManager.getInstance(requireContext()).registerReceiver(
-            receiver,
-            IntentFilter(WEATHER_LOADED_WAVE)
-        )
-
+        //регистрируем рессивер
+        LocalBroadcastManager.getInstance(requireContext())
+            .registerReceiver(receiver, IntentFilter(WEATHER_LOADED_WAVE))
     }
 
     private fun renderData(weather: Weather) {

@@ -22,9 +22,15 @@ import java.net.UnknownHostException
 import javax.net.ssl.HttpsURLConnection
 
 class WeatherLoaderService: IntentService("LOAD_WEATHER"){
-
+    /**
+     * onHandleIntent принимает на вход интент с данными типа Weather
+     * достаёт оттуда координаты города для запроса погоды
+     * выполняет запрос в яндекс погоду и:
+     * -при удачном ответе создаёт новый объект с акруальной погодой,
+     * создаёт рессивер и помещает в него сообщение с данными по погоде.
+     * -при неудаче выводит тост с ошибкой
+     */
     override fun onHandleIntent(intent: Intent?) {
-
         intent?.let { itIntent ->
             itIntent.getParcelableExtra<Weather>(BUNDLE_WEATHER_KEY)?.let{
                 val lat: Double = it.city.lat
@@ -40,7 +46,6 @@ class WeatherLoaderService: IntentService("LOAD_WEATHER"){
                     try {
                         val reader = BufferedReader(InputStreamReader(myConnection.inputStream))
                         val weatherDTO = Gson().fromJson(getLines(reader), WeatherDTO::class.java)
-
                             if (weatherDTO != null) {
                                 val weatherData = Weather(it.city,weatherDTO.fact.temp,weatherDTO.fact.feelsLike)
                                 LocalBroadcastManager.getInstance(this).sendBroadcast(Intent().apply {

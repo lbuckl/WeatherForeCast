@@ -85,10 +85,11 @@ class WeatherListFragment : Fragment() {
                     requireActivity().supportFragmentManager
                         .beginTransaction().hide(this)
                         //.add(R.id.container, PosterWeatherFragment())
+                        //@@@
                         .add(R.id.container, PosterFragment())
                         .addToBackStack("List")
                         .commit()
-
+                    //@@@
                     requireActivity().startService(
                         Intent(requireContext(),
                             WeatherLoaderService::class.java

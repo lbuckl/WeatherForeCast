@@ -14,6 +14,7 @@ fun View.showSnackBarError(
     Snackbar.make(this, text, length).show()
 }
 
+//функция для отображения снэкбара c ошибкой и доп. сообщением
 fun View.showSnackBarErrorMsg(
     errorMsg:String,
     text: String = "${rootView.resources.getString(R.string.error)}: $errorMsg",
@@ -22,6 +23,7 @@ fun View.showSnackBarErrorMsg(
     Snackbar.make(this, text, length).show()
 }
 
+//функция для отображения информационного снэкбара
 fun View.showSnackBarInfoMsg(
     infoMsg:String,
     text: String = "${rootView.resources.getString(R.string.info)}: $infoMsg",
