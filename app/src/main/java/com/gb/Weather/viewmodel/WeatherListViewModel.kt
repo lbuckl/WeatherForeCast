@@ -12,7 +12,7 @@ import com.gb.Weather.model.RepositoryRemoteImpl
  * Класс для реализации LiveData
  * Тригерит состояния AppState
  */
-class WeatherListViewModel(private val liveData: MutableLiveData<AppState> = MutableLiveData<AppState>()) :
+class WeatherListViewModel(private val liveData: MutableLiveData<WeatherListAppState> = MutableLiveData<WeatherListAppState>()) :
     ViewModel(){
 
     private lateinit var repositoryList: RepositoryListCity
@@ -33,12 +33,12 @@ class WeatherListViewModel(private val liveData: MutableLiveData<AppState> = Mut
     //данные для списка городов. Тригерит загрузку списка городов
     private fun sentRequest(locationCity: LocationCity) {
         locCity = locationCity
-        liveData.postValue(AppState.LoadCities(repositoryList.getListWeather(locationCity)))
+        liveData.postValue(WeatherListAppState.LoadCities(repositoryList.getListWeather(locationCity)))
     }
 
     fun loadWeather(weather: Weather){
         //Открываем постер
-        liveData.postValue(AppState.Loading(weather))
+        liveData.postValue(WeatherListAppState.Loading(weather))
         RepositoryRemoteImpl.setWeather(weather)
     }
 

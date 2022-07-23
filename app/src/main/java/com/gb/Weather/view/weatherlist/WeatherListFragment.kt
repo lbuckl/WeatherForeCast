@@ -14,12 +14,12 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.gb.Weather.R
 import com.gb.Weather.databinding.FragmentWeatherListBinding
-import com.gb.Weather.services.WeatherLoaderService
+import com.gb.Weather.examples.WeatherLoaderService
 import com.gb.Weather.shared.BUNDLE_WEATHER_KEY
 import com.gb.Weather.shared.showSnackBarErrorMsg
 import com.gb.Weather.shared.showSnackBarInfoMsg
-import com.gb.Weather.view.Poster.PosterFragment
-import com.gb.Weather.viewmodel.AppState
+import com.gb.Weather.view.Poster.PosterWeatherFragment
+import com.gb.Weather.viewmodel.WeatherListAppState
 import com.gb.Weather.viewmodel.WeatherListViewModel
 
 /**
@@ -73,29 +73,20 @@ class WeatherListFragment : Fragment() {
     }
 
     //Подписка на изменение AppState и выполнение операций по триггеру
-    private fun renderData(appState: AppState){
+    private fun renderData(appState: WeatherListAppState){
         when (appState){
-            is AppState.LoadCities -> {
+            is WeatherListAppState.LoadCities -> {
                 binding_list.weatherRecyclerview.adapter = WeatherListRecyclerAdapter(appState.weatherList)
             }
 
-            is AppState.Loading -> {
+            is WeatherListAppState.Loading -> {
                 if (isConnection){
                     Log.d("@@@","LoadingWLF")
                     requireActivity().supportFragmentManager
                         .beginTransaction().hide(this)
-                        //.add(R.id.container, PosterWeatherFragment())
-                        //@@@
-                        .add(R.id.container, PosterFragment())
+                        .add(R.id.container, PosterWeatherFragment())
                         .addToBackStack("List")
                         .commit()
-                    //@@@
-                    requireActivity().startService(
-                        Intent(requireContext(),
-                            WeatherLoaderService::class.java
-                        ).apply {
-                            putExtra(BUNDLE_WEATHER_KEY, appState.weather)
-                        })
                     viewModel.refresh()
                 }
                 else view?.showSnackBarErrorMsg("Please connect to internet")

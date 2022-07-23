@@ -1,4 +1,4 @@
-package com.gb.Weather.view.Poster
+package com.gb.Weather.examples
 
 import android.content.BroadcastReceiver
 import android.content.Context
@@ -18,7 +18,7 @@ import com.gb.Weather.shared.WEATHER_LOADED_WAVE
 
 class PosterFragment: Fragment() {
 
-    lateinit var binding: FragmentWeatherPosterBinding
+    /*lateinit var binding: FragmentWeatherPosterBinding
 
     //инициализируем ресивер и определяем действия по обновлению данных
     private val receiver = object : BroadcastReceiver() {
@@ -55,5 +55,5 @@ class PosterFragment: Fragment() {
         feelsLikeValue.text = weather.feelsLike.toString()
         cityCoordinates.text = "${weather.city.lat}/${weather.city.lon}"
         }
-    }
+    }*/
 }

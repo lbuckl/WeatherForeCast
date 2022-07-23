@@ -1,4 +1,4 @@
-package com.gb.Weather.services
+package com.gb.Weather.examples
 
 import android.app.IntentService
 import android.content.Intent
@@ -9,10 +9,7 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.gb.Weather.BuildConfig
 import com.gb.Weather.domain.Weather
 import com.gb.Weather.model.dto.WeatherDTO
-import com.gb.Weather.shared.BUNDLE_WEATHER_KEY
-import com.gb.Weather.shared.WEATHER_LOADED_WAVE
-import com.gb.Weather.shared.YANDEX_API_KEY_NAME
-import com.gb.Weather.shared.getLines
+import com.gb.Weather.shared.*
 import com.google.gson.Gson
 import java.io.BufferedReader
 import java.io.FileNotFoundException
@@ -31,12 +28,13 @@ class WeatherLoaderService: IntentService("LOAD_WEATHER"){
      * -при неудаче выводит тост с ошибкой
      */
     override fun onHandleIntent(intent: Intent?) {
-        intent?.let { itIntent ->
+        /*intent?.let { itIntent ->
             itIntent.getParcelableExtra<Weather>(BUNDLE_WEATHER_KEY)?.let{
                 val lat: Double = it.city.lat
                 val lon: Double = it.city.lon
                 val uri = URL("https://api.weather.yandex.ru/v2/informers?lat=${lat}&lon=${lon}")
                 Thread {
+                    Thread.sleep(5000)
                     var myConnection: HttpsURLConnection? = null
                     myConnection = uri.openConnection() as HttpsURLConnection
                     myConnection.apply {
@@ -72,6 +70,14 @@ class WeatherLoaderService: IntentService("LOAD_WEATHER"){
                     }
                 }.start()
             }
-        }
+        }*/
     }
 }
+
+/*Пример активации в акивити или фрагменте
+requireActivity().startService(
+    Intent(requireContext(),
+        WeatherLoaderService::class.java).apply {
+        putExtra(BUNDLE_WEATHER_KEY, appState.weather)
+        })
+ */

@@ -8,9 +8,9 @@ import com.gb.Weather.model.RepositoryRemoteImpl
 import com.gb.Weather.model.RepositorySingleCity
 import com.gb.Weather.shared.CallBackError
 import com.gb.Weather.shared.CallBackResult
-import com.gb.Weather.shared.WeatherLoader
+import com.gb.Weather.model.requests.WeatherLoader
 
-class PosterInfoViewModel (private val liveData: MutableLiveData<AppState> = MutableLiveData<AppState>()) :
+class PosterInfoViewModel (private val liveData: MutableLiveData<PosterInfoAppState> = MutableLiveData<PosterInfoAppState>()) :
     ViewModel(), CallBackResult, CallBackError {
 
     lateinit var repositoryWeather: RepositorySingleCity
@@ -21,7 +21,7 @@ class PosterInfoViewModel (private val liveData: MutableLiveData<AppState> = Mut
 
     fun init(){
         if (liveData.value == null){
-            liveData.postValue(AppState.Empty)
+            liveData.postValue(PosterInfoAppState.Empty)
         }
     }
 
@@ -29,17 +29,17 @@ class PosterInfoViewModel (private val liveData: MutableLiveData<AppState> = Mut
         val weather = RepositoryRemoteImpl.getWeather()
         Log.d("@@@","LoadWeather")
         WeatherLoader.requestWeatherTDO(weather,this,this)
-        liveData.postValue(AppState.Loading(weather))
+        liveData.postValue(PosterInfoAppState.Loading(weather))
     }
 
     override fun setError(errorMsg: String) {
         Log.d("@@@","ErrorPoster")
-        liveData.postValue(AppState.Error(Exception(errorMsg)))
+        liveData.postValue(PosterInfoAppState.Error(Exception(errorMsg)))
     }
 
     override fun returnedResult(weather: Weather) {
         Log.d("@@@","SuccesPoster")
-        liveData.postValue(AppState.Success(weather))
+        liveData.postValue(PosterInfoAppState.Success(weather))
     }
 
 }

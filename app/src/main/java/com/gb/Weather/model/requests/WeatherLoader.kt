@@ -1,4 +1,4 @@
-package com.gb.Weather.shared
+package com.gb.Weather.model.requests
 
 import android.os.Handler
 import android.os.Looper
@@ -6,6 +6,10 @@ import android.util.Log
 import com.gb.Weather.BuildConfig
 import com.gb.Weather.domain.Weather
 import com.gb.Weather.model.dto.WeatherDTO
+import com.gb.Weather.shared.CallBackError
+import com.gb.Weather.shared.CallBackResult
+import com.gb.Weather.shared.YANDEX_API_KEY_NAME
+import com.gb.Weather.shared.getLines
 import com.google.gson.Gson
 import java.io.BufferedReader
 import java.io.FileNotFoundException
@@ -23,7 +27,7 @@ object WeatherLoader {
      */
     lateinit var weatherData:Weather
 
-    fun requestWeatherTDO(weather: Weather, resultCB:CallBackResult, errorCB:CallBackError){
+    fun requestWeatherTDO(weather: Weather, resultCB: CallBackResult, errorCB: CallBackError){
         weatherData = weather
         val lat: Double = weather.city.lat
         val lon: Double = weather.city.lon

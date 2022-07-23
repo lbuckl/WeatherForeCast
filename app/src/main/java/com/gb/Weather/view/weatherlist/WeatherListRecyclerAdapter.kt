@@ -24,7 +24,6 @@ class WeatherListRecyclerAdapter (private val weatherListCity:List<Weather>):
     override fun onBindViewHolder(holder: WeatherViewHolder, position: Int) {
         holder.bind(weatherListCity[position])
         holder.itemView.setOnClickListener{
-            //callback.onItemClick(weatherListCity[position])
             WeatherListFragment.viewModel.loadWeather(weatherListCity[position])
         }
     }
