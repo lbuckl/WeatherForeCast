@@ -1,81 +1,68 @@
 package com.gb.Weather.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.gb.Weather.domain.Weather
-import com.gb.Weather.model.*
-import java.util.*
+import com.gb.Weather.model.LocationCity
+import com.gb.Weather.model.RepositoryListCity
+import com.gb.Weather.model.RepositoryLocalImpl
+import com.gb.Weather.model.RepositoryRemoteImpl
+import com.gb.Weather.shared.CallBackError
+import com.gb.Weather.shared.CallBackResult
+import com.gb.Weather.shared.WeatherLoader
+import com.gb.Weather.view.Poster.PosterWeatherFragment
 
 /**
  * Класс для реализации LiveData
  * Тригерит состояния AppState
  */
 class WeatherListViewModel(private val liveData: MutableLiveData<AppState> = MutableLiveData<AppState>()) :
-    ViewModel() {
+    ViewModel(),CallBackResult,CallBackError{
 
-    //private lateinit var repository: RepositorySingleCity
     private lateinit var repositoryList: RepositoryListCity
+    private lateinit var locCity: LocationCity
 
     //Выбираем БД и возвращаем данные
-    fun getLiveData():MutableLiveData<AppState>{
-        choiceRepository()
-        return liveData
-    }
-
-    //Выбираем БД для загрузки
-    private fun choiceRepository(){
-        /*repository = if(isConnection()){
-            RepositoryRemoteImpl()
-        }else{
-            RepositoryLocalImpl()
-        }*/
+    val getLiveData = {
         repositoryList = RepositoryLocalImpl()
+        liveData
     }
 
     //region переключатель списков
-    fun getWeatherListForRussia(){
-        sentRequest(LocationCity.Russian)
-    }
-    fun getWeatherListForWorld(){
-        sentRequest(LocationCity.World)
-    }
-
-    fun getWeatherListForFavorite(){
-        sentRequest(LocationCity.Favorite)
-    }
-    /* endregion */
+    fun getWeatherListForRussia() = sentRequest(LocationCity.Russian)
+    fun getWeatherListForWorld() = sentRequest(LocationCity.World)
+    fun getWeatherListForFavorite() = sentRequest(LocationCity.Favorite)
+    //endregion
 
     //данные для списка городов. Тригерит загрузку списка городов
     private fun sentRequest(locationCity: LocationCity) {
+        locCity = locationCity
         liveData.postValue(AppState.LoadCities(repositoryList.getListWeather(locationCity)))
-        //Имитируем загрузку
-        //liveData.value = AppState.Loading
-        //Рандомим результат загрузки
-        /*val rand = Random(System.nanoTime())
-        val randVal = rand.nextInt(3)
-        Log.d("RandVal", "$randVal")
-        if(randVal == 1){
-            liveData.postValue(AppState.Error(IllegalStateException("Что-то пошло не так")))
-        }else{
-            liveData.postValue(AppState.Success(repository.getWeather(55.755826, 37.617299900000035)))
-        }*/
     }
 
-    //данные для постера. Тригерит открытие постера
-    fun openPoster(weather: Weather){
-        liveData.postValue(AppState.Success(weather))
+    fun loadWeather(weather: Weather){
+        //Открываем постер
+        liveData.postValue(AppState.Loading(weather))
+        WeatherLoader.requestWeatherTDO(weather,this,this)
+        //RepositoryRemoteImpl.setWeather(weather)
     }
 
-    //Имитация результата состояния сединения с БД
-    private fun isConnection(): Boolean {
-        return false
+    //получили колбэк от запроса погоды
+    override fun returnedResult(weather: Weather) {
+        RepositoryRemoteImpl.setWeather(weather)
+        //Перевели вью фрагмента погоды в состояние Успешно, передаём данные
+        PosterWeatherFragment.viewModel_poster.loadWeatherData(weather)
+        //Возвращаем фрагмент в начальное состояние
+        sentRequest(locCity)
+        //liveData.postValue(AppState.Success(weather))
     }
 
-    //Отменяет подписку. Выполняется после onDestroy во фрагменте
-    override fun onCleared() { // TODO HW ***
-        super.onCleared()
-        Log.d("TEST", "onCleared ViewModel!!!")
+    //получили ошибку от запроса погоды
+    override fun setError(errorMsg: String) {
+        liveData.postValue(AppState.Error(Exception("Ошибка загрузки: $errorMsg")))
     }
 
+    fun refresh(){
+        sentRequest(locCity)
+    }
 }

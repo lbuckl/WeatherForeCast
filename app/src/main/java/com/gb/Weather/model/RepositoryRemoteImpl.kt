@@ -1,19 +1,15 @@
 package com.gb.Weather.model
-
 import com.gb.Weather.domain.Weather
+import com.gb.Weather.domain.getDefaultCity
 
-class RepositoryRemoteImpl:RepositorySingleCity,RepositoryListCity {
-    override fun getWeather(lat: Double, lon: Double): Weather {
-        Thread{
-            Thread.sleep(300L)
-        }.start()
-        return Weather()
+object RepositoryRemoteImpl:RepositorySingleCity {
+    private var data = Weather(getDefaultCity(),0,0)
+
+    override fun setWeather(weather: Weather) {
+        data = weather
     }
 
-    override fun getListWeather(locationCity: LocationCity): List<Weather> {
-        Thread{
-            Thread.sleep(200L)
-        }.start()
-        return listOf(Weather())
+    override fun getWeather(): Weather{
+        return data
     }
 }

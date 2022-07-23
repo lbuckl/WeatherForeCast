@@ -1,24 +1,17 @@
 package com.gb.Weather.model
 
-import com.gb.Weather.domain.*
+import com.gb.Weather.domain.Weather
+import com.gb.Weather.domain.getFavoriteCities
+import com.gb.Weather.domain.getRussianCities
+import com.gb.Weather.domain.getWorldCities
 
-class RepositoryLocalImpl:RepositorySingleCity,RepositoryListCity {
+//@@@ записал return перед when, опустил скобки
+class RepositoryLocalImpl:RepositoryListCity {
     override fun getListWeather(locationCity: LocationCity): List<Weather> {
-        when(locationCity){
-            is LocationCity.Russian ->{
-                return getRussianCities()
-            }
-            is LocationCity.World->{
-                return getWorldCities()
-            }
-            is LocationCity.Favorite ->{
-                return getFavoriteCities()
-            }
+        return when(locationCity){
+            is LocationCity.Russian -> getRussianCities()
+            is LocationCity.World-> getWorldCities()
+            is LocationCity.Favorite -> getFavoriteCities()
         }
-        return listOf()
-    }
-
-    override fun getWeather(lat: Double, lon: Double): Weather {
-        return Weather()
     }
 }
