@@ -1,4 +1,4 @@
-package com.gb.k_2135_2136_2
+package com.gb.Weather
 
 import org.junit.Assert.assertEquals
 import org.junit.Test
