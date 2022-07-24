@@ -43,7 +43,7 @@ fun getLines(reader: BufferedReader): String {
 fun buildWeatherFromDTO(weather: Weather, weatherDTO: WeatherDTO):Weather{
     return Weather(weather.city,
         weatherDTO.fact.temp,
-        weatherDTO.fact.feelsLike)
+        weatherDTO.fact.feelsLike,weatherDTO.fact.icon)
 }
 
 
