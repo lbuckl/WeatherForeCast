@@ -2,6 +2,8 @@ package com.gb.Weather.shared
 
 import android.view.View
 import com.gb.Weather.R
+import com.gb.Weather.domain.Weather
+import com.gb.Weather.model.dto.WeatherDTO
 import com.google.android.material.snackbar.Snackbar
 import java.io.BufferedReader
 import java.util.stream.Collectors
@@ -35,6 +37,13 @@ fun View.showSnackBarInfoMsg(
 //Для HTTPS запроса погоды
 fun getLines(reader: BufferedReader): String {
     return reader.lines().collect(Collectors.joining("\n"))
+}
+
+//Для сборки Weather из WeatherDTO
+fun buildWeatherFromDTO(weather: Weather, weatherDTO: WeatherDTO):Weather{
+    return Weather(weather.city,
+        weatherDTO.fact.temp,
+        weatherDTO.fact.feelsLike)
 }
 
 

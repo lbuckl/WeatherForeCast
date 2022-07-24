@@ -5,11 +5,9 @@ import android.os.Looper
 import android.util.Log
 import com.gb.Weather.BuildConfig
 import com.gb.Weather.domain.Weather
+import com.gb.Weather.model.RemoteRequest
 import com.gb.Weather.model.dto.WeatherDTO
-import com.gb.Weather.shared.CallBackError
-import com.gb.Weather.shared.CallBackResult
-import com.gb.Weather.shared.YANDEX_API_KEY_NAME
-import com.gb.Weather.shared.getLines
+import com.gb.Weather.shared.*
 import com.google.gson.Gson
 import java.io.BufferedReader
 import java.io.FileNotFoundException
@@ -18,7 +16,7 @@ import java.net.URL
 import java.net.UnknownHostException
 import javax.net.ssl.HttpsURLConnection
 
-object WeatherLoader {
+object WeatherLoader:RemoteRequest {
     /**
      * Функция принимает на вход объект для запроса
      * по нему выполняет запрос погоды на яндекс и получает ответ в формате JSON
@@ -27,12 +25,11 @@ object WeatherLoader {
      */
     lateinit var weatherData:Weather
 
-    fun requestWeatherTDO(weather: Weather, resultCB: CallBackResult, errorCB: CallBackError){
+    override fun requestWeather(weather: Weather, resultCB: CallBackResult, errorCB: CallBackError){
         weatherData = weather
         val lat: Double = weather.city.lat
         val lon: Double = weather.city.lon
         val handler = Handler(Looper.myLooper()!!)
-
             val uri = URL("https://api.weather.yandex.ru/v2/informers?lat=${lat}&lon=${lon}")
             Thread {
                 var myConnection: HttpsURLConnection? = null
@@ -48,8 +45,8 @@ object WeatherLoader {
                     //val weatherDTO: WeatherDTO? = null
                     handler.post {
                         if (weatherDTO != null) {
-                            weatherData = Weather(weather.city,weatherDTO.fact.temp,weatherDTO.fact.feelsLike)
-                            resultCB.returnedResult(weatherData)
+                            //weatherData = Weather(weather.city,weatherDTO.fact.temp,weatherDTO.fact.feelsLike)
+                            resultCB.returnResult(buildWeatherFromDTO(weather,weatherDTO))
                         } else errorCB.setError("Не корректные данные!!!")
                     }
                 }catch (e:RuntimeException){

@@ -33,17 +33,14 @@ class PosterWeatherFragment: Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        Log.d("@@@","onViewCreated")
         viewModel_poster = ViewModelProvider(this).get(PosterInfoViewModel::class.java)
         viewModel_poster.getLiveData().observe(viewLifecycleOwner) { t -> renderData(t) }
         viewModel_poster.init()
     }
 
     private fun renderData(posterInfoAppState: PosterInfoAppState) {
-        Log.d("@@@","renderData")
         when (posterInfoAppState){
             is PosterInfoAppState.Success -> {
-                Log.d("@@@","SuccesPoster")
                 requireActivity().supportFragmentManager
                     .beginTransaction()
                     .remove(loadingFragment)
@@ -57,7 +54,6 @@ class PosterWeatherFragment: Fragment() {
                 }
             }
             is PosterInfoAppState.Error -> {
-                Log.d("@@@","ErrorPoster")
                 requireActivity().supportFragmentManager
                     .beginTransaction()
                     .remove(loadingFragment)
@@ -65,7 +61,6 @@ class PosterWeatherFragment: Fragment() {
                 view?.showSnackBarErrorMsg(posterInfoAppState.error.toString())
             }
             is PosterInfoAppState.Loading ->{
-                Log.d("@@@","LoadingPoster")
                 requireActivity().supportFragmentManager
                     .beginTransaction()
                     .add(R.id.container,loadingFragment)
@@ -76,7 +71,6 @@ class PosterWeatherFragment: Fragment() {
                 }
             }
             else -> {
-                Log.d("@@@","getWeather")
                 viewModel_poster.getWeather()
             }
         }

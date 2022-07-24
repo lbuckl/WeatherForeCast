@@ -23,6 +23,7 @@ class WeatherListRecyclerAdapter (private val weatherListCity:List<Weather>):
     //Связываем используемые текстовые метки с данными
     override fun onBindViewHolder(holder: WeatherViewHolder, position: Int) {
         holder.bind(weatherListCity[position])
+
         holder.itemView.setOnClickListener{
             WeatherListFragment.viewModel.loadWeather(weatherListCity[position])
         }
