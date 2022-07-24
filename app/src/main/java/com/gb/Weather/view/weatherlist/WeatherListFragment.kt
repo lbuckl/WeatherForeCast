@@ -14,8 +14,6 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.gb.Weather.R
 import com.gb.Weather.databinding.FragmentWeatherListBinding
-import com.gb.Weather.examples.WeatherLoaderService
-import com.gb.Weather.shared.BUNDLE_WEATHER_KEY
 import com.gb.Weather.shared.showSnackBarErrorMsg
 import com.gb.Weather.shared.showSnackBarInfoMsg
 import com.gb.Weather.view.Poster.PosterWeatherFragment
@@ -92,7 +90,6 @@ class WeatherListFragment : Fragment() {
                 else view?.showSnackBarErrorMsg("Please connect to internet")
 
             }
-            else -> viewModel.refresh()
         }
     }
 

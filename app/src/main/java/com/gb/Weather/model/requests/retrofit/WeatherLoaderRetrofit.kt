@@ -14,7 +14,6 @@ import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import java.lang.IllegalStateException
 
 class WeatherLoaderRetrofit:RemoteRequest {
     override fun requestWeather(weather: Weather, resultCB: CallBackResult, errorCB: CallBackError) {

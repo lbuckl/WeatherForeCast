@@ -1,13 +1,10 @@
 package com.gb.Weather.view.Poster
 
-import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import androidx.core.view.get
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import coil.ImageLoader
@@ -43,12 +40,14 @@ class PosterWeatherFragment: Fragment() {
         viewModel_poster = ViewModelProvider(this).get(PosterInfoViewModel::class.java)
         viewModel_poster.getLiveData().observe(viewLifecycleOwner) { t -> renderData(t) }
         viewModel_poster.init()
-        try {
-            Picasso.get()
-                .load("https://freepngimg.com/thumb/city/36275-3-city-hd.png")
-                .into(binding.headerIcon)
-        }catch (e:Exception){
-            e.printStackTrace()
+        binding.headerIcon?.let{
+            try {
+                Picasso.get()
+                    .load("https://freepngimg.com/thumb/city/36275-3-city-hd.png")
+                    .into(it)
+            }catch (e:Exception){
+                e.printStackTrace()
+            }
         }
 
     }
@@ -65,7 +64,7 @@ class PosterWeatherFragment: Fragment() {
                     cityName.text = posterInfoAppState.weather.city.name
                     temperatureValue.text = posterInfoAppState.weather.temperature.toString()
                     feelsLikeValue.text = posterInfoAppState.weather.feelsLike.toString()
-                    cityCoordinates.text = "${posterInfoAppState.weather.city.lat}/${posterInfoAppState.weather.city.lon}"
+                    cityCoordinates?.text = "${posterInfoAppState.weather.city.lat}/${posterInfoAppState.weather.city.lon}"
 
                     weatherIcon.loadWeatherIcon(
                         "https://yastatic.net/weather/i/icons/funky/dark/${posterInfoAppState.weather.icon}.svg")
@@ -85,7 +84,9 @@ class PosterWeatherFragment: Fragment() {
                     .commit()
                 with(binding){
                     cityName.text = posterInfoAppState.weather.city.name
-                    cityCoordinates.text = "${posterInfoAppState.weather.city.lat}/${posterInfoAppState.weather.city.lon}"
+                    cityCoordinates?.let {
+                        it.text = "${posterInfoAppState.weather.city.lat}/${posterInfoAppState.weather.city.lon}"
+                    }
                 }
             }
             else -> {
@@ -94,8 +95,10 @@ class PosterWeatherFragment: Fragment() {
         }
     }
 
+    //Функция для загрузки иконки погоды через COIL
     private fun ImageView.loadWeatherIcon(url: String) {
 
+        //инцииализирем загрузчик
         val imageLoader = context?.let {
             ImageLoader.Builder(it)
                 .components {
@@ -103,7 +106,7 @@ class PosterWeatherFragment: Fragment() {
                 }
                 .build()
         }
-
+        //формируем запрос
         val request = context?.let {
             ImageRequest.Builder(it)
                 .data(url)
@@ -111,6 +114,7 @@ class PosterWeatherFragment: Fragment() {
                 .target(this)
                 .build()
         }
+        //выполняем запрос через загрузчик
         imageLoader?.enqueue(request!!)
     }
 }

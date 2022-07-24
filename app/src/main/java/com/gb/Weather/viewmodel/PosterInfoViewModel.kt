@@ -1,17 +1,15 @@
 package com.gb.Weather.viewmodel
 
-import android.os.Handler
-import android.os.Looper
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.gb.Weather.domain.Weather
 import com.gb.Weather.model.RepositoryRemoteImpl
 import com.gb.Weather.model.RepositorySingleCity
-import com.gb.Weather.shared.CallBackError
-import com.gb.Weather.shared.CallBackResult
 import com.gb.Weather.model.requests.WeatherLoader
 import com.gb.Weather.model.requests.retrofit.WeatherLoaderRetrofit
+import com.gb.Weather.shared.CallBackError
+import com.gb.Weather.shared.CallBackResult
 
 class PosterInfoViewModel (private val liveData: MutableLiveData<PosterInfoAppState> = MutableLiveData<PosterInfoAppState>()) :
     ViewModel(), CallBackResult, CallBackError {
@@ -24,6 +22,8 @@ class PosterInfoViewModel (private val liveData: MutableLiveData<PosterInfoAppSt
         liveData
     }
 
+    //Костыль для инициализации, так как фрагмент выдаёт ошибку,
+    //если ни одно из состояний не установлено. Даже если указываешь else во when
     fun init(){
         errCount = 0
         if (liveData.value == null){
@@ -31,6 +31,7 @@ class PosterInfoViewModel (private val liveData: MutableLiveData<PosterInfoAppSt
         }
     }
 
+    //Если загрузка погоды не удалась с 1 источника, то пробует со 2
     fun getWeather(){
         val weather = RepositoryRemoteImpl.getWeather()
         if (errCount == 0 ) liveData.postValue(PosterInfoAppState.Loading(weather))
@@ -49,6 +50,7 @@ class PosterInfoViewModel (private val liveData: MutableLiveData<PosterInfoAppSt
 
     }
 
+    //Если пришла ошибка увеличивает счётчик ошибок
     override fun setError(errorMsg: String) {
             if (errCount == 0) {
                 errCount++

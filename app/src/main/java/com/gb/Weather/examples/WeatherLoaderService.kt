@@ -2,21 +2,6 @@ package com.gb.Weather.examples
 
 import android.app.IntentService
 import android.content.Intent
-import android.util.Log
-import android.widget.Toast
-import android.widget.Toast.LENGTH_LONG
-import androidx.localbroadcastmanager.content.LocalBroadcastManager
-import com.gb.Weather.BuildConfig
-import com.gb.Weather.domain.Weather
-import com.gb.Weather.model.dto.WeatherDTO
-import com.gb.Weather.shared.*
-import com.google.gson.Gson
-import java.io.BufferedReader
-import java.io.FileNotFoundException
-import java.io.InputStreamReader
-import java.net.URL
-import java.net.UnknownHostException
-import javax.net.ssl.HttpsURLConnection
 
 class WeatherLoaderService: IntentService("LOAD_WEATHER"){
     /**
