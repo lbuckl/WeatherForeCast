@@ -14,6 +14,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.gb.Weather.R
 import com.gb.Weather.databinding.FragmentWeatherListBinding
+import com.gb.Weather.databinding.FragmentWeatherPosterBinding
 import com.gb.Weather.shared.showSnackBarErrorMsg
 import com.gb.Weather.shared.showSnackBarInfoMsg
 import com.gb.Weather.view.Poster.PosterWeatherFragment
@@ -32,13 +33,18 @@ class WeatherListFragment : Fragment() {
     }
 
     var isConnection = true
-    private lateinit var binding_list: FragmentWeatherListBinding
+    //private lateinit var binding_list: FragmentWeatherListBinding
+    private var _binding_list: FragmentWeatherListBinding? = null
+    private val binding_list: FragmentWeatherListBinding
+        get() {
+            return _binding_list!!
+        }
 
     override fun onCreateView(inflater: LayoutInflater,
                               container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
         //Биндинг для прямой связи View
-        binding_list = FragmentWeatherListBinding.inflate(inflater)
+        _binding_list = FragmentWeatherListBinding.inflate(inflater)
         //@@@
         //регистрация ресивера для контроля сети
         val filter = IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION)
@@ -115,12 +121,13 @@ class WeatherListFragment : Fragment() {
 
     fun onConnectionFound() {
         isConnection = true
-        view?.showSnackBarInfoMsg("Connection found")
+        //view?.showSnackBarInfoMsg("Connection found")
         //Toast.makeText(context, "Connection found", Toast.LENGTH_LONG).show()
     }
 
     override fun onDestroy() {
         super.onDestroy()
+        _binding_list = null
         context?.unregisterReceiver(networkStateReceiver)
     }
     //endregion

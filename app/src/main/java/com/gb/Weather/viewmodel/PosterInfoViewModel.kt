@@ -34,17 +34,15 @@ class PosterInfoViewModel (private val liveData: MutableLiveData<PosterInfoAppSt
     //Если загрузка погоды не удалась с 1 источника, то пробует со 2
     fun getWeather(){
         val weather = RepositoryRemoteImpl.getWeather()
-        if (errCount == 0 ) liveData.postValue(PosterInfoAppState.Loading(weather))
+        if (errCount == 0) liveData.postValue(PosterInfoAppState.Loading(weather))
         when (errCount){
             0 -> {
                 Log.d("@@@","LoadWeatherRetro")
-                //WeatherLoader.requestWeather(weather,this,this)
                 WeatherLoaderRetrofit().requestWeather(weather,this,this)
             }
             1 -> {
                 Log.d("@@@","LoadWeatherHTTPS")
                 WeatherLoader.requestWeather(weather,this,this)
-                //WeatherLoaderRetrofit().requestWeather(weather,this,this)
             }
         }
 
@@ -52,7 +50,8 @@ class PosterInfoViewModel (private val liveData: MutableLiveData<PosterInfoAppSt
 
     //Если пришла ошибка увеличивает счётчик ошибок
     override fun setError(errorMsg: String) {
-            if (errCount == 0) {
+            Log.d("@@@","ErrorPoster")
+            if (errCount < 1) {
                 errCount++
                 getWeather()
             }

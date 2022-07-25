@@ -23,15 +23,19 @@ class PosterWeatherFragment: Fragment() {
         lateinit var viewModel_poster: PosterInfoViewModel
     }
 
-    lateinit var binding: FragmentWeatherPosterBinding
-    val loadingFragment = LoadingFragment()
+    private val loadingFragment = LoadingFragment()
+    private var _binding: FragmentWeatherPosterBinding? = null
+    private val binding: FragmentWeatherPosterBinding
+        get() {
+            return _binding!!
+        }
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentWeatherPosterBinding.inflate(inflater)
+        _binding = FragmentWeatherPosterBinding.inflate(inflater)
         return binding.root
     }
 
@@ -116,5 +120,10 @@ class PosterWeatherFragment: Fragment() {
         }
         //выполняем запрос через загрузчик
         imageLoader?.enqueue(request!!)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
     }
 }

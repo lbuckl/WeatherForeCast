@@ -16,12 +16,13 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 class WeatherLoaderRetrofit:RemoteRequest {
+    private val retrofitImpl = Retrofit.Builder()
+
     override fun requestWeather(weather: Weather, resultCB: CallBackResult, errorCB: CallBackError) {
-        val retrofitImpl = Retrofit.Builder()
+
         val lat: Double = weather.city.lat
         val lon: Double = weather.city.lon
-
-        retrofitImpl.baseUrl("https://api.weather.yandex1.ru")
+        retrofitImpl.baseUrl("https://api.weather.yandex.ru")
         retrofitImpl.addConverterFactory(GsonConverterFactory.create(GsonBuilder().setLenient().create()))
         try {
             val api = retrofitImpl.build().create(WeatherAPI::class.java)
@@ -29,6 +30,7 @@ class WeatherLoaderRetrofit:RemoteRequest {
                 override fun onResponse(call: Call<WeatherDTO>, response: Response<WeatherDTO>) {
                     if(response.isSuccessful&&response.body()!=null){
                         resultCB.returnResult(buildWeatherFromDTO(weather,response.body()!!))
+
                     }
                     else{
                         errorCB.setError("Request error!!!")
@@ -38,14 +40,12 @@ class WeatherLoaderRetrofit:RemoteRequest {
                             in (500..599) -> Log.d("@@@","Request error (INPUT DATA)!!!")
                             else -> Log.d("@@@","Request error (UNKNOWN)!!!")
                         }
-
                     }
                 }
                 override fun onFailure(call: Call<WeatherDTO>, t: Throwable) {
                     errorCB.setError("Request error!!!")
                 }
             })
-
         }catch (e: IllegalStateException){
             e.printStackTrace()
             errorCB.setError("Request error (Invalid URL)")
