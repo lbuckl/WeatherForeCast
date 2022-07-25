@@ -17,7 +17,7 @@ internal class MainActivity : AppCompatActivity() {
         if(savedInstanceState==null){
             supportFragmentManager.beginTransaction()
                 .add(R.id.container,WeatherListFragment.newInstance())
-                .addToBackStack("")
+                //.addToBackStack("")
                 .commit()
         }
     }

@@ -12,4 +12,5 @@ object RepositoryRemoteImpl:RepositorySingleCity {
     override fun getWeather(): Weather{
         return data
     }
+
 }
