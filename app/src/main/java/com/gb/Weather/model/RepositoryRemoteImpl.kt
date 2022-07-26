@@ -6,6 +6,7 @@ import com.gb.Weather.domain.Weather
 import com.gb.Weather.domain.getDefaultCity
 import com.gb.Weather.model.requests.WeatherLoader
 import com.gb.Weather.model.requests.WeatherLoaderTest
+import com.gb.Weather.model.requests.retrofit.WeatherLoaderRetrofitTest
 import com.gb.Weather.shared.CallBackError
 import com.gb.Weather.shared.CallBackResult
 
@@ -31,7 +32,6 @@ object RepositoryRemoteImpl:RepositorySingleCity {
                 weatherRemote = getWeatgerFromLoader(weather,errorCount)
                 if (weatherRemote != null) {
                     //handler.post {
-                    Log.d("@@@",Thread.currentThread().toString())
                         data = weatherRemote
                         callBackResult.returnResult(weatherRemote)
                     //}
@@ -48,9 +48,11 @@ object RepositoryRemoteImpl:RepositorySingleCity {
     private fun getWeatgerFromLoader(weather: Weather, count: Int):Weather?{
         return when (count) {
             0 -> {
-                WeatherLoaderTest.requestWeather(weather)
+                Log.d("@@@","LoadWeatherRetro")
+                WeatherLoaderRetrofitTest().requestWeather(weather)
             }
             1 -> {
+                Log.d("@@@","LoadWeatherHTTPS")
                 WeatherLoaderTest.requestWeather(weather)
             }
             else -> null
