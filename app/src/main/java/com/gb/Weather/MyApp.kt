@@ -2,7 +2,7 @@ package com.gb.Weather
 
 import android.app.Application
 import androidx.room.Room
-import com.gb.Weather.model.room.WeatherDatabase
+import com.gb.Weather.model.room.WeatherHistoryDatabase
 import com.gb.Weather.shared.ROOM_DB_NAME
 
 
@@ -14,18 +14,18 @@ class MyApp : Application() {
 
     companion object {
         private var myApp: MyApp? = null
-        private var weatherDatabase: WeatherDatabase? = null
+        private var weatherHistoryDatabase: WeatherHistoryDatabase? = null
         fun getMyApp() = myApp!!
-        fun getWeatherDatabase(): WeatherDatabase {
-            if (weatherDatabase == null) {
-                weatherDatabase = Room.databaseBuilder(
+        fun getWeatherDatabase(): WeatherHistoryDatabase {
+            if (weatherHistoryDatabase == null) {
+                weatherHistoryDatabase = Room.databaseBuilder(
                     getMyApp(),
-                    WeatherDatabase::class.java,
+                    WeatherHistoryDatabase::class.java,
                     ROOM_DB_NAME
                 ).allowMainThreadQueries() // TODO HW убрать allowMainThreadQueries
                     .build()
             }
-            return weatherDatabase!!
+            return weatherHistoryDatabase!!
         }
     }
 }

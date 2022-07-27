@@ -9,11 +9,18 @@ interface RepositorySingleCity{
     fun setCity(city: City)
     fun getCity():City
 }
-//Интерфейс репозитория для хранения списка с городами и погоды в них
+//Интерфейс репозитория для хранения списка с городами
 interface RepositoryListCity{fun getListWeather(locationCity: LocationCity):List<City>}
 
+//Интерфейс с колбэками для удалённого запроса погоды
 interface RemoteRequest{
     fun requestWeather(city: City, resultCB: CallBackResult, errorCB: CallBackError)
+}
+
+//Интерфейс для запроса истории открытия погоды room
+interface WeatherRequestHistory{
+    fun getHistoryList():List<Weather>
+    fun addWeatherToHistory(weather: Weather)
 }
 
 sealed class LocationCity{
