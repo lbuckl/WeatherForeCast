@@ -2,6 +2,7 @@ package com.gb.Weather.model
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
+import com.gb.Weather.domain.City
 import com.gb.Weather.domain.Weather
 import com.gb.Weather.domain.getDefaultCity
 import com.gb.Weather.model.requests.WeatherLoader
@@ -12,16 +13,17 @@ import com.gb.Weather.shared.CallBackResult
 
 object RepositoryRemoteImpl:RepositorySingleCity {
     private var data = Weather(getDefaultCity(),0,0)
+    private var dataCity = getDefaultCity()
 
-    override fun setWeather(weather: Weather) {
-        data = weather
+    override fun setCity(city: City) {
+        dataCity = city
     }
 
-    override fun getWeather(): Weather{
-        return data
+    override fun getCity(): City{
+        return dataCity
     }
 
-    fun getRemoteWeather(weather: Weather,callBackResult: CallBackResult,callBackError: CallBackError){
+    fun getRemoteWeather(city: City,callBackResult: CallBackResult,callBackError: CallBackError){
         val handler = Handler(Looper.myLooper()!!)
         Thread {
             var errorCount = 0
@@ -29,7 +31,7 @@ object RepositoryRemoteImpl:RepositorySingleCity {
 
             //ВАЖНО!!! сровнять n в "errorCount < n" с колличеством запросов getWeatgerFromLoader
             while (errorCount < 2){
-                weatherRemote = getWeatgerFromLoader(weather,errorCount)
+                weatherRemote = getWeatgerFromLoader(city,errorCount)
                 if (weatherRemote != null) {
                     //handler.post {
                         data = weatherRemote
@@ -45,15 +47,15 @@ object RepositoryRemoteImpl:RepositorySingleCity {
     }
 
     //Вызов резервных способов запроса
-    private fun getWeatgerFromLoader(weather: Weather, count: Int):Weather?{
+    private fun getWeatgerFromLoader(city: City, count: Int):Weather?{
         return when (count) {
             0 -> {
                 Log.d("@@@","LoadWeatherRetro")
-                WeatherLoaderRetrofitTest().requestWeather(weather)
+                WeatherLoaderRetrofitTest().requestWeather(city)
             }
             1 -> {
                 Log.d("@@@","LoadWeatherHTTPS")
-                WeatherLoaderTest.requestWeather(weather)
+                WeatherLoaderTest.requestWeather(city)
             }
             else -> null
         }

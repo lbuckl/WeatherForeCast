@@ -2,6 +2,7 @@ package com.gb.Weather.model.requests.retrofit
 
 import android.util.Log
 import com.gb.Weather.BuildConfig
+import com.gb.Weather.domain.City
 import com.gb.Weather.domain.Weather
 import com.gb.Weather.model.RemoteRequest
 import com.gb.Weather.model.dto.WeatherDTO
@@ -18,10 +19,10 @@ import retrofit2.converter.gson.GsonConverterFactory
 class WeatherLoaderRetrofit:RemoteRequest {
     private val retrofitImpl = Retrofit.Builder()
 
-    override fun requestWeather(weather: Weather, resultCB: CallBackResult, errorCB: CallBackError) {
+    override fun requestWeather(city: City, resultCB: CallBackResult, errorCB: CallBackError) {
 
-        val lat: Double = weather.city.lat
-        val lon: Double = weather.city.lon
+        val lat: Double = city.lat
+        val lon: Double = city.lon
         retrofitImpl.baseUrl("https://api.weather.yandex.ru")
         retrofitImpl.addConverterFactory(GsonConverterFactory.create(GsonBuilder().setLenient().create()))
         try {
@@ -29,7 +30,7 @@ class WeatherLoaderRetrofit:RemoteRequest {
             api.getWeather(BuildConfig.WEATHER_API_KEY,lat,lon).enqueue(object : Callback<WeatherDTO> {
                 override fun onResponse(call: Call<WeatherDTO>, response: Response<WeatherDTO>) {
                     if(response.isSuccessful&&response.body()!=null){
-                        resultCB.returnResult(buildWeatherFromDTO(weather,response.body()!!))
+                        resultCB.returnResult(buildWeatherFromDTO(city,response.body()!!))
 
                     }
                     else{

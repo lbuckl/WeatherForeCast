@@ -2,6 +2,7 @@ package com.gb.Weather.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.gb.Weather.domain.City
 import com.gb.Weather.domain.Weather
 import com.gb.Weather.model.LocationCity
 import com.gb.Weather.model.RepositoryListCity
@@ -36,10 +37,10 @@ class WeatherListViewModel(private val liveData: MutableLiveData<WeatherListAppS
         liveData.postValue(WeatherListAppState.LoadCities(repositoryList.getListWeather(locationCity)))
     }
 
-    fun loadWeather(weather: Weather){
+    fun loadWeather(city: City){
         //Открываем постер
-        liveData.postValue(WeatherListAppState.Loading(weather))
-        RepositoryRemoteImpl.setWeather(weather)
+        liveData.postValue(WeatherListAppState.Loading(city))
+        RepositoryRemoteImpl.setCity(city)
     }
 
     fun refresh(){

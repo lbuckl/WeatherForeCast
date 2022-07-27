@@ -4,6 +4,7 @@ import android.os.Handler
 import android.os.Looper
 import android.util.Log
 import com.gb.Weather.BuildConfig
+import com.gb.Weather.domain.City
 import com.gb.Weather.domain.Weather
 import com.gb.Weather.model.RemoteRequest
 import com.gb.Weather.model.dto.WeatherDTO
@@ -24,10 +25,10 @@ object WeatherLoaderTest {
      * Выполняет коллбэк с результатом(если он получен) или ошибки
      */
 
-    fun requestWeather(weather: Weather):Weather? {
+    fun requestWeather(city: City):Weather? {
         var weatherData: Weather?
-        val lat: Double = weather.city.lat
-        val lon: Double = weather.city.lon
+        val lat: Double = city.lat
+        val lon: Double = city.lon
         var myConnection: HttpsURLConnection? = null
         val uri = URL("https://api.weather.yandex.ru/v2/informers?lat=${lat}&lon=${lon}")
             myConnection = uri.openConnection() as HttpsURLConnection
@@ -39,7 +40,7 @@ object WeatherLoaderTest {
                 val reader = BufferedReader(InputStreamReader(myConnection.inputStream))
                 val weatherDTO = Gson().fromJson(getLines(reader), WeatherDTO::class.java)
                     if (weatherDTO != null) {
-                        weatherData = Weather(weather.city,weatherDTO.fact.temp,weatherDTO.fact.feelsLike)
+                        weatherData = Weather(city,weatherDTO.fact.temp,weatherDTO.fact.feelsLike)
                         return weatherData
                     } else {
                         weatherData = null

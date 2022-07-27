@@ -4,6 +4,7 @@ import android.os.Handler
 import android.os.Looper
 import android.util.Log
 import com.gb.Weather.BuildConfig
+import com.gb.Weather.domain.City
 import com.gb.Weather.domain.Weather
 import com.gb.Weather.model.RemoteRequest
 import com.gb.Weather.model.dto.WeatherDTO
@@ -23,12 +24,10 @@ object WeatherLoader:RemoteRequest {
      * далее преобразует его в формат Weather
      * Выполняет коллбэк с результатом(если он получен) или ошибки
      */
-    lateinit var weatherData:Weather
 
-    override fun requestWeather(weather: Weather, resultCB: CallBackResult, errorCB: CallBackError){
-        weatherData = weather
-        val lat: Double = weather.city.lat
-        val lon: Double = weather.city.lon
+    override fun requestWeather(city: City, resultCB: CallBackResult, errorCB: CallBackError){
+        val lat: Double = city.lat
+        val lon: Double = city.lon
         val handler = Handler(Looper.myLooper()!!)
             val uri = URL("https://api.weather.yandex.ru/v2/informers?lat=${lat}&lon=${lon}")
             Thread {
@@ -46,7 +45,7 @@ object WeatherLoader:RemoteRequest {
                     handler.post {
                         if (weatherDTO != null) {
                             //weatherData = Weather(weather.city,weatherDTO.fact.temp,weatherDTO.fact.feelsLike)
-                            resultCB.returnResult(buildWeatherFromDTO(weather,weatherDTO))
+                            resultCB.returnResult(buildWeatherFromDTO(city,weatherDTO))
                         } else errorCB.setError("Не корректные данные!!!")
                     }
                 }catch (e:RuntimeException){

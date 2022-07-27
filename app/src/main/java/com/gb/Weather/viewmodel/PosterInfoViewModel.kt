@@ -39,9 +39,9 @@ class PosterInfoViewModel (private val liveData: MutableLiveData<PosterInfoAppSt
      * пока идёт запрос на обновление погоды
      */
     fun getWeather(){
-        val weather = RepositoryRemoteImpl.getWeather()
-        liveData.postValue(PosterInfoAppState.Loading(weather))
-        RepositoryRemoteImpl.getRemoteWeather(weather,this,this)
+        val city = RepositoryRemoteImpl.getCity()
+        liveData.postValue(PosterInfoAppState.Loading(city))
+        RepositoryRemoteImpl.getRemoteWeather(city,this,this)
     }
 
     override fun setError(errorMsg: String) {

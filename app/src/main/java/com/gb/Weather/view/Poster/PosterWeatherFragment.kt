@@ -87,9 +87,9 @@ class PosterWeatherFragment: Fragment() {
                     .add(R.id.container,loadingFragment)
                     .commit()
                 with(binding){
-                    cityName.text = posterInfoAppState.weather.city.name
+                    cityName.text = posterInfoAppState.city.name
                     cityCoordinates?.let {
-                        it.text = "${posterInfoAppState.weather.city.lat}/${posterInfoAppState.weather.city.lon}"
+                        it.text = "${posterInfoAppState.city.lat}/${posterInfoAppState.city.lon}"
                     }
                 }
             }

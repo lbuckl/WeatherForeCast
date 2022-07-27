@@ -2,6 +2,7 @@ package com.gb.Weather.shared
 
 import android.view.View
 import com.gb.Weather.R
+import com.gb.Weather.domain.City
 import com.gb.Weather.domain.Weather
 import com.gb.Weather.model.dto.WeatherDTO
 import com.google.android.material.snackbar.Snackbar
@@ -40,8 +41,8 @@ fun getLines(reader: BufferedReader): String {
 }
 
 //Для сборки Weather из WeatherDTO
-fun buildWeatherFromDTO(weather: Weather, weatherDTO: WeatherDTO):Weather{
-    return Weather(weather.city,
+fun buildWeatherFromDTO(city: City, weatherDTO: WeatherDTO):Weather{
+    return Weather(city,
         weatherDTO.fact.temp,
         weatherDTO.fact.feelsLike,weatherDTO.fact.icon)
 }

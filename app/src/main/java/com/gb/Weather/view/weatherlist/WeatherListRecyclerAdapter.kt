@@ -5,12 +5,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.gb.Weather.databinding.FragmentWeatherListItemBinding
+import com.gb.Weather.domain.City
 import com.gb.Weather.domain.Weather
 
 /**
  * Кастомный адаптер для вывода списка городов в recyclerview
  */
-class WeatherListRecyclerAdapter (private val weatherListCity:List<Weather>):
+class WeatherListRecyclerAdapter (private val weatherListCity:List<City>):
     RecyclerView.Adapter<WeatherListRecyclerAdapter.WeatherViewHolder>() {
 
     //Создаёт ViewHolder объект опираясь на их количество, но с запасом, чтобы можно было скролить
@@ -36,9 +37,9 @@ class WeatherListRecyclerAdapter (private val weatherListCity:List<Weather>):
 
     //Вложенный класс для отображения данных в fragment_weather_list_item.xml
     inner class WeatherViewHolder(view: View): RecyclerView.ViewHolder(view){
-        fun bind(weather: Weather){
+        fun bind(city: City){
             val binding = FragmentWeatherListItemBinding.bind(itemView)
-            binding.cityItem.text = weather.city.name
+            binding.cityItem.text = city.name
         }
     }
 }

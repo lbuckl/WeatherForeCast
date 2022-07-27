@@ -3,6 +3,7 @@ package com.gb.Weather.model.requests.retrofit
 import android.util.AndroidRuntimeException
 import android.util.Log
 import com.gb.Weather.BuildConfig
+import com.gb.Weather.domain.City
 import com.gb.Weather.domain.Weather
 import com.gb.Weather.model.RemoteRequest
 import com.gb.Weather.model.dto.WeatherDTO
@@ -20,17 +21,17 @@ import java.net.UnknownHostException
 class WeatherLoaderRetrofitTest {
     private val retrofitImpl = Retrofit.Builder()
 
-    fun requestWeather(weather: Weather):Weather? {
+    fun requestWeather(city: City):Weather? {
 
-        val lat: Double = weather.city.lat
-        val lon: Double = weather.city.lon
+        val lat: Double = city.lat
+        val lon: Double = city.lon
         try {
             retrofitImpl.baseUrl("https://api.weather.yandex.ru")
             retrofitImpl.addConverterFactory(GsonConverterFactory.create(GsonBuilder().setLenient().create()))
 
             val api = retrofitImpl.build().create(WeatherAPI::class.java)
             val weatherDTO = api.getWeather(BuildConfig.WEATHER_API_KEY,lat,lon).execute().body()
-            return buildWeatherFromDTO(weather,weatherDTO!!)
+            return buildWeatherFromDTO(city,weatherDTO!!)
         }catch (e: IllegalStateException){
             e.printStackTrace()
             return null
