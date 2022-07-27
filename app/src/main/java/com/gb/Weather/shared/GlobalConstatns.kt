@@ -7,3 +7,6 @@ const val YANDEX_API_KEY_NAME = "X-Yandex-API-Key"
 const val BUNDLE_WEATHER_KEY = "weather-loading-service"
 const val BUNDLE_MASSAGE_KEY = "weather-message"
 const val WEATHER_LOADED_WAVE = "weather-loaded-wave"
+
+//Константы для работы room
+const val ROOM_DB_NAME = "weather_db"
