@@ -1,14 +1,12 @@
 package com.gb.Weather.model.requests
 
-import android.os.Handler
-import android.os.Looper
 import android.util.Log
 import com.gb.Weather.BuildConfig
 import com.gb.Weather.domain.City
 import com.gb.Weather.domain.Weather
-import com.gb.Weather.model.RemoteRequest
 import com.gb.Weather.model.dto.WeatherDTO
-import com.gb.Weather.shared.*
+import com.gb.Weather.shared.YANDEX_API_KEY_NAME
+import com.gb.Weather.shared.getLines
 import com.google.gson.Gson
 import java.io.BufferedReader
 import java.io.FileNotFoundException

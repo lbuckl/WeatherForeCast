@@ -1,6 +1,9 @@
 package com.gb.Weather.model
 
-import com.gb.Weather.domain.*
+import com.gb.Weather.domain.City
+import com.gb.Weather.domain.getFavoriteCities
+import com.gb.Weather.domain.getRussianCities
+import com.gb.Weather.domain.getWorldCities
 
 class RepositoryLocalImpl:RepositoryListCity {
     override fun getListCity(locationCity: LocationCity): List<City> {

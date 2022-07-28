@@ -1,17 +1,12 @@
 package com.gb.Weather.model.requests.retrofit
 
-import android.util.AndroidRuntimeException
 import android.util.Log
 import com.gb.Weather.BuildConfig
 import com.gb.Weather.domain.City
 import com.gb.Weather.domain.Weather
-import com.gb.Weather.model.RemoteRequest
-import com.gb.Weather.model.dto.WeatherDTO
-import com.gb.Weather.shared.CallBackError
-import com.gb.Weather.shared.CallBackResult
 import com.gb.Weather.shared.buildWeatherFromDTO
 import com.google.gson.GsonBuilder
-import retrofit2.*
+import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.net.UnknownHostException
 

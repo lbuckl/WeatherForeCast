@@ -1,9 +1,6 @@
 package com.gb.Weather.view.weatherlist
 
-import android.content.BroadcastReceiver
-import android.content.Context
-import android.content.Intent
-import android.content.IntentFilter
+import android.content.*
 import android.net.ConnectivityManager
 import android.os.Bundle
 import android.util.Log
@@ -12,11 +9,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.gb.Weather.MyApp
 import com.gb.Weather.R
 import com.gb.Weather.databinding.FragmentWeatherListBinding
-import com.gb.Weather.databinding.FragmentWeatherPosterBinding
-import com.gb.Weather.shared.showSnackBarErrorMsg
-import com.gb.Weather.shared.showSnackBarInfoMsg
+import com.gb.Weather.shared.*
 import com.gb.Weather.view.Poster.PosterWeatherFragment
 import com.gb.Weather.viewmodel.WeatherListAppState
 import com.gb.Weather.viewmodel.WeatherListViewModel
@@ -40,16 +36,18 @@ class WeatherListFragment : Fragment() {
             return _binding_list!!
         }
 
+    private lateinit var sharedPref:SharedPreferences
+
     override fun onCreateView(inflater: LayoutInflater,
                               container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
         //Биндинг для прямой связи View
         _binding_list = FragmentWeatherListBinding.inflate(inflater)
-        //@@@
         //регистрация ресивера для контроля сети
         val filter = IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION)
         context?.registerReceiver(networkStateReceiver, filter)
-
+        //Инициализация sharedPreference
+        sharedPref = MyApp.getMyApp().getSharedPreferences(SAVE_CITYES_NAMES,Context.MODE_PRIVATE)
         return binding_list.root
     }
 
@@ -61,19 +59,21 @@ class WeatherListFragment : Fragment() {
         viewModel.getLiveData().observe(viewLifecycleOwner
         ) { t -> renderData(t) }
 
-        viewModel.getCityListForFavorite()
+        viewModel.getLastCityList()
 
         binding_list.buttonFavorite.setOnClickListener{
             viewModel.getCityListForFavorite()
+            sharedPref.edit().putInt(LAST_LIST,CHOOSE_FAVORITE).apply()
         }
-
 
         binding_list.buttonRus.setOnClickListener{
             viewModel.getCityListForRussia()
+            sharedPref.edit().putInt(LAST_LIST,CHOOSE_RUSSIA).apply()
         }
 
         binding_list.buttonWorld.setOnClickListener{
             viewModel.getCityListForWorld()
+            sharedPref.edit().putInt(LAST_LIST,CHOOSE_WORLD).apply()
         }
     }
 

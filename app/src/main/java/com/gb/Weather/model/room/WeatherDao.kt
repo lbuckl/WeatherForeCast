@@ -2,9 +2,6 @@ package com.gb.Weather.model.room
 
 import androidx.room.*
 import com.gb.Weather.MyApp
-import com.gb.Weather.model.RepositoryRequestHistory
-import com.gb.Weather.shared.ROOM_DB_NAME
-import retrofit2.http.DELETE
 
 @Dao
 interface WeatherDao {

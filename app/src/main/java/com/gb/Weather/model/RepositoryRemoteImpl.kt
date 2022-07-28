@@ -5,7 +5,6 @@ import android.util.Log
 import com.gb.Weather.domain.City
 import com.gb.Weather.domain.Weather
 import com.gb.Weather.domain.getDefaultCity
-import com.gb.Weather.model.requests.WeatherLoader
 import com.gb.Weather.model.requests.WeatherLoaderTest
 import com.gb.Weather.model.requests.retrofit.WeatherLoaderRetrofitTest
 import com.gb.Weather.shared.CallBackError

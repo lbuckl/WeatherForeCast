@@ -1,28 +1,14 @@
 package com.gb.Weather.view.menu
 
-import android.content.BroadcastReceiver
-import android.content.Context
-import android.content.Intent
-import android.content.IntentFilter
-import android.net.ConnectivityManager
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.gb.Weather.R
 import com.gb.Weather.databinding.FragmentHistoryListBinding
-import com.gb.Weather.databinding.FragmentWeatherListBinding
-import com.gb.Weather.shared.showSnackBarErrorMsg
-import com.gb.Weather.view.Poster.PosterWeatherFragment
-import com.gb.Weather.view.weatherlist.WeatherListFragment
-import com.gb.Weather.view.weatherlist.WeatherListRecyclerAdapter
 import com.gb.Weather.viewmodel.HistoryAppState
 import com.gb.Weather.viewmodel.HistoryViewModel
-import com.gb.Weather.viewmodel.WeatherListAppState
-import com.gb.Weather.viewmodel.WeatherListViewModel
 
 class WeatherHistoryFragment : Fragment() {
 
@@ -30,8 +16,6 @@ class WeatherHistoryFragment : Fragment() {
         lateinit var viewModel_history: HistoryViewModel
         //fun newInstance() = WeatherListFragment()
     }
-    
-    //private lateinit var binding_history: FragmentWeatherListBinding
     private var _binding_history: FragmentHistoryListBinding? = null
     private val binding_history: FragmentHistoryListBinding
         get() {

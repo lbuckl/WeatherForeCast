@@ -5,9 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.gb.Weather.databinding.FragmentWeatherListItemBinding
-import com.gb.Weather.domain.City
 import com.gb.Weather.domain.Weather
-import com.gb.Weather.view.weatherlist.WeatherListFragment
 
 /**
  * Кастомный адаптер для вывода списка погоды из истории

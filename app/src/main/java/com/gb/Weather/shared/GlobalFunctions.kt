@@ -1,7 +1,6 @@
 package com.gb.Weather.shared
 
 import android.view.View
-import androidx.room.Entity
 import com.gb.Weather.R
 import com.gb.Weather.domain.City
 import com.gb.Weather.domain.Weather

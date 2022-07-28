@@ -1,15 +1,11 @@
 package com.gb.Weather.viewmodel
 
-import android.os.Looper
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.gb.Weather.domain.Weather
 import com.gb.Weather.model.RepositoryRemoteImpl
 import com.gb.Weather.model.RepositorySingleCity
-import com.gb.Weather.model.requests.WeatherLoader
-import com.gb.Weather.model.requests.WeatherLoaderTest
-import com.gb.Weather.model.requests.retrofit.WeatherLoaderRetrofit
 import com.gb.Weather.shared.CallBackError
 import com.gb.Weather.shared.CallBackResult
 
