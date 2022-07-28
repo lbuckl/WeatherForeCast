@@ -10,7 +10,10 @@ interface RepositorySingleCity{
     fun getCity():City
 }
 //Интерфейс репозитория для хранения списка с городами
-interface RepositoryListCity{fun getListCity(locationCity: LocationCity):List<City>}
+interface RepositoryListCity{
+    fun getListCity(locationCity: LocationCity):List<City>
+    fun addCityToFavorite(city: City)
+}
 
 //Интерфейс с колбэками для удалённого запроса погоды
 interface RemoteRequest{

@@ -3,21 +3,24 @@ package com.gb.Weather.viewmodel
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.gb.Weather.domain.City
 import com.gb.Weather.domain.Weather
-import com.gb.Weather.model.RepositoryRemoteImpl
-import com.gb.Weather.model.RepositorySingleCity
+import com.gb.Weather.model.*
 import com.gb.Weather.shared.CallBackError
 import com.gb.Weather.shared.CallBackResult
+import com.gb.Weather.view.Poster.PosterWeatherFragment
 
 class PosterInfoViewModel (private val liveData: MutableLiveData<PosterInfoAppState> = MutableLiveData<PosterInfoAppState>()) :
     ViewModel(), CallBackResult, CallBackError {
 
     lateinit var repositoryWeather: RepositorySingleCity
+    private lateinit var repositoryList: RepositoryListCity
     private var errCount: Int = 0
 
 
     val getLiveData = {
         repositoryWeather = RepositoryRemoteImpl
+        repositoryList = RepositoryLocalImpl()
         liveData
     }
 
@@ -48,5 +51,9 @@ class PosterInfoViewModel (private val liveData: MutableLiveData<PosterInfoAppSt
     override fun returnResult(weather: Weather) {
             Log.d("@@@","SuccesPoster")
             liveData.postValue(PosterInfoAppState.Success(weather))
+    }
+
+    fun setFavoriteCity(){
+        repositoryList.addCityToFavorite(repositoryWeather.getCity())
     }
 }

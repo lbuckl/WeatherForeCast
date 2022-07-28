@@ -53,6 +53,9 @@ class PosterWeatherFragment: Fragment() {
                 e.printStackTrace()
             }
         }
+        binding.imageViewSetFavorite!!.setOnClickListener{
+            viewModel_poster.setFavoriteCity()
+        }
 
     }
 
