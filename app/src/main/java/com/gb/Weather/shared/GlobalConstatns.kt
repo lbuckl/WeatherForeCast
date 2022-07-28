@@ -11,7 +11,8 @@ const val WEATHER_LOADED_WAVE = "weather-loaded-wave"
 
 //Константы для работы room
 const val ROOM_DB_NAME = "weather_db"
-const val HISTORY_LIMIT = 20
+const val ROOM_FAVORITE_DB = "favorite_cities"
+const val HISTORY_LIMIT = 4
 
 //Константы SharedPreference
 const val SAVE_CITYES_NAMES = "chose_cityes"

@@ -5,15 +5,8 @@ import com.gb.Weather.MyApp
 
 @Dao
 interface WeatherDao {
-    @Query("SELECT * FROM WeatherEntity")
-    fun getEntityList(): List<WeatherEntity>
 
-    @Query("SELECT * FROM WeatherEntity ORDER BY id DESC")
-    fun getEntityListInvert(): List<WeatherEntity>
-
-    @Query("SELECT * FROM WeatherEntity WHERE city LIKE :city")
-    fun getEntityByCity(city: String): List<WeatherEntity>
-
+    //region общие запросы
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun insert(weatherEntity: WeatherEntity)
 
@@ -22,14 +15,17 @@ interface WeatherDao {
 
     @Delete
     fun delete(weatherEntity: WeatherEntity)
+    //endregion
 
-    @Query ("DELETE FROM WeatherEntity WHERE id LIKE :idElement")
-    fun deleteById(idElement: Long)
-
+    //Чистит всю базу
     @Query ("DELETE FROM WeatherEntity")
     fun clearHistory()
-}
 
-fun findLastId():Long{
-    return MyApp.getWeatherDatabase().weatherDao().getEntityList()[0].id
+    //Возвращает всю базу
+    @Query("SELECT * FROM WeatherEntity")
+    fun getEntityList(): List<WeatherEntity>
+
+    //Возвращает всю базу в обратном порядке
+    @Query("SELECT * FROM WeatherEntity ORDER BY id DESC")
+    fun getEntityListInvert(): List<WeatherEntity>
 }

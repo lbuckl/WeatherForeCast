@@ -51,9 +51,9 @@ fun getRussianCities(): List<City> {
 }
 
 // Для избранных городов
-fun getFavoriteCities(): List<City> {
+/*fun getFavoriteCities(): List<City> {
     return listOf(
         City("Москва", 55.755826, 37.617299900000035),
         City("Уфа", 54.7387621, 55.972055400000045)
     )
-}
+}*/

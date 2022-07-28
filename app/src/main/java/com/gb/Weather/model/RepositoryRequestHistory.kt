@@ -25,10 +25,10 @@ class RepositoryRequestHistory:WeatherRequestHistory {
         if (baseSize > HISTORY_LIMIT){
 
             repeat(baseSize-HISTORY_LIMIT){
-                MyApp.getWeatherDatabase().weatherDao().getEntityList()[0].id.let {
-                    MyApp.getWeatherDatabase().weatherDao().deleteById(it)
-                    }
+                MyApp.getWeatherDatabase().weatherDao().getEntityList()[0].let {
+                    MyApp.getWeatherDatabase().weatherDao().delete(it)
                 }
+            }
         }
     }
 }

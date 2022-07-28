@@ -68,9 +68,12 @@ fun weatherToEntity(weather: Weather):WeatherEntity {
 
 //для преобразования EntityList в WeatherList
 fun entityListToWeatherList(entityList:List<WeatherEntity>):List<Weather>{
-
         return entityList.map {Weather(City(it.city,it.lat,it.lon)
             ,it.temperature,it.feelsLike,it.icon)  }
+}
+
+fun entityListToCityList(entityList:List<WeatherEntity>):List<City>{
+    return entityList.map {City(it.city,it.lat,it.lon)}
 }
 
 
