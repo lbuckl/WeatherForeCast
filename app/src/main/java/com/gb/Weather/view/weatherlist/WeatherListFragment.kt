@@ -67,6 +67,7 @@ class WeatherListFragment : Fragment() {
             viewModel.getWeatherListForFavorite()
         }
 
+
         binding_list.buttonRus.setOnClickListener{
             viewModel.getWeatherListForRussia()
         }

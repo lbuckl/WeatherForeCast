@@ -25,16 +25,16 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/button_rus"
+        android:id="@+id/buttonRus"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/Russia"
-        app:layout_constraintEnd_toStartOf="@+id/button_world"
+        app:layout_constraintEnd_toStartOf="@+id/buttonWorld"
         app:layout_constraintStart_toEndOf="@+id/button_favorite"
         app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/button_world"
+        android:id="@+id/buttonWorld"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="6dp"

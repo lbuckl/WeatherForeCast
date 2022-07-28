@@ -11,10 +11,7 @@ import com.gb.Weather.shared.CallBackError
 import com.gb.Weather.shared.CallBackResult
 import com.gb.Weather.shared.buildWeatherFromDTO
 import com.google.gson.GsonBuilder
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
-import retrofit2.Retrofit
+import retrofit2.*
 import retrofit2.converter.gson.GsonConverterFactory
 import java.net.UnknownHostException
 
@@ -28,18 +25,20 @@ class WeatherLoaderRetrofitTest {
         try {
             retrofitImpl.baseUrl("https://api.weather.yandex.ru")
             retrofitImpl.addConverterFactory(GsonConverterFactory.create(GsonBuilder().setLenient().create()))
-
             val api = retrofitImpl.build().create(WeatherAPI::class.java)
             val weatherDTO = api.getWeather(BuildConfig.WEATHER_API_KEY,lat,lon).execute().body()
             return buildWeatherFromDTO(city,weatherDTO!!)
         }catch (e: IllegalStateException){
             e.printStackTrace()
+            Log.d("@@@","IllegalStateException")
             return null
         }catch (e: RuntimeException){
             e.printStackTrace()
+            Log.d("@@@","RuntimeException")
             return null
         }catch (e: UnknownHostException){
             e.printStackTrace()
+            Log.d("@@@","UnknownHostException")
             return null
         }
 

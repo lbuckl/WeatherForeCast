@@ -41,6 +41,7 @@ class WeatherHistoryAdapter(private val weatherList: List<Weather>):
             fun bind(weather: Weather){
                 val binding = FragmentWeatherListItemBinding.bind(itemView)
                 binding.cityItem.text = weather.city.name
+                binding.textTemperature.text = weather.temperature.toString() + "℃"
             }
         }
     }

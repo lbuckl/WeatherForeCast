@@ -125,5 +125,9 @@ class PosterWeatherFragment: Fragment() {
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
+        requireActivity().supportFragmentManager
+            .beginTransaction()
+            .remove(loadingFragment)
+            .commit()
     }
 }

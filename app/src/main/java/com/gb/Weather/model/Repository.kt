@@ -21,6 +21,7 @@ interface RemoteRequest{
 interface WeatherRequestHistory{
     fun getHistoryList():List<Weather>
     fun addWeatherToHistory(weather: Weather)
+    fun clearHistory()
 }
 
 sealed class LocationCity{

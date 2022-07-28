@@ -23,10 +23,6 @@ object RepositoryRemoteImpl:RepositorySingleCity {
         return dataCity
     }
 
-    fun getRequestHistoryList():List<Weather>{
-        return RepositoryRequestHistory().getHistoryList()
-    }
-
     /**
      * Функиця выполняет запрос погоды и колбэкает резальтат, либо ошибку
      * при неудчном запросе функция предусматривает резервный запрос

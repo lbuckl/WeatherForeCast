@@ -13,6 +13,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.gb.Weather.R
+import com.gb.Weather.databinding.FragmentHistoryListBinding
 import com.gb.Weather.databinding.FragmentWeatherListBinding
 import com.gb.Weather.shared.showSnackBarErrorMsg
 import com.gb.Weather.view.Poster.PosterWeatherFragment
@@ -27,12 +28,12 @@ class WeatherHistoryFragment : Fragment() {
 
     companion object {
         lateinit var viewModel_history: HistoryViewModel
-        fun newInstance() = WeatherListFragment()
+        //fun newInstance() = WeatherListFragment()
     }
     
     //private lateinit var binding_history: FragmentWeatherListBinding
-    private var _binding_history: FragmentWeatherListBinding? = null
-    private val binding_history: FragmentWeatherListBinding
+    private var _binding_history: FragmentHistoryListBinding? = null
+    private val binding_history: FragmentHistoryListBinding
         get() {
             return _binding_history!!
         }
@@ -41,7 +42,7 @@ class WeatherHistoryFragment : Fragment() {
                               container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
         //Биндинг для прямой связи View
-        _binding_history = FragmentWeatherListBinding.inflate(inflater)
+        _binding_history = FragmentHistoryListBinding.inflate(inflater)
         return binding_history.root
     }
 
@@ -54,13 +55,16 @@ class WeatherHistoryFragment : Fragment() {
         viewModel_history.getLiveData().observe(viewLifecycleOwner
         ) { t -> renderData(t) }
         viewModel_history.getHistory()
+        binding_history.buttonDelete.setOnClickListener{
+            viewModel_history.clearHistory()
+        }
     }
 
     //Подписка на изменение AppState и выполнение операций по триггеру
     private fun renderData(appState: HistoryAppState){
         when (appState){
             is HistoryAppState.LoadedHistory-> {
-                binding_history.weatherRecyclerview.adapter = WeatherHistoryAdapter(appState.weatherList)
+                binding_history.historyRecyclerview.adapter = WeatherHistoryAdapter(appState.weatherList)
             }
         }
     }

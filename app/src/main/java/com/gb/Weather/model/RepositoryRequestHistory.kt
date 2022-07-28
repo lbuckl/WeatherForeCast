@@ -9,10 +9,14 @@ import com.gb.Weather.shared.weatherToEntity
 
 class RepositoryRequestHistory:WeatherRequestHistory {
     override fun getHistoryList(): List<Weather> {
-        return entityListToWeatherList(MyApp.getWeatherDatabase().weatherDao().getEntityList())
+        return entityListToWeatherList(MyApp.getWeatherDatabase().weatherDao().getEntityListInvert())
     }
 
     override fun addWeatherToHistory(weather: Weather) {
         MyApp.getWeatherDatabase().weatherDao().insert(weatherToEntity(weather))
+    }
+
+    override fun clearHistory() {
+        MyApp.getWeatherDatabase().weatherDao().clearHistory()
     }
 }

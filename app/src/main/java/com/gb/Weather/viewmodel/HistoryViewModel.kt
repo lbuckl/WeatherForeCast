@@ -16,6 +16,12 @@ class HistoryViewModel(private val liveData: MutableLiveData<HistoryAppState> = 
         liveData
     }
 
+    fun clearHistory(){
+        repositoryRequestHistory.clearHistory()
+        Thread.sleep(200)
+        liveData.postValue(HistoryAppState.LoadedHistory(repositoryRequestHistory.getHistoryList()))
+    }
+
     fun getHistory(){
         liveData.postValue(HistoryAppState.LoadedHistory(repositoryRequestHistory.getHistoryList()))
     }
