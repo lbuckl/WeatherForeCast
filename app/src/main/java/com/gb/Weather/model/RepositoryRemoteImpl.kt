@@ -12,7 +12,7 @@ import com.gb.Weather.shared.CallBackError
 import com.gb.Weather.shared.CallBackResult
 
 object RepositoryRemoteImpl:RepositorySingleCity {
-    private var data = Weather(getDefaultCity(),0,0)
+    private var data = Weather(getDefaultCity(),0,0,"bkn_n")
     private var dataCity = getDefaultCity()
 
     override fun setCity(city: City) {

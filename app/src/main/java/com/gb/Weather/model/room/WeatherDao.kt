@@ -2,6 +2,7 @@ package com.gb.Weather.model.room
 
 import androidx.room.*
 import com.gb.Weather.MyApp
+import com.gb.Weather.model.RepositoryRequestHistory
 import com.gb.Weather.shared.ROOM_DB_NAME
 import retrofit2.http.DELETE
 
@@ -25,6 +26,13 @@ interface WeatherDao {
     @Delete
     fun delete(weatherEntity: WeatherEntity)
 
+    @Query ("DELETE FROM WeatherEntity WHERE id LIKE :idElement")
+    fun deleteById(idElement: Long)
+
     @Query ("DELETE FROM WeatherEntity")
     fun clearHistory()
+}
+
+fun findLastId():Long{
+    return MyApp.getWeatherDatabase().weatherDao().getEntityList()[0].id
 }

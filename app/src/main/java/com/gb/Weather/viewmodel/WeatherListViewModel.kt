@@ -4,10 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.gb.Weather.domain.City
 import com.gb.Weather.domain.Weather
-import com.gb.Weather.model.LocationCity
-import com.gb.Weather.model.RepositoryListCity
-import com.gb.Weather.model.RepositoryLocalImpl
-import com.gb.Weather.model.RepositoryRemoteImpl
+import com.gb.Weather.model.*
 
 /**
  * Класс для реализации LiveData
@@ -17,24 +14,26 @@ class WeatherListViewModel(private val liveData: MutableLiveData<WeatherListAppS
     ViewModel(){
 
     private lateinit var repositoryList: RepositoryListCity
+    private lateinit var repositoryRequestHistory: RepositoryRequestHistory
     private lateinit var locCity: LocationCity
 
     //Выбираем БД и возвращаем данные
     val getLiveData = {
         repositoryList = RepositoryLocalImpl()
+        repositoryRequestHistory = RepositoryRequestHistory()
         liveData
     }
 
     //region переключатель списков
-    fun getWeatherListForRussia() = sentRequest(LocationCity.Russian)
-    fun getWeatherListForWorld() = sentRequest(LocationCity.World)
-    fun getWeatherListForFavorite() = sentRequest(LocationCity.Favorite)
+    fun getCityListForRussia() = sentRequest(LocationCity.Russian)
+    fun getCityListForWorld() = sentRequest(LocationCity.World)
+    fun getCityListForFavorite() = sentRequest(LocationCity.Favorite)
     //endregion
 
     //данные для списка городов. Тригерит загрузку списка городов
     private fun sentRequest(locationCity: LocationCity) {
         locCity = locationCity
-        liveData.postValue(WeatherListAppState.LoadCities(repositoryList.getListWeather(locationCity)))
+        liveData.postValue(WeatherListAppState.LoadCities(repositoryList.getListCity(locationCity)))
     }
 
     fun loadWeather(city: City){

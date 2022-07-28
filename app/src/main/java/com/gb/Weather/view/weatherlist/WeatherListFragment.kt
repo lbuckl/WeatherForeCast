@@ -61,19 +61,19 @@ class WeatherListFragment : Fragment() {
         viewModel.getLiveData().observe(viewLifecycleOwner
         ) { t -> renderData(t) }
 
-        viewModel.getWeatherListForFavorite()
+        viewModel.getCityListForFavorite()
 
         binding_list.buttonFavorite.setOnClickListener{
-            viewModel.getWeatherListForFavorite()
+            viewModel.getCityListForFavorite()
         }
 
 
         binding_list.buttonRus.setOnClickListener{
-            viewModel.getWeatherListForRussia()
+            viewModel.getCityListForRussia()
         }
 
         binding_list.buttonWorld.setOnClickListener{
-            viewModel.getWeatherListForWorld()
+            viewModel.getCityListForWorld()
         }
     }
 

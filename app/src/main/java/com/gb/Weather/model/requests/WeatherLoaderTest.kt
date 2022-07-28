@@ -40,7 +40,7 @@ object WeatherLoaderTest {
                 val reader = BufferedReader(InputStreamReader(myConnection.inputStream))
                 val weatherDTO = Gson().fromJson(getLines(reader), WeatherDTO::class.java)
                     if (weatherDTO != null) {
-                        weatherData = Weather(city,weatherDTO.fact.temp,weatherDTO.fact.feelsLike)
+                        weatherData = Weather(city,weatherDTO.fact.temp,weatherDTO.fact.feelsLike,"")
                         return weatherData
                     } else {
                         weatherData = null
