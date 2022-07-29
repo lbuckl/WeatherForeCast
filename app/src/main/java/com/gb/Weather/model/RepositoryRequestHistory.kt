@@ -17,7 +17,7 @@ class RepositoryRequestHistory:WeatherRequestHistory {
     }
 
     override fun clearHistory() {
-        MyApp.getWeatherDatabase().weatherDao().clearHistory()
+        Thread{MyApp.getWeatherDatabase().weatherDao().clearHistory()}.start()
     }
 
     //Функция удаляет истоию сверх лимита
