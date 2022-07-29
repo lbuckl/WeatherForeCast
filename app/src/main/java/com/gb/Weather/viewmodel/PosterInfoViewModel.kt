@@ -44,19 +44,14 @@ class PosterInfoViewModel (private val liveData: MutableLiveData<PosterInfoAppSt
     }
 
     override fun setError(errorMsg: String) {
-                Log.d("@@@","ErrorPoster")
                 liveData.postValue(PosterInfoAppState.Error(Exception(errorMsg)))
     }
 
     override fun returnResult(weather: Weather) {
-            Log.d("@@@","SuccesPoster")
             liveData.postValue(PosterInfoAppState.Success(weather))
     }
 
     fun setFavoriteCity(){
-        Thread{
             repositoryFavoriteCity.addCityToRoom(repositoryWeather.getCity())
-        }.start()
-
     }
 }
