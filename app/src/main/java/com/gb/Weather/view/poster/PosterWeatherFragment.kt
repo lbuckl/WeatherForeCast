@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import androidx.annotation.DrawableRes
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import coil.ImageLoader
@@ -13,7 +12,6 @@ import coil.decode.SvgDecoder
 import coil.request.ImageRequest
 import com.gb.Weather.R
 import com.gb.Weather.databinding.FragmentWeatherPosterBinding
-import com.gb.Weather.domain.Weather
 import com.gb.Weather.shared.showSnackBarErrorMsg
 import com.gb.Weather.view.LoadingFragment
 import com.gb.Weather.viewmodel.PosterInfoAppState

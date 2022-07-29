@@ -1,8 +1,6 @@
 package com.gb.Weather.model.room
 
 import androidx.room.*
-import com.gb.Weather.MyApp
-import com.gb.Weather.domain.City
 
 @Dao
 interface WeatherDao {

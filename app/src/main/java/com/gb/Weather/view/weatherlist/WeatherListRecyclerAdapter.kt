@@ -1,6 +1,5 @@
 package com.gb.Weather.view.weatherlist
 
-import android.content.Context
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -11,7 +10,6 @@ import com.gb.Weather.MyApp
 import com.gb.Weather.R
 import com.gb.Weather.databinding.FragmentWeatherListItemBinding
 import com.gb.Weather.domain.City
-import com.gb.Weather.shared.LAST_LIST
 
 /**
  * Кастомный адаптер для вывода списка городов в recyclerview

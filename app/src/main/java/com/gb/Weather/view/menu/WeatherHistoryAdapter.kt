@@ -23,10 +23,6 @@ class WeatherHistoryAdapter(private val weatherList: List<Weather>):
         //Связываем используемые текстовые метки с данными
         override fun onBindViewHolder(holder: WeatherViewHolder, position: Int) {
             holder.bind(weatherList[position])
-
-            /*holder.itemView.setOnClickListener{
-                WeatherListFragment.viewModel.loadWeather(weatherList[position])
-            }*/
         }
 
         //Возвращает количество элементов списка

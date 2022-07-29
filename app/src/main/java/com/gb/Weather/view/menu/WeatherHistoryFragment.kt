@@ -66,5 +66,4 @@ class WeatherHistoryFragment : Fragment() {
         super.onDestroy()
         _binding_history = null
     }
-    //endregion
 }
