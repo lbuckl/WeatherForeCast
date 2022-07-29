@@ -65,10 +65,12 @@ class WeatherListViewModel(private val liveData: MutableLiveData<WeatherListAppS
     }
 
     fun deleteFavoriteCity(city: City){
-        //repositoryList.deleteFavoriteCity(city)
-        repositoryFavoriteCity.deleteCityFromRoom(city)
-        Thread.sleep(200)
-        refresh()
+        Thread{
+            repositoryFavoriteCity.deleteCityFromRoom(city)
+            Thread.sleep(200)
+            refresh()
+        }.start()
+
     }
 
     fun refresh(){
