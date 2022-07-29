@@ -2,8 +2,10 @@ package com.gb.Weather.viewmodel
 
 import android.content.Context
 import android.content.SharedPreferences
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.gb.Weather.MainActivity
 import com.gb.Weather.MyApp
 import com.gb.Weather.domain.City
 import com.gb.Weather.model.*
@@ -55,6 +57,7 @@ class WeatherListViewModel(private val liveData: MutableLiveData<WeatherListAppS
         liveData.postValue(WeatherListAppState.LoadCities(repositoryList.getListCity(locationCity)))
     }
 
+
     fun loadWeather(city: City){
         //Открываем постер
         liveData.postValue(WeatherListAppState.Loading(city))
@@ -62,9 +65,12 @@ class WeatherListViewModel(private val liveData: MutableLiveData<WeatherListAppS
     }
 
     fun deleteFavoriteCity(city: City){
+        Thread{
             repositoryFavoriteCity.deleteCityFromRoom(city)
             Thread.sleep(200)
             refresh()
+        }.start()
+
     }
 
     fun refresh(){
