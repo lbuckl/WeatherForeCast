@@ -21,6 +21,7 @@ class WeatherListViewModel(private val liveData: MutableLiveData<WeatherListAppS
 
     private lateinit var repositoryList: RepositoryListCity
     private lateinit var repositoryRequestHistory: RepositoryRequestHistory
+    private lateinit var repositoryFavoriteCity: RepositoryFavoriteCity
     private lateinit var locCity: LocationCity
     val sharedPref: SharedPreferences = MyApp.getMyApp()
         .getSharedPreferences(SAVE_CITYES_NAMES, Context.MODE_PRIVATE)
@@ -29,6 +30,7 @@ class WeatherListViewModel(private val liveData: MutableLiveData<WeatherListAppS
     val getLiveData = {
         repositoryList = RepositoryLocalImpl()
         repositoryRequestHistory = RepositoryRequestHistory()
+        repositoryFavoriteCity = RepositoryFavoriteCity()
         liveData
     }
 
@@ -63,7 +65,8 @@ class WeatherListViewModel(private val liveData: MutableLiveData<WeatherListAppS
     }
 
     fun deleteFavoriteCity(city: City){
-        repositoryList.deleteFavoriteCity(city)
+        //repositoryList.deleteFavoriteCity(city)
+        repositoryFavoriteCity.deleteCityFromRoom(city)
         Thread.sleep(200)
         refresh()
     }

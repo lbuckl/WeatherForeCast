@@ -28,6 +28,12 @@ interface WeatherRequestHistory{
     fun clearHistory()
 }
 
+interface RoomCityExchange{
+    fun getListCity(locationCity: LocationCity):List<City>
+    fun addCityToRoom(city: City)
+    fun deleteCityFromRoom(city: City)
+}
+
 sealed class LocationCity{
     object Russian:LocationCity()
     object World:LocationCity()
