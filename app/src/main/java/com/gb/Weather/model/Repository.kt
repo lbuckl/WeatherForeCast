@@ -13,6 +13,7 @@ interface RepositorySingleCity{
 interface RepositoryListCity{
     fun getListCity(locationCity: LocationCity):List<City>
     fun addCityToFavorite(city: City)
+    fun deleteFavoriteCity(city: City)
 }
 
 //Интерфейс с колбэками для удалённого запроса погоды

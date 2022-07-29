@@ -70,7 +70,7 @@ fun weatherToEntity(weather: Weather):WeatherEntity {
 fun cityToEntity(city: City):WeatherEntity {
     with(city) {
         return WeatherEntity(
-            0, city.name, city.lat, city.lon,
+            0, name, lat, lon,
             -100,-100,""
         )
     }

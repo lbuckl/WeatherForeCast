@@ -23,8 +23,13 @@ class RepositoryLocalImpl:RepositoryListCity {
         }
     }
 
-    //Добавляет город в список избранных, внося не реальные данные
+    //Добавляет город в список избранных, (костыль) внося не реальные погодные данные
     override fun addCityToFavorite(city: City) {
         MyApp.getFavoriteCitiesDatabase().favoriteCityDao().insert(cityToEntity(city))
+    }
+
+    override fun deleteFavoriteCity(city: City) {
+        //MyApp.getFavoriteCitiesDatabase().favoriteCityDao().delete(cityToEntity(city))
+        MyApp.getFavoriteCitiesDatabase().favoriteCityDao().deleteByCity(city.name)
     }
 }

@@ -41,7 +41,6 @@ class WeatherListViewModel(private val liveData: MutableLiveData<WeatherListAppS
 
     //Возврат последнего сохранённого списка в SharedPref
     fun getLastCityList(){
-        Log.d("@@@",sharedPref.getInt(LAST_LIST,1).toString())
         return when (sharedPref.getInt(LAST_LIST,1)){
             (1) -> getCityListForFavorite()
             (2) -> getCityListForRussia()
@@ -61,6 +60,12 @@ class WeatherListViewModel(private val liveData: MutableLiveData<WeatherListAppS
         //Открываем постер
         liveData.postValue(WeatherListAppState.Loading(city))
         RepositoryRemoteImpl.setCity(city)
+    }
+
+    fun deleteFavoriteCity(city: City){
+        repositoryList.deleteFavoriteCity(city)
+        Thread.sleep(200)
+        refresh()
     }
 
     fun refresh(){
