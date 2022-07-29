@@ -11,14 +11,16 @@ import com.gb.Weather.shared.CallBackResult
 class PosterInfoViewModel (private val liveData: MutableLiveData<PosterInfoAppState> = MutableLiveData<PosterInfoAppState>()) :
     ViewModel(), CallBackResult, CallBackError {
 
-    lateinit var repositoryWeather: RepositorySingleCity
+    private lateinit var repositoryWeather: RepositorySingleCity
     private lateinit var repositoryList: RepositoryListCity
+    private lateinit var repositoryFavoriteCity: RepositoryFavoriteCity
     private var errCount: Int = 0
 
 
     val getLiveData = {
         repositoryWeather = RepositoryRemoteImpl
         repositoryList = RepositoryLocalImpl()
+        repositoryFavoriteCity = RepositoryFavoriteCity()
         liveData
     }
 
@@ -52,6 +54,7 @@ class PosterInfoViewModel (private val liveData: MutableLiveData<PosterInfoAppSt
     }
 
     fun setFavoriteCity(){
-        repositoryList.addCityToFavorite(repositoryWeather.getCity())
+        //repositoryList.addCityToFavorite(repositoryWeather.getCity())
+        repositoryFavoriteCity.addCityToRoom(repositoryWeather.getCity())
     }
 }
