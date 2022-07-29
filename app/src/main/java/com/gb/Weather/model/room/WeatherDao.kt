@@ -2,6 +2,7 @@ package com.gb.Weather.model.room
 
 import androidx.room.*
 import com.gb.Weather.MyApp
+import com.gb.Weather.domain.City
 
 @Dao
 interface WeatherDao {
@@ -16,6 +17,10 @@ interface WeatherDao {
     @Delete
     fun delete(weatherEntity: WeatherEntity)
     //endregion
+
+
+    @Query ("DELETE FROM WeatherEntity WHERE city = :cityDelete")
+    fun deleteByCity(cityDelete: String)
 
     //Чистит всю базу
     @Query ("DELETE FROM WeatherEntity")

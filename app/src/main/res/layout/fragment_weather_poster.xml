@@ -93,7 +93,7 @@
             app:layout_constraintTop_toBottomOf="@+id/feelsLikeLabel"
             tools:text="-23" />
 
-        <ImageView
+        <androidx.appcompat.widget.AppCompatImageButton
             android:id="@+id/imageView_set_favorite"
             android:layout_width="64dp"
             android:layout_height="64dp"

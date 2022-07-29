@@ -2,6 +2,6 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/popup_menu_delete"
+        android:id="@+id/popup_position_delete"
         android:title="@string/delete" />
 </menu>
