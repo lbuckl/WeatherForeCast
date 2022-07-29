@@ -13,6 +13,7 @@ import com.gb.Weather.shared.CallBackResult
 object RepositoryRemoteImpl:RepositorySingleCity {
     private var data = Weather(getDefaultCity(),0,0,"bkn_n")
     private var dataCity = getDefaultCity()
+    val repositoryRequest = RepositoryRequestHistory()
 
     override fun setCity(city: City) {
         dataCity = city
@@ -38,7 +39,7 @@ object RepositoryRemoteImpl:RepositorySingleCity {
                 if (weatherRemote != null) {
                     //handler.post {
                         data = weatherRemote
-                        RepositoryRequestHistory().addWeatherToHistory(weatherRemote)
+                        repositoryRequest.addWeatherToHistory(weatherRemote)
                         callBackResult.returnResult(weatherRemote)
                     //}
                     break

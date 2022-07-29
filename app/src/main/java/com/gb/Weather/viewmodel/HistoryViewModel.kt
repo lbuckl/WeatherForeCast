@@ -21,6 +21,10 @@ class HistoryViewModel(private val liveData: MutableLiveData<HistoryAppState> = 
     }
 
     fun getHistory(){
-        liveData.postValue(HistoryAppState.LoadedHistory(repositoryRequestHistory.getHistoryList()))
+        Thread{
+            liveData.postValue(HistoryAppState.LoadedHistory(repositoryRequestHistory.getHistoryList()))
+        }.start()
     }
+
+
 }

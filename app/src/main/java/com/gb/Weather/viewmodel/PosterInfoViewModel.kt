@@ -56,7 +56,9 @@ class PosterInfoViewModel (private val liveData: MutableLiveData<PosterInfoAppSt
     }
 
     fun setFavoriteCity(){
-        //repositoryList.addCityToFavorite(repositoryWeather.getCity())
-        repositoryFavoriteCity.addCityToRoom(repositoryWeather.getCity())
+        Thread{
+            repositoryFavoriteCity.addCityToRoom(repositoryWeather.getCity())
+        }.start()
+
     }
 }

@@ -20,6 +20,7 @@ class RepositoryRequestHistory:WeatherRequestHistory {
         MyApp.getWeatherDatabase().weatherDao().clearHistory()
     }
 
+    //Функция удаляет истоию сверх лимита
     private fun clearLimit(){
         val baseSize = MyApp.getWeatherDatabase().weatherDao().getEntityList().size
         if (baseSize > HISTORY_LIMIT){
