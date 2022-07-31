@@ -20,3 +20,6 @@ const val LAST_LIST = "last_list"
 const val CHOOSE_FAVORITE = 1
 const val CHOOSE_RUSSIA = 2
 const val CHOOSE_WORLD = 3
+
+//Константы для Permission
+const val REQUEST_CODE = 100

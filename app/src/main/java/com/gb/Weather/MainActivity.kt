@@ -11,7 +11,6 @@ import com.gb.Weather.view.weatherlist.WeatherListFragment
 
 
 internal class MainActivity : AppCompatActivity() {
-
     lateinit var binding: ActivityMainBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,15 +45,15 @@ internal class MainActivity : AppCompatActivity() {
                 true
             }
             R.id.menu_item_contacts -> {
-                val contactsFragment = supportFragmentManager.findFragmentByTag("Contacts")
-                if (contactsFragment == null){
+                //val contactsFragment = supportFragmentManager.findFragmentByTag("Contacts")
+                //if (contactsFragment == null){
                     supportFragmentManager.apply {
                         beginTransaction()
                             .replace(R.id.container, ContactsFragment(),"Contacts")
                             .addToBackStack("Contacts")
                             .commitAllowingStateLoss()
                     }
-                }
+                //}
                 true
             }
             else -> super.onOptionsItemSelected(item)
