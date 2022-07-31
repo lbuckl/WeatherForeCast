@@ -21,8 +21,7 @@ class WeatherHistoryFragment : Fragment() {
             return _binding_history!!
         }
 
-    override fun onCreateView(inflater: LayoutInflater,
-                              container: ViewGroup?,
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
         //Биндинг для прямой связи View
         _binding_history = FragmentHistoryListBinding.inflate(inflater)

@@ -32,24 +32,28 @@ internal class MainActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        val weatherHistoryFragment = WeatherHistoryFragment()
-        val contactsFragment = ContactsFragment()
         return when (item.itemId) {
             R.id.menu_item_history -> {
-                supportFragmentManager.apply {
-                    beginTransaction()
-                        .replace(R.id.container, WeatherHistoryFragment())
-                        .addToBackStack("")
-                        .commitAllowingStateLoss()
+                val weatherHistoryFragment = supportFragmentManager.findFragmentByTag("History")
+                if (weatherHistoryFragment == null){
+                    supportFragmentManager.apply {
+                        beginTransaction()
+                            .replace(R.id.container, WeatherHistoryFragment(),"History")
+                            .addToBackStack("History")
+                            .commitAllowingStateLoss()
+                    }
                 }
                 true
             }
             R.id.menu_item_contacts -> {
-                supportFragmentManager.apply {
-                    beginTransaction()
-                        .replace(R.id.container, ContactsFragment())
-                        .addToBackStack("")
-                        .commitAllowingStateLoss()
+                val contactsFragment = supportFragmentManager.findFragmentByTag("Contacts")
+                if (contactsFragment == null){
+                    supportFragmentManager.apply {
+                        beginTransaction()
+                            .replace(R.id.container, ContactsFragment(),"Contacts")
+                            .addToBackStack("Contacts")
+                            .commitAllowingStateLoss()
+                    }
                 }
                 true
             }

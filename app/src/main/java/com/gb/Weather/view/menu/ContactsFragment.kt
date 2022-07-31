@@ -4,18 +4,19 @@ import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
 import com.gb.Weather.R
+import com.gb.Weather.databinding.FragmentContactsListBinding
 import com.gb.Weather.databinding.FragmentHistoryListBinding
 
 class ContactsFragment: Fragment() {
-    private var _binding_contacts: FragmentHistoryListBinding? = null
-    private val binding_contacts: FragmentHistoryListBinding
+    private var _binding_contacts: FragmentContactsListBinding? = null
+    private val binding_contacts: FragmentContactsListBinding
         get() {
             return _binding_contacts!!
         }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?): View? {
-
+        savedInstanceState: Bundle?): View {
+        _binding_contacts = FragmentContactsListBinding.inflate(inflater)
         //инициализируем работу с меню (для скрытия кнопок)
         setHasOptionsMenu(true)
         return binding_contacts.root
