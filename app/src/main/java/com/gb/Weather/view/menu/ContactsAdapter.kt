@@ -1,23 +1,18 @@
 package com.gb.Weather.view.menu
 
 import android.Manifest
-import android.content.ContentProvider
-import android.content.Context
 import android.content.Intent
 import android.content.Intent.FLAG_ACTIVITY_NEW_TASK
 import android.content.pm.PackageManager
 import android.net.Uri
-import android.renderscript.ScriptGroup
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.gb.Weather.MyApp
 import com.gb.Weather.databinding.FragmentContactsListItemBinding
-import com.gb.Weather.databinding.FragmentWeatherListBinding
 import com.gb.Weather.domain.ContactNum
 import com.gb.Weather.shared.showSnackBarErrorMsg
 
@@ -43,10 +38,10 @@ class ContactsAdapter(private val contactList: List<ContactNum>):
             //Проверяем есть ли разрешение на звонки
             val permResult =
                 ContextCompat.checkSelfPermission(MyApp.getMyApp().baseContext, Manifest.permission.CALL_PHONE)
-            Log.d("@@@",permResult.toString())
 
             if (permResult == PackageManager.PERMISSION_GRANTED){
                 Log.d("@@@","Пытаюсь позвонить")
+                //Если разрешениеполучено, то создаём интент звонка по номеру
                 val callIntent = Intent(Intent.ACTION_CALL)
                 callIntent.setData(Uri.parse("tel:" + contactList[position].num)).addFlags(FLAG_ACTIVITY_NEW_TASK)
                 MyApp.getMyApp().applicationContext.startActivity(callIntent)
@@ -63,7 +58,7 @@ class ContactsAdapter(private val contactList: List<ContactNum>):
         return contactList.size
     }
 
-    //Вложенный класс для отображения данных в fragment_weather_list_item.xml
+    //Вложенный класс для отображения данных
     inner class ContactViewHolder(view: View): RecyclerView.ViewHolder(view){
         fun bind(contactname:ContactNum){
             val binding = FragmentContactsListItemBinding.bind(itemView)

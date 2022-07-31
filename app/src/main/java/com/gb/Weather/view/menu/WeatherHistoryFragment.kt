@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.gb.Weather.MyApp
 import com.gb.Weather.R
 import com.gb.Weather.databinding.FragmentHistoryListBinding
 import com.gb.Weather.viewmodel.HistoryAppState

@@ -25,7 +25,6 @@ class ContactsFragment: Fragment() {
             return _binding!!
         }
 
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -71,6 +70,7 @@ class ContactsFragment: Fragment() {
         }
     }
 
+    //Функция, которая непосредственно отображает окно с подтверждением
     private fun permissionRequest(permissions: Array<String>) {
         requestPermissions(permissions, REQUEST_CODE_READ_CONTACTS)
     }
@@ -101,7 +101,7 @@ class ContactsFragment: Fragment() {
     private fun getContacts() {
         val contentResolver: ContentResolver = requireContext().contentResolver
 
-        //Определяем столбцы для запроса
+        //Определяем столбцы по которым хотим получить ответ
         val queryFields = arrayOf(ContactsContract.Contacts.DISPLAY_NAME,
             ContactsContract.Contacts.HAS_PHONE_NUMBER,
             ContactsContract.CommonDataKinds.Phone.NUMBER)
@@ -116,12 +116,10 @@ class ContactsFragment: Fragment() {
             ContactsContract.Contacts.DISPLAY_NAME + " ASC"
         )
 
-
-
+        //Получаем имя и номер. Передаём это в адаптер
         val contacts = mutableListOf<ContactNum>()
-
         cursorWithContacts?.let { cursor->
-            for(i in 1 until cursor.count){ // аналог 0..cursorWithContacts.count-1
+            for(i in 1 until cursor.count){
                 cursor.moveToPosition(i)
                 val name = cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME))
                 val phoneNum:String
@@ -132,7 +130,6 @@ class ContactsFragment: Fragment() {
                 contacts.add(ContactNum(name,phoneNum))
             }
         }
-
         cursorWithContacts?.close()
         binding.reciclerContacts.adapter = ContactsAdapter(contacts)
     }
