@@ -31,4 +31,12 @@ interface WeatherDao {
     //Возвращает всю базу в обратном порядке
     @Query("SELECT * FROM WeatherEntity ORDER BY id DESC")
     fun getEntityListInvert(): List<WeatherEntity>
+
+    //Возвращает всю базу отсортированную по городам в прямом порядке А-Я
+    @Query("SELECT * FROM WeatherEntity ORDER BY city ASC")
+    fun getEntityListRightSort(): List<WeatherEntity>
+
+    //Возвращает всю базу отсортированную по городам в прямом порядке А-Я
+    @Query("SELECT * FROM WeatherEntity ORDER BY city DESC")
+    fun getEntityListLeftSort(): List<WeatherEntity>
 }

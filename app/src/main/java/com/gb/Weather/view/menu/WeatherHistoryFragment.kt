@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.gb.Weather.MyApp
 import com.gb.Weather.R
 import com.gb.Weather.databinding.FragmentHistoryListBinding
 import com.gb.Weather.viewmodel.HistoryAppState
@@ -15,6 +16,7 @@ class WeatherHistoryFragment : Fragment() {
         lateinit var viewModel_history: HistoryViewModel
         //fun newInstance() = WeatherListFragment()
     }
+
     private var _binding_history: FragmentHistoryListBinding? = null
     private val binding_history: FragmentHistoryListBinding
         get() {
@@ -58,6 +60,17 @@ class WeatherHistoryFragment : Fragment() {
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
         menu.findItem(R.id.menu_item_history)?.isVisible = false
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+
+        return when (item.itemId) {
+            R.id.menu_item_sort -> {
+                viewModel_history.getSortedHistory()
+                true
+            }
+            else -> {return super.onOptionsItemSelected(item)}
+        }
     }
 
     override fun onDestroy() {

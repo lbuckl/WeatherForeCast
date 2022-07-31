@@ -7,8 +7,14 @@ import com.gb.Weather.shared.entityListToWeatherList
 import com.gb.Weather.shared.weatherToEntity
 
 class RepositoryRequestHistory:WeatherRequestHistory {
+    //Вернуть список отсортированный в порядке обратном добавлению объектов
     override fun getHistoryList(): List<Weather> {
         return entityListToWeatherList(MyApp.getWeatherDatabase().weatherDao().getEntityListInvert())
+    }
+
+    fun getSortedHistory(isRight:Boolean):List<Weather> {
+        if (isRight) return entityListToWeatherList(MyApp.getWeatherDatabase().weatherDao().getEntityListRightSort())
+        else return entityListToWeatherList(MyApp.getWeatherDatabase().weatherDao().getEntityListLeftSort())
     }
 
     override fun addWeatherToHistory(weather: Weather) {

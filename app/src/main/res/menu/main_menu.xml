@@ -7,8 +7,14 @@
         android:title="@string/history" />
 
     <item
+        android:id="@+id/menu_item_sort"
+        android:icon="@android:drawable/ic_menu_sort_by_size"
+        android:title="@string/sort"
+        app:showAsAction="always" />
+    <item
         android:id="@+id/menu_item_contacts"
         android:icon="@android:drawable/ic_menu_call"
         android:title="@string/contacts"
         app:showAsAction="always"/>
+
 </menu>

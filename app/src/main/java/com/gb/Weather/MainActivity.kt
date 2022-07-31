@@ -34,26 +34,32 @@ internal class MainActivity : AppCompatActivity() {
         return when (item.itemId) {
             R.id.menu_item_history -> {
                 val weatherHistoryFragment = supportFragmentManager.findFragmentByTag("History")
-                if (weatherHistoryFragment == null){
-                    supportFragmentManager.apply {
-                        beginTransaction()
-                            .replace(R.id.container, WeatherHistoryFragment(),"History")
+                supportFragmentManager.beginTransaction().apply{
+                    if (weatherHistoryFragment == null){
+                        replace(R.id.container, WeatherHistoryFragment(), "History")
                             .addToBackStack("History")
+                            .commitAllowingStateLoss()
+                    }
+                    else {
+                        replace(R.id.container, weatherHistoryFragment, "History")
                             .commitAllowingStateLoss()
                     }
                 }
                 true
             }
             R.id.menu_item_contacts -> {
-                //val contactsFragment = supportFragmentManager.findFragmentByTag("Contacts")
-                //if (contactsFragment == null){
-                    supportFragmentManager.apply {
-                        beginTransaction()
-                            .replace(R.id.container, ContactsFragment(),"Contacts")
-                            .addToBackStack("Contacts")
-                            .commitAllowingStateLoss()
-                    }
-                //}
+                val contactsFragment = supportFragmentManager.findFragmentByTag("Contacts")
+                    supportFragmentManager.beginTransaction().apply{
+                            if (contactsFragment == null){
+                                replace(R.id.container, ContactsFragment(), "Contacts")
+                                    .addToBackStack("Contacts")
+                                    .commitAllowingStateLoss()
+                            }
+                            else {
+                                replace(R.id.container, contactsFragment, "Contacts")
+                                    .commitAllowingStateLoss()
+                            }
+                        }
                 true
             }
             else -> super.onOptionsItemSelected(item)

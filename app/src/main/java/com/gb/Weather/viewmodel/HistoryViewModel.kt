@@ -6,7 +6,10 @@ import com.gb.Weather.model.RepositoryRequestHistory
 
 class HistoryViewModel(private val liveData: MutableLiveData<HistoryAppState> = MutableLiveData<HistoryAppState>())
     :ViewModel() {
-        private lateinit var repositoryRequestHistory: RepositoryRequestHistory
+     private lateinit var repositoryRequestHistory: RepositoryRequestHistory
+
+    //Определяет прямую или обратную сортировку (по умолчанию прямая)
+    private var isRight: Boolean = true
 
     //Выбираем БД и возвращаем данные
     val getLiveData = {
@@ -23,6 +26,13 @@ class HistoryViewModel(private val liveData: MutableLiveData<HistoryAppState> = 
     fun getHistory(){
         Thread{
             liveData.postValue(HistoryAppState.LoadedHistory(repositoryRequestHistory.getHistoryList()))
+        }.start()
+    }
+
+    fun getSortedHistory(){
+        Thread{
+            liveData.postValue(HistoryAppState.LoadedHistory(repositoryRequestHistory.getSortedHistory(isRight)))
+            isRight = !isRight
         }.start()
     }
 
