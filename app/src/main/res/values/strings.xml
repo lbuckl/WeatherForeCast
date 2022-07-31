@@ -11,4 +11,6 @@
     <string name="Favorite">Избранное</string>
     <string name="history">History</string>
     <string name="delete">Delete</string>
+    <string name="contacts">Contacts</string>
+
 </resources>

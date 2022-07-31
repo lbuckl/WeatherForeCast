@@ -32,7 +32,7 @@ internal class MainActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
-            R.id.request_history -> {
+            R.id.menu_item_history -> {
                 supportFragmentManager.apply {
                     beginTransaction()
                         .replace(R.id.container, WeatherHistoryFragment())

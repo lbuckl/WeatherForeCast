@@ -58,9 +58,8 @@ class WeatherHistoryFragment : Fragment() {
     //скрываем опцию меню "история"
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
-        menu.findItem(R.id.request_history)?.isVisible = false
+        menu.findItem(R.id.menu_item_history)?.isVisible = false
     }
-    
 
     override fun onDestroy() {
         super.onDestroy()
