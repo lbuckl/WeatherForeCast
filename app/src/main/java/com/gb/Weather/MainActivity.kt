@@ -5,6 +5,7 @@ import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import com.gb.Weather.databinding.ActivityMainBinding
+import com.gb.Weather.view.menu.ContactsFragment
 import com.gb.Weather.view.menu.WeatherHistoryFragment
 import com.gb.Weather.view.weatherlist.WeatherListFragment
 
@@ -31,11 +32,22 @@ internal class MainActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        val weatherHistoryFragment = WeatherHistoryFragment()
+        val contactsFragment = ContactsFragment()
         return when (item.itemId) {
             R.id.menu_item_history -> {
                 supportFragmentManager.apply {
                     beginTransaction()
                         .replace(R.id.container, WeatherHistoryFragment())
+                        .addToBackStack("")
+                        .commitAllowingStateLoss()
+                }
+                true
+            }
+            R.id.menu_item_contacts -> {
+                supportFragmentManager.apply {
+                    beginTransaction()
+                        .replace(R.id.container, ContactsFragment())
                         .addToBackStack("")
                         .commitAllowingStateLoss()
                 }

@@ -41,12 +41,12 @@ object WeatherLoader:RemoteRequest {
                     val reader = BufferedReader(InputStreamReader(myConnection.inputStream))
                     val weatherDTO = Gson().fromJson(getLines(reader), WeatherDTO::class.java)
                     //val weatherDTO: WeatherDTO? = null
-                    handler.post {
+                    //handler.post {
                         if (weatherDTO != null) {
                             //weatherData = Weather(weather.city,weatherDTO.fact.temp,weatherDTO.fact.feelsLike)
                             resultCB.returnResult(buildWeatherFromDTO(city,weatherDTO))
                         } else errorCB.setError("Не корректные данные!!!")
-                    }
+                    //}
                 }catch (e:RuntimeException){
                     e.printStackTrace()
                     Log.d("@@@","RuntimeException")
