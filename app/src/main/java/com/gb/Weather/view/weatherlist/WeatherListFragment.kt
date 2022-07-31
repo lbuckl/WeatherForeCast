@@ -13,7 +13,7 @@ import com.gb.Weather.MyApp
 import com.gb.Weather.R
 import com.gb.Weather.databinding.FragmentWeatherListBinding
 import com.gb.Weather.shared.*
-import com.gb.Weather.view.Poster.PosterWeatherFragment
+import com.gb.Weather.view.poster.PosterWeatherFragment
 import com.gb.Weather.viewmodel.WeatherListAppState
 import com.gb.Weather.viewmodel.WeatherListViewModel
 

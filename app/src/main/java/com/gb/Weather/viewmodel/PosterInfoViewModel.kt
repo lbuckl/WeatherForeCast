@@ -3,12 +3,10 @@ package com.gb.Weather.viewmodel
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.gb.Weather.domain.City
 import com.gb.Weather.domain.Weather
 import com.gb.Weather.model.*
 import com.gb.Weather.shared.CallBackError
 import com.gb.Weather.shared.CallBackResult
-import com.gb.Weather.view.Poster.PosterWeatherFragment
 
 class PosterInfoViewModel (private val liveData: MutableLiveData<PosterInfoAppState> = MutableLiveData<PosterInfoAppState>()) :
     ViewModel(), CallBackResult, CallBackError {

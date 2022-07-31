@@ -1,11 +1,10 @@
 package com.gb.Weather.view.menu
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.gb.Weather.R
 import com.gb.Weather.databinding.FragmentHistoryListBinding
 import com.gb.Weather.viewmodel.HistoryAppState
 import com.gb.Weather.viewmodel.HistoryViewModel
@@ -27,6 +26,9 @@ class WeatherHistoryFragment : Fragment() {
                               savedInstanceState: Bundle?): View {
         //Биндинг для прямой связи View
         _binding_history = FragmentHistoryListBinding.inflate(inflater)
+
+        //инициализируем работу с меню (для скрытия кнопок)
+        setHasOptionsMenu(true)
         return binding_history.root
     }
 
@@ -51,6 +53,12 @@ class WeatherHistoryFragment : Fragment() {
                 binding_history.historyRecyclerview.adapter = WeatherHistoryAdapter(appState.weatherList)
             }
         }
+    }
+
+    //скрываем опцию меню "история"
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        menu.findItem(R.id.request_history)?.isVisible = false
     }
     
 

@@ -1,4 +1,4 @@
-package com.gb.Weather.view.Poster
+package com.gb.Weather.view.poster
 
 import android.os.Bundle
 import android.view.LayoutInflater
