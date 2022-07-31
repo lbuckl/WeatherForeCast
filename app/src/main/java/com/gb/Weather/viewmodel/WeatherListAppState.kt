@@ -1,7 +1,6 @@
 package com.gb.Weather.viewmodel
 
 import com.gb.Weather.domain.City
-import com.gb.Weather.domain.Weather
 
 /**
  * Класс описывающий состояния
