@@ -16,6 +16,7 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.gb.Weather.databinding.FragmentContactsListBinding
 import com.gb.Weather.domain.ContactNum
+import com.gb.Weather.shared.showSnackBarErrorMsg
 
 class ContactsFragment: Fragment() {
     private var _binding: FragmentContactsListBinding? = null
@@ -46,30 +47,32 @@ class ContactsFragment: Fragment() {
          * Возвращает:PackageManager.PERMISSION_GRANTED,
          * если у вас есть разрешение, или PackageManager.PERMISSION_DENIED, если нет.
          */
-        val permResult =
-            ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.CALL_PHONE)
-
-        PackageManager.PERMISSION_GRANTED
-        if (permResult == PackageManager.PERMISSION_GRANTED) {
+        val permContacts =
+            ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.READ_CONTACTS)
+        if (permContacts == PackageManager.PERMISSION_GRANTED) {
             getContacts()
             //Проверяем а не 2 ли это попытка запросить разрешение
-        } else if(shouldShowRequestPermissionRationale(Manifest.permission.READ_CONTACTS)){
+        } else if(shouldShowRequestPermissionRationale(Manifest.permission.CALL_PHONE)){
             AlertDialog.Builder(requireContext())
-                .setTitle("Доступ к контактам")
+                .setTitle("Доступ к контактам и звонкам")
                 .setMessage("Для того, чтобы работать с контактами и делать вызовы нужно иметь разрешение на доступ к ним")
                 .setPositiveButton("Логично") { _, _ ->
-                    permissionRequest(Manifest.permission.READ_CONTACTS)
+                    permissionRequest(
+                        arrayOf(Manifest.permission.READ_CONTACTS,
+                            Manifest.permission.CALL_PHONE))
                 }
                 .setNegativeButton("Бред") { dialog, _ -> dialog.dismiss() }
                 .create()
                 .show()
         } else {
-            permissionRequest(Manifest.permission.READ_CONTACTS)
+            view?.showSnackBarErrorMsg("Необходимо зайти в настройки и дать приложению разрешение на вызовы")
+            permissionRequest(arrayOf(Manifest.permission.READ_CONTACTS,
+                Manifest.permission.CALL_PHONE))
         }
     }
 
-    private fun permissionRequest(permission: String) {
-        requestPermissions(arrayOf(permission), REQUEST_CODE_READ_CONTACTS)
+    private fun permissionRequest(permissions: Array<String>) {
+        requestPermissions(permissions, REQUEST_CODE_READ_CONTACTS)
     }
 
     private val REQUEST_CODE_READ_CONTACTS = 999
@@ -85,7 +88,6 @@ class ContactsFragment: Fragment() {
                 if (permissions[pIndex] == Manifest.permission.READ_CONTACTS
                     && grantResults[pIndex] == PackageManager.PERMISSION_GRANTED
                 ) {
-
                     getContacts()
                     Log.d("@@@", "Ура")
                 }
