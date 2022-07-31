@@ -50,9 +50,6 @@ class WeatherListFragment : Fragment() {
         val filter = IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION)
         context?.registerReceiver(networkStateReceiver, filter)
 
-        /*val itemDecoration = DividerItemDecoration(this.context, LinearLayoutManager.VERTICAL)
-        binding_list.weatherRecyclerview.addItemDecoration(itemDecoration)*/
-
         //Включаем анимацию
         val animator = DefaultItemAnimator()
         animator.addDuration = 1000
