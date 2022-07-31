@@ -12,5 +12,6 @@
     <string name="history">History</string>
     <string name="delete">Delete</string>
     <string name="contacts">Contacts</string>
+    <string name="sort">Sort</string>
 
 </resources>
