@@ -15,6 +15,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.gb.Weather.databinding.FragmentContactsListBinding
+import com.gb.Weather.domain.ContactNum
 
 class ContactsFragment: Fragment() {
     private var _binding: FragmentContactsListBinding? = null
@@ -46,7 +47,8 @@ class ContactsFragment: Fragment() {
          * если у вас есть разрешение, или PackageManager.PERMISSION_DENIED, если нет.
          */
         val permResult =
-            ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.READ_CONTACTS)
+            ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.CALL_PHONE)
+
         PackageManager.PERMISSION_GRANTED
         if (permResult == PackageManager.PERMISSION_GRANTED) {
             getContacts()
@@ -54,7 +56,7 @@ class ContactsFragment: Fragment() {
         } else if(shouldShowRequestPermissionRationale(Manifest.permission.READ_CONTACTS)){
             AlertDialog.Builder(requireContext())
                 .setTitle("Доступ к контактам")
-                .setMessage("Для того, чтобы работать с контактами нужно иметь разрешение на доступ к ним")
+                .setMessage("Для того, чтобы работать с контактами и делать вызовы нужно иметь разрешение на доступ к ним")
                 .setPositiveButton("Логично") { _, _ ->
                     permissionRequest(Manifest.permission.READ_CONTACTS)
                 }
@@ -96,24 +98,39 @@ class ContactsFragment: Fragment() {
     @SuppressLint("Range")
     private fun getContacts() {
         val contentResolver: ContentResolver = requireContext().contentResolver
+
+        //Определяем столбцы для запроса
+        val queryFields = arrayOf(ContactsContract.Contacts.DISPLAY_NAME,
+            ContactsContract.Contacts.HAS_PHONE_NUMBER,
+            ContactsContract.CommonDataKinds.Phone.NUMBER)
+
+
         // Отправляем запрос на получение контактов и получаем ответ в виде Cursor
         val cursorWithContacts: Cursor? = contentResolver.query(
-            ContactsContract.Contacts.CONTENT_URI,
-            null,
+            ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
+            queryFields,
             null,
             null,
             ContactsContract.Contacts.DISPLAY_NAME + " ASC"
         )
-        val contacts = mutableListOf<String>()
+
+
+
+        val contacts = mutableListOf<ContactNum>()
 
         cursorWithContacts?.let { cursor->
-            for(i in 0 until cursor.count){ // аналог 0..cursorWithContacts.count-1
+            for(i in 1 until cursor.count){ // аналог 0..cursorWithContacts.count-1
                 cursor.moveToPosition(i)
-                    val name = cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME))
-                    contacts.add(name)
-                    Log.d("@@@",name)
+                val name = cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME))
+                val phoneNum:String
+
+                phoneNum = if (cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.HAS_PHONE_NUMBER) > 0){
+                    cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER))
+                } else {""}
+                contacts.add(ContactNum(name,phoneNum))
             }
         }
+
         cursorWithContacts?.close()
         binding.reciclerContacts.adapter = ContactsAdapter(contacts)
     }

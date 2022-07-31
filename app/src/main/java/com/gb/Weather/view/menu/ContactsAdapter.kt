@@ -6,9 +6,10 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.gb.Weather.databinding.FragmentContactsListItemBinding
 import com.gb.Weather.databinding.FragmentWeatherListItemBinding
+import com.gb.Weather.domain.ContactNum
 import com.gb.Weather.domain.Weather
 
-class ContactsAdapter(private val contactList: List<String>):
+class ContactsAdapter(private val contactList: List<ContactNum>):
     RecyclerView.Adapter<ContactsAdapter.ContactViewHolder>(){
 
     //Создаёт ViewHolder объект опираясь на их количество, но с запасом, чтобы можно было скролить
@@ -30,9 +31,12 @@ class ContactsAdapter(private val contactList: List<String>):
 
     //Вложенный класс для отображения данных в fragment_weather_list_item.xml
     inner class ContactViewHolder(view: View): RecyclerView.ViewHolder(view){
-        fun bind(contactname:String){
+        fun bind(contactname:ContactNum){
             val binding = FragmentContactsListItemBinding.bind(itemView)
-            binding.contactItem.text = contactname
+            binding.contactItem.text = contactname.name
+            binding.textNumber.text = contactname.num
         }
     }
+
+    override fun onRequestPermissionsResult(){}
 }
