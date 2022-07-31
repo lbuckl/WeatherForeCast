@@ -4,7 +4,12 @@ import androidx.fragment.app.Fragment
 
 class PosterFragment: Fragment() {
 
-    /*lateinit var binding: FragmentWeatherPosterBinding
+    /*
+    private var _binding: FragmentWeatherPosterBinding? = null
+    private val binding: FragmentWeatherPosterBinding
+        get() {
+            return _binding!!
+        }
 
     //инициализируем ресивер и определяем действия по обновлению данных
     private val receiver = object : BroadcastReceiver() {
@@ -23,7 +28,7 @@ class PosterFragment: Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?): View {
-        binding = FragmentWeatherPosterBinding.inflate(inflater)
+        _binding = FragmentWeatherPosterBinding.inflate(inflater)
         return binding.root
     }
 
@@ -41,5 +46,11 @@ class PosterFragment: Fragment() {
         feelsLikeValue.text = weather.feelsLike.toString()
         cityCoordinates.text = "${weather.city.lat}/${weather.city.lon}"
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        binding = null
+        context?.unregisterReceiver(networkStateReceiver)
     }*/
 }

@@ -1,12 +1,14 @@
 package com.gb.Weather.viewmodel
 
+import android.content.Context
+import android.content.SharedPreferences
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.gb.Weather.domain.Weather
-import com.gb.Weather.model.LocationCity
-import com.gb.Weather.model.RepositoryListCity
-import com.gb.Weather.model.RepositoryLocalImpl
-import com.gb.Weather.model.RepositoryRemoteImpl
+import com.gb.Weather.MyApp
+import com.gb.Weather.domain.City
+import com.gb.Weather.model.*
+import com.gb.Weather.shared.LAST_LIST
+import com.gb.Weather.shared.SAVE_CITYES_NAMES
 
 /**
  * Класс для реализации LiveData
@@ -16,30 +18,53 @@ class WeatherListViewModel(private val liveData: MutableLiveData<WeatherListAppS
     ViewModel(){
 
     private lateinit var repositoryList: RepositoryListCity
+    private lateinit var repositoryRequestHistory: RepositoryRequestHistory
+    private lateinit var repositoryFavoriteCity: RepositoryFavoriteCity
     private lateinit var locCity: LocationCity
+    val sharedPref: SharedPreferences = MyApp.getMyApp()
+        .getSharedPreferences(SAVE_CITYES_NAMES, Context.MODE_PRIVATE)
 
     //Выбираем БД и возвращаем данные
     val getLiveData = {
         repositoryList = RepositoryLocalImpl()
+        repositoryRequestHistory = RepositoryRequestHistory()
+        repositoryFavoriteCity = RepositoryFavoriteCity()
         liveData
     }
 
+
     //region переключатель списков
-    fun getWeatherListForRussia() = sentRequest(LocationCity.Russian)
-    fun getWeatherListForWorld() = sentRequest(LocationCity.World)
-    fun getWeatherListForFavorite() = sentRequest(LocationCity.Favorite)
+    fun getCityListForRussia() = sentRequest(LocationCity.Russian)
+    fun getCityListForWorld() = sentRequest(LocationCity.World)
+    fun getCityListForFavorite() = sentRequest(LocationCity.Favorite)
     //endregion
+
+    //Возврат последнего сохранённого списка в SharedPref
+    fun getLastCityList(){
+        return when (sharedPref.getInt(LAST_LIST,1)){
+            (1) -> getCityListForFavorite()
+            (2) -> getCityListForRussia()
+            (3) -> getCityListForWorld()
+            else -> {getCityListForFavorite()}
+        }
+    }
 
     //данные для списка городов. Тригерит загрузку списка городов
     private fun sentRequest(locationCity: LocationCity) {
         locCity = locationCity
-        liveData.postValue(WeatherListAppState.LoadCities(repositoryList.getListWeather(locationCity)))
+        liveData.postValue(WeatherListAppState.LoadCities(repositoryList.getListCity(locationCity)))
     }
 
-    fun loadWeather(weather: Weather){
+    fun loadWeather(city: City){
         //Открываем постер
-        liveData.postValue(WeatherListAppState.Loading(weather))
-        RepositoryRemoteImpl.setWeather(weather)
+        liveData.postValue(WeatherListAppState.Loading(city))
+        RepositoryRemoteImpl.setCity(city)
+    }
+
+    fun deleteFavoriteCity(city: City){
+            repositoryFavoriteCity.deleteCityFromRoom(city)
+            Thread.sleep(200)
+            refresh()
     }
 
     fun refresh(){

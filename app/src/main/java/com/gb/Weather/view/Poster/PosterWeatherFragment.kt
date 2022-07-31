@@ -23,15 +23,19 @@ class PosterWeatherFragment: Fragment() {
         lateinit var viewModel_poster: PosterInfoViewModel
     }
 
-    lateinit var binding: FragmentWeatherPosterBinding
-    val loadingFragment = LoadingFragment()
+    private val loadingFragment = LoadingFragment()
+    private var _binding: FragmentWeatherPosterBinding? = null
+    private val binding: FragmentWeatherPosterBinding
+        get() {
+            return _binding!!
+        }
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentWeatherPosterBinding.inflate(inflater)
+        _binding = FragmentWeatherPosterBinding.inflate(inflater)
         return binding.root
     }
 
@@ -48,6 +52,10 @@ class PosterWeatherFragment: Fragment() {
             }catch (e:Exception){
                 e.printStackTrace()
             }
+        }
+        binding.imageViewSetFavorite!!.setOnClickListener{
+            viewModel_poster.setFavoriteCity()
+            val ts = binding.imageViewSetFavorite!!.setImageResource(android.R.drawable.btn_star_big_on)
         }
 
     }
@@ -83,9 +91,9 @@ class PosterWeatherFragment: Fragment() {
                     .add(R.id.container,loadingFragment)
                     .commit()
                 with(binding){
-                    cityName.text = posterInfoAppState.weather.city.name
+                    cityName.text = posterInfoAppState.city.name
                     cityCoordinates?.let {
-                        it.text = "${posterInfoAppState.weather.city.lat}/${posterInfoAppState.weather.city.lon}"
+                        it.text = "${posterInfoAppState.city.lat}/${posterInfoAppState.city.lon}"
                     }
                 }
             }
@@ -116,5 +124,14 @@ class PosterWeatherFragment: Fragment() {
         }
         //выполняем запрос через загрузчик
         imageLoader?.enqueue(request!!)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
+        requireActivity().supportFragmentManager
+            .beginTransaction()
+            .remove(loadingFragment)
+            .commit()
     }
 }
