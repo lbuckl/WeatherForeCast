@@ -15,14 +15,14 @@ class WeatherHistoryFragment : Fragment() {
         lateinit var viewModel_history: HistoryViewModel
         //fun newInstance() = WeatherListFragment()
     }
-
     private var _binding_history: FragmentHistoryListBinding? = null
     private val binding_history: FragmentHistoryListBinding
         get() {
             return _binding_history!!
         }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
+    override fun onCreateView(inflater: LayoutInflater,
+                              container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
         //Биндинг для прямой связи View
         _binding_history = FragmentHistoryListBinding.inflate(inflater)
@@ -59,17 +59,6 @@ class WeatherHistoryFragment : Fragment() {
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
         menu.findItem(R.id.menu_item_history)?.isVisible = false
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-
-        return when (item.itemId) {
-            R.id.menu_item_sort -> {
-                viewModel_history.getSortedHistory()
-                true
-            }
-            else -> {return super.onOptionsItemSelected(item)}
-        }
     }
 
     override fun onDestroy() {

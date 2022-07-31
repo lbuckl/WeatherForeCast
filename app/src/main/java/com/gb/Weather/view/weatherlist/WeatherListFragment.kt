@@ -10,6 +10,8 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DefaultItemAnimator
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.gb.Weather.MyApp
 import com.gb.Weather.R
 import com.gb.Weather.databinding.FragmentWeatherListBinding
@@ -47,6 +49,9 @@ class WeatherListFragment : Fragment() {
         //регистрация ресивера для контроля сети
         val filter = IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION)
         context?.registerReceiver(networkStateReceiver, filter)
+
+        /*val itemDecoration = DividerItemDecoration(this.context, LinearLayoutManager.VERTICAL)
+        binding_list.weatherRecyclerview.addItemDecoration(itemDecoration)*/
 
         //Включаем анимацию
         val animator = DefaultItemAnimator()
