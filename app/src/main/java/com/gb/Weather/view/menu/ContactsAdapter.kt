@@ -22,7 +22,6 @@ class ContactsAdapter(private val contactList: List<ContactNum>):
 
     lateinit var binding: FragmentContactsListItemBinding
 
-
     //Создаёт ViewHolder объект опираясь на их количество, но с запасом, чтобы можно было скролить
     //Возвращает наш объект класса ViewHolder
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ContactViewHolder {
